@@ -161,8 +161,8 @@ public class Car {
     //currentSpeed will be =  speedIncreaseStep;
     public void run(int h, int l) {
 
-        currentSpeed = createRandomNumber(h, l);
-        speedIncreaseStep = createRandomNumber(h, l);
+        currentSpeed = createRandomNumber(0, h);
+        speedIncreaseStep = createRandomNumber(l, h);
     }
 
     //This method accelerates the cars by step of highSpeed (High speed acceleration).
