@@ -308,7 +308,7 @@ public class Car {
      */
     public void run(int h, int l) {
 
-        currentSpeed = createRandomNumber(0, h);
+        currentSpeed = createRandomNumber(l, h);
         speedIncreaseStep = createRandomNumber(l, h);
     }
 
