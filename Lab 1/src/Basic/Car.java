@@ -161,7 +161,7 @@ public class Car {
     //currentSpeed will be =  speedIncreaseStep;
     public void run(int h, int l) {
 
-        currentSpeed = createRandomNumber(0, h);
+        currentSpeed = createRandomNumber(l, h);
         speedIncreaseStep = createRandomNumber(l, h);
     }
 
