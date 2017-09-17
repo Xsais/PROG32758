@@ -1,4 +1,29 @@
+/*
+ * ----------------------------------------------------------------------------+
+ * Group Leader: Daniel Hope
+ * Member(s): Georgina Luce
+ *            Nathaniel Primo
+ *            Michael Marc
+ * Group #: 1
+ * Filename: Main.java
+ * Other Files in this Project:
+ *     - Car.java
+ *     - Driver.java
+ * Assignment: Lab 1
+ * Creation Date: 2017-09-14
+ * Last Modified: 2017-09-16
+ * Java Version: 1.8.0_102
+ * Description: The main class for controlling and running the racing simulation
+ * ----------------------------------------------------------------------------+
+ */
+
 package Basic;
+
+/**
+ * The main class for controlling and running the racing simulation.
+ *
+ * @author Daniel Hope, Georgina Luce, Nathaniel Primo, Michael Marc
+ */
 
 public class UseMyCar {
 
