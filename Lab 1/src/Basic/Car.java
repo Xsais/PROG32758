@@ -108,7 +108,7 @@ public class Car {
      */
     static int createRandomNumber(int min, int max) {
 
-        min *= 10;
+        min*= 10;
         max *= 10;
         return (int) (Math.random() * (max - min) + 1 + min);
     }
@@ -280,7 +280,7 @@ public class Car {
             startSpeed = this.initialSpeed;
         } else {//startSpeed = randomNumber generated from createRandomNumber(h, l);
 
-            startSpeed = createRandomNumber(h, l);
+            startSpeed = createRandomNumber(l, h);
         }
     }
 
