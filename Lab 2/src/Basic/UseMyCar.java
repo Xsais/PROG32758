@@ -1,4 +1,4 @@
-package L0_1_Pack;
+package src.Basic;
 
 import java.util.Random;
 
@@ -18,15 +18,15 @@ public class UseMyCar {
 
 		boolean wasCrash = false;
 		
-        //Create a car named specified just by its name : “Toyota”.  
+        //Create a car named specified just by its name : ï¿½Toyotaï¿½.  
 		Car myFirstCar = new Car("Toyota");
 		
-        //Create a car with a specified name: “Mazda” to be driven by a non-experimented person.
+        //Create a car with a specified name: ï¿½Mazdaï¿½ to be driven by a non-experimented person.
 		//This Car will start the race with an initial speed given by the player as a parameter to the constructor 
 		//Let's take 20.
 		Car mySecondCar = new Car ("Mazda", 20);
 
-        //Create a third Car which name “toyCar” is given by default, 
+        //Create a third Car which name ï¿½toyCarï¿½ is given by default, 
         //and that doesn't move
 		Car myThirdCar = new Car();
 
