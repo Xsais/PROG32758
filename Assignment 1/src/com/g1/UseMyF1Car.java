@@ -175,4 +175,29 @@ public class UseMyF1Car {
        System.out.println();
        System.out.println();
     }
+	
+	public void ElectronicCrashDetection() {
+		System.out.println();
+		System.out.println();
+		AlertAmbulancetManagementSystem();
+	}
+	
+	public void AlertAmbulancetManagementSystem() {
+		System.out.println();
+		System.out.println();
+		System.out.println("The Catastrophe Automatic Detection is triggered by the Car Controller System.");
+		System.out.println();
+		System.out.println();
+		try { 
+			System.out.println("The Ambulance Remote System is alerted. Please Wait  ! ! ! ! ! ! ! ! ! ! ! ! !");
+  			Thread.sleep(10000);   
+  	  	}
+    	catch(Exception e) {
+    		System.out.println("Sleep error.");
+    	}
+		AmbulanceManagementSystem abs = new AmbulanceManagementSystem();
+		abs.EmergencyAlertAmbulanceDriver();
+	}
+		
+	
 }
