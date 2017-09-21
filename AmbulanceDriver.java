@@ -66,7 +66,8 @@ public class AmbulanceDriver extends Driver{
 		System.out.println("\n");
 		
 		// Displays message
-		System.out.println("Hello, OK, The Emergency Medical Staff is on his way for Assistance. \n Please stand by.......................");
+		System.out.println("Hello, OK, The Emergency Medical Staff is on his way for Assistance.\n"
+				   + "Please stand by.......................");
 		
 		
 	}
