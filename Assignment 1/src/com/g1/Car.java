@@ -144,7 +144,7 @@ public class Car implements DynamicCar
      *                                                               *
      ****************************************************************/
 	//Method that generates a random number between minx10 and maxx10
-	 int createRandomNumber(int min, int max){
+	 public int createRandomNumber(int min, int max){
 		int myRandomInt = (int)(Math.random() * 10 * (Math.random() > 0.5 ? min : max));
 		return myRandomInt;
 		}
