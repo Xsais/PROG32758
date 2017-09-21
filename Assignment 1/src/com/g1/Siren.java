@@ -21,7 +21,7 @@ package com.g1;
 
 import java.awt.*;
 
-public class Siren implements com.g1.SelfTriggerSiren {
+public class Siren implements  SelfTriggerSiren {
 
     public void fireSiren() throws InterruptedException {
 
@@ -46,12 +46,10 @@ public class Siren implements com.g1.SelfTriggerSiren {
     public void TriggerSiren() {
 
         try {
-
             fireSiren();
-        } catch (InterruptedException ex) {
-
-            ex.printStackTrace();;
+          
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 }
-
