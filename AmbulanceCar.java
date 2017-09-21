@@ -19,7 +19,7 @@
 
 package com.g1;
 
-public class AmbulanceCar extends Car.AmbulanceCar{
+public class AmbulanceCar extends Car{
 	
 	Siren sr = new Siren();
 	
