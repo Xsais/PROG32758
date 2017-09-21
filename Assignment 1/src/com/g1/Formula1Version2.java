@@ -40,7 +40,7 @@ public class Formula1Version2 extends Formula1 implements ElectronicLifeSaving{
 	}
 	
 	// Implements the Electronic Crash Detection method
-	public void electronicCrashDetection(){
+	public void ElectronicCrashDetection(){
 		
 		// print two blank lines for clarity of message
 		System.out.println("\n");
@@ -50,7 +50,7 @@ public class Formula1Version2 extends Formula1 implements ElectronicLifeSaving{
 	}
 	
 	// method to alert user that Catastrophe Automatic Detection and Ambulance Remote System's have been initialized
-	public void alertAmbulanceManagementSystem() {
+	public void AlertAmbulanceManagementSystem() {
 		
 		// print two blank lines for message clarity
 		System.out.println("\n");
