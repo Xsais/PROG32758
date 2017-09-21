@@ -23,7 +23,7 @@ package com.g1;
 public class AmbulanceCar extends Car {
 	
 	// Method to invoke the fireSiren method
-	public void emergencyAlert() {
+	public void EmergencyAlert() {
 		
 		// Create Siren object to call fireSiren method
 		try {
