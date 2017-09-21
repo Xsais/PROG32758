@@ -1,0 +1,10 @@
+// Method to alert user that help is on the way
+	public void communicateYourPositioning() {
+		
+		// Print two blank lines for clarity of message
+		System.out.println("\n");
+		
+		// Display message to user
+		System.out.println("Hello, OK, The Emergency Medical Staff is on his way for Assistance…………\n" + 
+				"Please stand by ……………………………………….");
+	}
