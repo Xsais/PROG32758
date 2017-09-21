@@ -46,12 +46,10 @@ public class Siren implements  SelfTriggerSiren {
     public void TriggerSiren() {
 
         try {
-
             fireSiren();
+          
         } catch (InterruptedException e) {
-
             e.printStackTrace();
         }
     }
 }
-

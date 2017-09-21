@@ -13,8 +13,8 @@
  * Creation Date: 09, 2017 20
  * Last Modified: 09, 2017 20
  * Java Version: 
- * Description:
- * ----------------------------------------------------------------------------+
+ * Description: The representation of a Car object
+ * ----------------------------------------------------------------------------
  */
 
 package com.g1;
