@@ -49,6 +49,13 @@ public class Formula1Version2 extends Formula1 implements ElectronicLifeSaving {
 		AlertAmbulanceManagementSystem();
 	}
 
+	// Prepares for crash
+	public void CrashElectronicDetection() {
+
+		// Detects an Electronic Crash
+		ElectronicCrashDetection();
+	}
+
 	// method to alert user that Catastrophe Automatic Detection and Ambulance Remote System's have been initialized
 	public void AlertAmbulanceManagementSystem() {
 
