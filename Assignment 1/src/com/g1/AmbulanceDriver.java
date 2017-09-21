@@ -41,7 +41,7 @@ public class AmbulanceDriver extends Driver{
 		System.out.println("\n");
 		
 		// Start Ambulance Class
-		AmbulanceCar ambulance= new AmbulanceCar();
+		AmbulanceCar ambulance = new AmbulanceCar();
 		
 		// Displays message
 		System.out.println("The Ambulance Car has been started.............");
@@ -50,7 +50,7 @@ public class AmbulanceDriver extends Driver{
 		System.out.println("\n");
 		
 		// Communicates position
-		ambulance.CommunicateYourPositioning();
+		CommunicateYourPositioning();
 		
 		// Writes 2 blank lines
 		System.out.println("\n");
