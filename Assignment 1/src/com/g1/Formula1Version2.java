@@ -46,7 +46,7 @@ public class Formula1Version2 extends Formula1 implements ElectronicLifeSaving{
 		System.out.println("\n");
 		
 		// call method to alert Ambulance Management System
-		alertAmbulanceManagementSystem();
+		AlertAmbulanceManagementSystem();
 	}
 	
 	// method to alert user that Catastrophe Automatic Detection and Ambulance Remote System's have been initialized
