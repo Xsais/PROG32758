@@ -27,7 +27,7 @@ public interface DynamicCar {
      * @param min The lowest possible number
      * @param max The highest possible number
      */
-    int createRandomNumber(int min, int max);
+    int CreateRandomNumber(int min, int max);
 
     /**
      * Method to starts the car
@@ -35,13 +35,13 @@ public interface DynamicCar {
      * @param h The highest possible number
      * @param l The lowest possible number
      */
-    void start(int h, int l);
+    void Start(int h, int l);
 
     /**
      * Method that starts running the car
      *
      */
-    void startRunning();
+    void StartRunning();
 
     /**
      * Method that runs the car with positive and negative
@@ -49,12 +49,12 @@ public interface DynamicCar {
      * @param h The highest possible number
      * @param l The lowest possible number
      */
-    void run(int h, int l);
+    void Run(int h, int l);
 
     /**
      * This method accelerates the car
      *
      * @param highspeed The desired speed in which to accelerate by
      */
-    int accelerate(int highspeed);
+    int Accelerate(int highspeed);
 }
