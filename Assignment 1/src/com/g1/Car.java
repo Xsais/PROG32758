@@ -19,7 +19,7 @@
 
 package com.g1;
 
-public class Car 
+public class Car implements DynamicCar
 {
     /*****************************************************************
      *                     Attributes                                *
