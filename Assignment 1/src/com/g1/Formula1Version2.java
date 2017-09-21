@@ -23,55 +23,55 @@ package com.g1;
  * Electronic Control System for Crash Detection (ECSCD)
  */
 
-public class Formula1Version2 extends Formula1 implements ElectronicLifeSaving{
-	
+public class Formula1Version2 extends Formula1 implements ElectronicLifeSaving {
+
 	// Constructor that initializes name, min, max, and factor attributes
 	public Formula1Version2(String name, int min, int max, int factor) {
-		
+
 		// call to the Formula1 parent constructor
-		super(name, min, max, factor); 
+		super(name, min, max, factor);
 	}
-	
+
 	// Constructor that initializes name, initial speed, min, max, and factor attributes
 	public Formula1Version2(String name, int x, int min, int max, int factor) {
-		
+
 		// call to the Formula1 parent constructor
 		super(name, x, min, max, factor);
 	}
-	
+
 	// Implements the Electronic Crash Detection method
-	public void ElectronicCrashDetection(){
-		
+	public void ElectronicCrashDetection() {
+
 		// print two blank lines for clarity of message
 		System.out.println("\n");
-		
+
 		// call method to alert Ambulance Management System
 		AlertAmbulanceManagementSystem();
 	}
-	
+
 	// method to alert user that Catastrophe Automatic Detection and Ambulance Remote System's have been initialized
 	public void AlertAmbulanceManagementSystem() {
-		
+
 		// print two blank lines for message clarity
 		System.out.println("\n");
-		
+
 		System.out.print("The Catastrophe Automatic Detection is triggered by the Car Controller System.");
-		
+
 		// print two blank lines for message clarity
 		System.out.println("\n");
-		
+
 		System.out.println("The Ambulance Remote System is alerted. Please Wait  ! ! ! ! ! ! ! ! ! ! ! ! !");
-		
+
 		// pause program for dramatic effect
-		try { 
-			Thread.sleep(10000);   
-    } 
-    catch(Exception e) {
-      System.out.println("error");
-    }
-		
+		try {
+			Thread.sleep(10000);
+		} catch (Exception e) {
+			System.out.println("error");
+		}
+
 		// create object to use method that will alert an ambulance driver object of emergency
 		AmbulanceManagementSystem ams = new AmbulanceManagementSystem();
-		
-		ams.emergencyAlertAmbulanceDriver();
+
+		ams.EmergencyAlertAmbulanceDriver();
 	}
+}
