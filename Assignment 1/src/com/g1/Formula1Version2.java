@@ -1,3 +1,21 @@
+/*
+ * ----------------------------------------------------------------------------+
+ * Group Leader: Daniel Hope
+ * Member(s): Georgina Luce
+ *            Nathaniel Primo
+ *            Michael Marc
+ * Group #: 1
+ * Filename: USEMyF1Car.java
+ * Other Files in this Project:
+ *     -
+ * Assignment:
+ * Creation Date: 09, 2017 19
+ * Last Modified: 09, 2017 19
+ * Java Version:
+ * Description:
+ * ----------------------------------------------------------------------------+
+ */
+
 package com.g1;
 
 /* 
@@ -47,14 +65,13 @@ public class Formula1Version2 extends Formula1 implements ElectronicLifeSaving{
 		// pause program for dramatic effect
 		try { 
 			Thread.sleep(10000);   
-  	  	}
-    	catch(Exception e) {
-    		System.out.println("error");
-    	}
+    } 
+    catch(Exception e) {
+      System.out.println("error");
+    }
 		
 		// create object to use method that will alert an ambulance driver object of emergency
 		AmbulanceManagementSystem ams = new AmbulanceManagementSystem();
 		
 		ams.emergencyAlertAmbulanceDriver();
 	}
-}
