@@ -1,5 +1,5 @@
 // Method to alert user that help is on the way
-	public void communicateYourPositioning() {
+	public void CommunicateYourPositioning() {
 		
 		// Print two blank lines for clarity of message
 		System.out.println("\n");
