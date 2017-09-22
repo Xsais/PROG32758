@@ -6,14 +6,24 @@
  *            Michael Marc
  * Group #: 1
  * Filename: Siren.java
- * Main class: USEMyF1Car.java
+ * Main File: UseMyF1Car.java
  * Other Files in this Project:
- *     - 
- * Assignment: 
+ *     - AmbulanceCar.java
+ *     - AmbulanceDriver.java
+ *     - AmbulanceManagementSystem.java
+ *     - Car.java
+ *     - Driver
+ *     - DynamicCar.java
+ *     - ElectricLifeSaving.java
+ *     - Formula1.java
+ *     - Formula1Version2.java
+ *     - ISCar.java
+ *     - SelfTriggerSiren.java
+ * Assignment: Assignment 1
  * Creation Date: 09, 2017 19
  * Last Modified: 09, 2017 19
- * Java Version: 
- * Description: 
+ * Java Version: 1.8.0_144
+ * Description: Represents a siren to be paired with an Ambulance
  * ----------------------------------------------------------------------------+
  */
 
@@ -21,7 +31,12 @@ package com.g1;
 
 import java.awt.*;
 
-public class Siren implements  SelfTriggerSiren {
+/**
+ * Represents a siren to be paired with an Ambulance
+ *
+ * @author Daniel Hope, Georgina Luce, Nathaniel Primo, Michael Marc
+ */
+public class Siren implements SelfTriggerSiren {
 
     public void fireSiren() throws InterruptedException {
 
@@ -47,7 +62,7 @@ public class Siren implements  SelfTriggerSiren {
 
         try {
             fireSiren();
-          
+
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

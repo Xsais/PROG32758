@@ -6,19 +6,34 @@
  *            Michael Marc
  * Group #: 1
  * Filename: DynamicCar.java
- * Main class: 
+ * Main File: UseMyF1Car.java
  * Other Files in this Project:
- *     - 
- * Assignment: 
+ *     - AmbulanceCar.java
+ *     - AmbulanceDriver.java
+ *     - AmbulanceManagementSystem.java
+ *     - Car.java
+ *     - Driver.java
+ *     - ElectricLifeSaving.java
+ *     - Formula1.java
+ *     - Formula1Version2.java
+ *     - ISCar.java
+ *     - SelfTriggerSiren.java
+ *     - Siren.java
+ * Assignment: Assignment 1
  * Creation Date: 09, 2017 21
  * Last Modified: 09, 2017 21
- * Java Version: 
- * Description: The representation of a Car object
+ * Java Version: 1.8.0_144
+ * Description: Common duties of a car
  * ----------------------------------------------------------------------------+
  */
 
 package com.g1;
 
+/**
+ * Common duties of a car
+ *
+ * @author Daniel Hope, Georgina Luce, Nathaniel Primo, Michael Marc
+ */
 public interface DynamicCar {
 
     /**
