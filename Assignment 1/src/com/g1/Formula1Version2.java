@@ -21,7 +21,7 @@
  *     - Siren.java
  * Assignment: Assignment 1
  * Creation Date: 09, 2017 19
- * Last Modified: 09, 2017 19
+ * Last Modified: 09, 2017 23
  * Java Version: 1.8.0_144
  * Description: Updated Formula1 class to adhere to government initiatives for
  * Electronic Control System for Crash Detection (ECSCD)
@@ -39,21 +39,39 @@ package com.g1;
 
 public class Formula1Version2 extends Formula1 implements ElectronicLifeSaving {
 
-    // Constructor that initializes name, min, max, and factor attributes
+    /**
+     * Constructor that initializes name, min, max, and factor attributes
+     *
+     * @param name The desired name of the Car
+     * @param min The minimum random speed
+     * @param max The maximum random speed
+     * @param factor The speed factor increase
+     */
     public Formula1Version2(String name, int min, int max, int factor) {
 
         // call to the Formula1 parent constructor
         super(name, min, max, factor);
     }
 
-    // Constructor that initializes name, initial speed, min, max, and factor attributes
+    /**
+     * Constructor that initializes name, initial speed, min, max, and factor attributes
+     *
+     * @param name The desired name of the Car
+     * @param x The initial speed of the car
+     * @param min The minimum random speed
+     * @param max The maximum random speed
+     * @param factor The speed factor increase
+     */
     public Formula1Version2(String name, int x, int min, int max, int factor) {
 
         // call to the Formula1 parent constructor
         super(name, x, min, max, factor);
     }
 
-    // Implements the Electronic Crash Detection method
+    /**
+     * Implements the Electronic Crash Detection method
+     *
+     */
     public void ElectronicCrashDetection() {
 
         // print two blank lines for clarity of message
@@ -63,14 +81,20 @@ public class Formula1Version2 extends Formula1 implements ElectronicLifeSaving {
         AlertAmbulanceManagementSystem();
     }
 
-    // Prepares for crash
+    /**
+     * Prepares for crash
+     *
+     */
     public void CrashElectronicDetection() {
 
         // Detects an Electronic Crash
         ElectronicCrashDetection();
     }
 
-    // method to alert user that Catastrophe Automatic Detection and Ambulance Remote System's have been initialized
+    /**
+     * Alert user that Catastrophe Automatic Detection and Ambulance Remote System's have been initialized
+     *
+     */
     public void AlertAmbulanceManagementSystem() {
 
         // print two blank lines for message clarity

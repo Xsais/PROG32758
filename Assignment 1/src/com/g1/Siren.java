@@ -21,7 +21,7 @@
  *     - SelfTriggerSiren.java
  * Assignment: Assignment 1
  * Creation Date: 09, 2017 19
- * Last Modified: 09, 2017 19
+ * Last Modified: 09, 2017 23
  * Java Version: 1.8.0_144
  * Description: Represents a siren to be paired with an Ambulance
  * ----------------------------------------------------------------------------+
@@ -38,6 +38,14 @@ import java.awt.*;
  */
 public class Siren implements SelfTriggerSiren {
 
+    /**
+     * Fires a high pitched sound
+     *
+     * @throws  InterruptedException
+     *          if any thread has interrupted the current thread. The
+     *          <i>interrupted status</i> of the current thread is
+     *          cleared when this exception is thrown.
+     */
     public void fireSiren() throws InterruptedException {
 
         for (int d = 3; d > 0; d--) {
@@ -55,7 +63,8 @@ public class Siren implements SelfTriggerSiren {
     }
 
     /**
-     * Starts the siren
+     * Prepare and fires the siren
+     *
      */
     @Override
     public void TriggerSiren() {

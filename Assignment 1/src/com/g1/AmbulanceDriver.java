@@ -21,7 +21,7 @@
  *     - Siren.java
  * Assignment: Assignment 1
  * Creation Date: 09, 2017 21
- * Last Modified: 09, 2017 21
+ * Last Modified: 09, 2017 23
  * Java Version: 1.8.0_144
  * Description: The person or thing that drives the ambulance
  * ----------------------------------------------------------------------------+
@@ -36,6 +36,10 @@ package com.g1;
  */
 public class AmbulanceDriver extends Driver {
 
+    /**
+     * Starts the process of calling an Ambulance
+     *
+     */
     public void AccidentOccursStartAmbulanceCar() {
 
         // Writes 2 blank lines
@@ -74,6 +78,10 @@ public class AmbulanceDriver extends Driver {
 
     }
 
+    /**
+     * Declares the Ambulances current position
+     *
+     */
     public void CommunicateYourPositioning() {
 
         // Writes 2 blank lines
