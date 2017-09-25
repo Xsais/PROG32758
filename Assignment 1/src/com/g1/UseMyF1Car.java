@@ -42,7 +42,7 @@ public class UseMyF1Car {
         boolean wasCrash = false;
 
         //Instantiate a Formula 1 car named F1 and its random numbers are (-1, 3, 20)  
-        Formula1 myFirstCar = new Formula1("F1", -1, 3, 20);
+        Formula1Version2 myFirstCar = new Formula1Version2("EF1", -1, 3, 20);
 
         //Instantiate a car with a specified name: �Ferrari� less aggressive than the F1. 
         //This car will start the race with an initial speed 0f 20 and its random numbers are (-1, 1, 5)
@@ -83,7 +83,7 @@ public class UseMyF1Car {
 
             if (myFirstCar.getCurrentSpeed() >= 50) {
 
-                System.out.printf(String.format("CATASTROPE - THE %s! ! ! !", myFirstCar.getCarName()));
+                myFirstCar.ElectronicCrashDetection();
                 continue;
             } else if (mySecondCar.getCurrentSpeed() >= 50) {
 
