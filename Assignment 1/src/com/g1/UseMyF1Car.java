@@ -81,11 +81,11 @@ public class UseMyF1Car {
         int i = 1;
         while (i < 60) {
 
-            if (myFirstCar.getCurrentSpeed() >= 50) {
+            if (myFirstCar.getCurrentSpeed() >= 500) {
 
                 myFirstCar.ElectronicCrashDetection();
                 continue;
-            } else if (mySecondCar.getCurrentSpeed() >= 50) {
+            } else if (mySecondCar.getCurrentSpeed() >= 500) {
 
                 System.out.printf(String.format("CATASTROPE - THE %s! ! ! !", mySecondCar.getCarName()));
                 continue;
