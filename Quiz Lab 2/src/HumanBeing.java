@@ -16,10 +16,6 @@
  * Last Modified: 09, 2017 25
  * Java Version: 1.8.0_144
  * Description: Quiz Lab 1 implementation
- * Assignment: Quiz Lab 2
- * Creation Date: 09, 2017 25
- * Last Modified: 09, 2017 25
- * Java Version: 1.8.0_144
  * ----------------------------------------------------------------------------+
  */
 
