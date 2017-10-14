@@ -2,8 +2,9 @@
 
 <?import javafx.scene.layout.*?>
 
+<?import javafx.scene.control.Label?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.views.StartPage">
-
+            fx:controller="com.views.StartPage.StartPage">
+<Label></Label>
 </AnchorPane>
