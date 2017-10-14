@@ -1,0 +1,52 @@
+/*
+ * ----------------------------------------------------------------------------+
+ * Group Leader: Daniel Hope
+ * Member(s): Georgina Luce
+ *            Nathaniel Primo
+ *            Michael Marc
+ * Group #: 1
+ * Filename: StartPage.java
+ * Main class: com.init.Main.java
+ * Other Files in this Project:
+ *     - com.views.StartPage.StartPage.fxml
+ *     - com.util.PageController.java
+ * Assignment: Midterm - Micro-Project 1 (Part 1)
+ * Creation Date: 10, 2017 14
+ * Last Modified: 10, 2017 14
+ * Java Version: 1.8.0_141
+ * Description:
+ * ----------------------------------------------------------------------------+
+ */
+
+package com.util;
+
+/**
+ * Maintains the required data for the FXMLHelper object
+ *
+ * @author Nathaniel Primo
+ **/
+
+public class FXMLHelper {
+
+    public static <T extends javafx.scene.Node> void loadControl(T controller) {
+
+        loadControl(controller, String.format("%s.fxml"
+                , controller.getClass().getSimpleName()));
+    }
+
+    public static <T extends javafx.scene.Node> void loadControl(T controller, String fxmlName) {
+
+        Class<?> controllerClass = controller.getClass();
+
+        javafx.fxml.FXMLLoader fxmlLoader = new javafx.fxml.FXMLLoader(controllerClass.getResource(fxmlName));
+
+        fxmlLoader.setRoot(controller);
+        fxmlLoader.setController(controller);
+
+        try {
+            fxmlLoader.load();
+        } catch(java.io.IOException exception) {
+            throw new RuntimeException(exception);
+        }
+    }
+}

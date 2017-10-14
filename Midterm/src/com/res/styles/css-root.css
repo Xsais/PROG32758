@@ -1,0 +1,39 @@
+.root {
+
+    pure-white: #FFFFFF;
+    game-blue: #CCECFF;
+    credit-blue: #003366;
+    title-border: #D4E1E8;
+    button-border: #434E54;
+    button-game: #B8D5E6;
+}
+
+.lightBlue {
+
+    -fx-background-color: game-blue;
+}
+.lightBlue .credit-box {
+
+    -fx-background-color: credit-blue;
+}
+
+.credit-box .credit-text {
+
+    -fx-text-fill: pure-white;
+}
+
+.lightBlue .game-button {
+
+    -fx-font-weight: 700;
+    -fx-font-size: 19px;
+    -fx-background-color: button-game;
+    -fx-border-color: button-border;
+    -fx-effect: innerShadow(three-pass-box, button-border, 6, 0, 0, 0);
+}
+
+.lightBlue .game-label {
+
+    -fx-font-size: 29px;
+    -fx-border-width: 1px;
+    -fx-border-color: title-border;
+}
