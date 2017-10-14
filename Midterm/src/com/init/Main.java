@@ -47,7 +47,6 @@ public class Main extends Application {
             e.printStackTrace();
         }
 
-
         primaryStage.setTitle("Car Racing Game");
 
         //Specify the scene to be used for the stage a show the window.

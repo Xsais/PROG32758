@@ -24,8 +24,35 @@ import javafx.fxml.Initializable;
 import java.util.ResourceBundle;
 import java.net.URL;
 import com.util.PageController;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.layout.VBox;
+import javafx.scene.control.Label;
+import javafx.collections.ObservableList;
+import javafx.scene.text.TextAlignment;
 
 public class StartPage extends PageController implements Initializable {
+
+    private final String groupName = "Group 1";
+
+    private final String[] groupMembers = {
+      "Daniel Hope",
+      "Georgina Luce",
+      "Nathaniel Primo",
+      "Michael Marc"
+    };
+
+    @FXML
+    private Label lblDesignedBy;
+
+    @FXML
+    private Button btnAdmin;
+
+    @FXML
+    private Button btnUser;
+
+    @FXML
+    private VBox vbCredits;
 
     /**
      * Called to initialize a controller after its root element has been completely processed.
@@ -36,5 +63,20 @@ public class StartPage extends PageController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        lblDesignedBy.setText(String.format("Game designed by %s", groupName));
+
+        btnAdmin.setText("Administrator\n(DB Creation and Initialization)");
+
+        btnUser.setText("User\n(Sign-up and Login)");
+
+        ObservableList<javafx.scene.Node> creditNames = vbCredits.getChildren();
+        for (String name : groupMembers) {
+
+            Label nameLabel = new Label(String.format("• %s", name));
+            nameLabel.getStyleClass().add("credit-text");
+
+            creditNames.add(nameLabel);
+        }
     }
 }
