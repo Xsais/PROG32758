@@ -1,0 +1,42 @@
+body {
+
+    background-color: #FDF5E6;
+}
+
+fieldset {
+
+    border: solid 1px #E6ECEF;
+}
+
+legend {
+
+    padding: 5px 0 5px 0;
+    background-color: #EEEEEE;
+    border: solid 2px #D1CDC4;
+    font-weight: 700;
+    border-radius: 2px;
+}
+
+#name-div h1 {
+
+    background-color: #F2872B;
+    display: inline-block;
+    margin: 1px;
+}
+
+#name-div {
+
+    display: inline-block;
+    border: solid 6px #1E1E1F;
+}
+
+#center-al {
+
+    display:  flex;
+    justify-content: center;
+}
+
+#lect-div {
+
+
+}
