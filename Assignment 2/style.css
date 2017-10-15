@@ -1,0 +1,39 @@
+@CHARSET "ISO-8859-1";
+
+body {
+	
+	background-color: cornsilk;
+	display: flex;
+	flex-flow: column;
+	flex-shrink: 1;
+	
+}
+fieldset {
+	font-size: 12pt;
+}
+
+legend {
+	
+	border: 1px solid;
+	background: lightblue;
+}
+
+img {
+	
+	width: 75px;
+	height: 75px;
+}
+
+table tr:nth-child(odd) {
+	
+	text-align: center;
+	font-weight: bold;
+	font-size: 16pt;
+	background-color: orange;
+	
+}
+table, tr, td {
+	
+	border: 1px solid black;
+	font-size: 16pt;
+}
