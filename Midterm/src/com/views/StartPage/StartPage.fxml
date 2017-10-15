@@ -7,9 +7,9 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import java.net.URL?>
-<GridPane hgap="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+<fx:root type="GridPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
           prefHeight="802.0" prefWidth="1211.0" vgap="10.0" xmlns="http://javafx.com/javafx/8.0.121"
-          xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.views.StartPage.StartPage">
+          xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <GridPane alignment="CENTER" styleClass="lightBlue">
             <children>
@@ -90,7 +90,4 @@
         <RowConstraints percentHeight="12.9898"/>
         <RowConstraints percentHeight="87.0102"/>
     </rowConstraints>
-    <stylesheets>
-        <URL value="@/com/res/styles/css-root.css"/>
-    </stylesheets>
-</GridPane>
+</fx:root>

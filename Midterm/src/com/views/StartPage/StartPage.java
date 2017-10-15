@@ -8,8 +8,10 @@
  * Filename: StartPage.java
  * Main class: com.init.Main.java
  * Other Files in this Project:
- *     - com.views.StartPage.StartPage.fxml
+ *     - com.views.StartPage.java
  *     - com.util.PageController.java
+ *     - com.util.PageView.java
+ *     - com.util.FXMLHelper.java
  * Assignment: Midterm - Micro-Project 1 (Part 1)
  * Creation Date: 10, 2017 14
  * Last Modified: 10, 2017 14
@@ -23,15 +25,16 @@ package com.views.StartPage;
 import javafx.fxml.Initializable;
 import java.util.ResourceBundle;
 import java.net.URL;
-import com.util.PageController;
+import javafx.scene.layout.GridPane;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Label;
 import javafx.collections.ObservableList;
-import javafx.scene.text.TextAlignment;
+import com.util.FXMLHelper;
+import javafx.event.ActionEvent;
 
-public class StartPage extends PageController implements Initializable {
+public class StartPage extends GridPane implements Initializable {
 
     private final String groupName = "Group 1";
 
@@ -53,6 +56,11 @@ public class StartPage extends PageController implements Initializable {
 
     @FXML
     private VBox vbCredits;
+
+    public StartPage() {
+
+        FXMLHelper.loadControl(this);
+    }
 
     /**
      * Called to initialize a controller after its root element has been completely processed.

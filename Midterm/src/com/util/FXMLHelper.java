@@ -8,8 +8,10 @@
  * Filename: StartPage.java
  * Main class: com.init.Main.java
  * Other Files in this Project:
+ *     - com.views.StartPage.java
  *     - com.views.StartPage.StartPage.fxml
  *     - com.util.PageController.java
+ *     - com.util.PageView.java
  * Assignment: Midterm - Micro-Project 1 (Part 1)
  * Creation Date: 10, 2017 14
  * Last Modified: 10, 2017 14
@@ -20,6 +22,10 @@
 
 package com.util;
 
+import javafx.scene.Node;
+import javafx.fxml.FXMLLoader;
+import java.io.IOException;
+
 /**
  * Maintains the required data for the FXMLHelper object
  *
@@ -28,24 +34,24 @@ package com.util;
 
 public class FXMLHelper {
 
-    public static <T extends javafx.scene.Node> void loadControl(T controller) {
+    public static <T extends Node> void loadControl(T controller) {
 
         loadControl(controller, String.format("%s.fxml"
                 , controller.getClass().getSimpleName()));
     }
 
-    public static <T extends javafx.scene.Node> void loadControl(T controller, String fxmlName) {
+    public static <T extends Node> void loadControl(T controller, String fxmlName) {
 
         Class<?> controllerClass = controller.getClass();
 
-        javafx.fxml.FXMLLoader fxmlLoader = new javafx.fxml.FXMLLoader(controllerClass.getResource(fxmlName));
+        FXMLLoader fxmlLoader = new FXMLLoader(controllerClass.getResource(fxmlName));
 
         fxmlLoader.setRoot(controller);
         fxmlLoader.setController(controller);
 
         try {
             fxmlLoader.load();
-        } catch(java.io.IOException exception) {
+        } catch(IOException exception) {
             throw new RuntimeException(exception);
         }
     }

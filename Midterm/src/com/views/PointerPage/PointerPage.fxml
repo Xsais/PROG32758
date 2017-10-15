@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import java.net.URL?>
+<?import javafx.scene.layout.*?>
+
+<GridPane xmlns="http://javafx.com/javafx" fx:id="pagesRegistry"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.views.PointerPage.PointerPage" alignment="CENTER">
+
+    <stylesheets>
+        <URL value="@/com/res/styles/css-root.css"/>
+    </stylesheets>
+</GridPane>

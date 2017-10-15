@@ -8,8 +8,10 @@
  * Filename: PageController.java
  * Main class: com.init.Main.java
  * Other Files in this Project:
+ *     - com.views.StartPage.java
  *     - com.views.StartPage.StartPage.fxml
- *     - com.views.StartPage.StartPage.java
+ *     - com.util.PageView.java
+ *     - com.util.FXMLHelper.java
  * Assignment: Midterm - Micro-Project 1 (Part 1)
  * Creation Date: 10, 2017 14
  * Last Modified: 10, 2017 14
@@ -25,7 +27,7 @@ import java.util.ArrayList;
 import javafx.scene.layout.Pane;
 import java.util.stream.Stream;
 
-public class PageController {
+public abstract class PageController extends Pane {
 
     protected final List<Pane> pages = new ArrayList<>();
 
@@ -33,8 +35,35 @@ public class PageController {
 
     protected Pane currentPage;
 
+    protected Pane mainPage;
+
     public PageController() { }
 
+    protected final void initMainPage(Pane page) {
+
+        if (page == null) {
+
+            throw new NullPointerException("ERROR: The page specified cannot be null");
+        }
+
+        pageSetUp(page);
+        addRegister(page);
+
+        this.mainPage = page;
+    }
+
+    private void pageSetUp(Pane page) {
+
+        page.managedProperty().bind(page.visibleProperty());
+        page.setVisible(false);
+    }
+
+
+    protected final void showMain() {
+
+        pages.forEach(p -> p.setVisible(false));
+        mainPage.setVisible(true);
+    }
     /**
      * Register a page to the controller
      *
@@ -52,11 +81,16 @@ public class PageController {
             throw new IllegalArgumentException("ERROR: The page specified is already registered");
         }
 
-        page.managedProperty().bind(page.visibleProperty());
+
+        pageSetUp(page);
+        addRegister(page);
+
         pages.add(page);
 
         return this;
     }
+
+    protected abstract void addRegister(Pane page);
 
     /**
      * Shows the specified page
@@ -96,6 +130,12 @@ public class PageController {
 
                 throw new  NullPointerException("Error: The requested previous page is null");
             }
+
+            if (mainPage == null) {
+
+                throw new NullPointerException("ERROR: Their is no main page defined");
+            }
+            showMain();
         }
 
         pages.forEach(p -> p.setVisible(false));
