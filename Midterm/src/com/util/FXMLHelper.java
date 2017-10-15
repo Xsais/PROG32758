@@ -8,15 +8,29 @@
  * Filename: StartPage.java
  * Main class: com.init.Main.java
  * Other Files in this Project:
- *     - com.views.StartPage.java
- *     - com.views.StartPage.StartPage.fxml
- *     - com.util.PageController.java
- *     - com.util.PageView.java
+ *     com
+ *      ├── controls
+ *      │   └── banner
+ *      │       ├── Banner.fxml
+ *      │       └── Banner.java
+ *      ├── util
+ *      │   ├── PageController.java
+ *      │   └── PageView.java
+ *      └── views
+ *          ├── adminPage
+ *          │   ├── AdminPage.fxml
+ *          │   └── AdminPage.java
+ *          ├── pointerPage
+ *          │   ├── PointerPage.fxml
+ *          │   └── PointerPage.java
+ *          └── startPage
+ *              ├── StartPage.fxml
+ *              └── StartPage.java
  * Assignment: Midterm - Micro-Project 1 (Part 1)
  * Creation Date: 10, 2017 14
  * Last Modified: 10, 2017 14
  * Java Version: 1.8.0_141
- * Description:
+ * Description: Assist in the loading of FXML controls
  * ----------------------------------------------------------------------------+
  */
 
