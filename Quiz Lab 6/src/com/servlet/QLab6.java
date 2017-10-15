@@ -33,7 +33,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class Boulet_list
  */
-@WebServlet(name = "/QLab6")
+@WebServlet(name = "QLab6")
 public class QLab6 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -59,7 +59,8 @@ public class QLab6 extends HttpServlet {
 			builder.append(String.format("<li>%d</li>", (int)(Math.random() * 99) + 1));
 		}
 
-		out.println(String.format("<!DOCTYPE html><html><head><title>QLab 6</title></head>" +
+		out.println(String.format("<!DOCTYPE html><html><head><title>QLab 6</title>" +
+				"<link rel='stylesheet' type='text/css' href='res/css-main.css'></head>" +
 				"<body><h1>A Boulet List</h1><br /><br /><ul>%s</ul></body></html>", builder));
 	}
 
