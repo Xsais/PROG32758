@@ -8,23 +8,40 @@
  * Filename: PointerPage.java
  * Main class: 
  * Other Files in this Project:
- *     - 
+ *     com
+ *      ├── controls
+ *      │   └── banner
+ *      │       ├── Banner.fxml
+ *      │       └── Banner.java
+ *      ├── util
+ *      │   ├── FXMLHelper.java
+ *      │   ├── PageController.java
+ *      │   └── PageView.java
+ *      └── views
+ *          ├── adminPage
+ *          │   ├── AdminPage.fxml
+ *          │   └── AdminPage.java
+ *          ├── pointerPage
+ *          │   └── PointerPage.fxml
+ *          └── startPage
+ *              ├── StartPage.fxml
+ *              └── StartPage.java
  * Assignment: 
  * Creation Date: 10, 2017 14
  * Last Modified: 10, 2017 14
- * Java Version: 
- * Description: The representation of a Car object
+ * Java Version: 1.8.0_141
+ * Description: Scene the controls page visibility
  * ----------------------------------------------------------------------------+
  */
 
-package com.views.PointerPage;
+package com.views.pointerpage;
 
 import javafx.fxml.Initializable;
 import com.util.PageController;
-import com.views.StartPage.StartPage;
+import com.views.startpage.StartPage;
 import javafx.fxml.FXML;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
+import com.util.PageView;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 
@@ -51,7 +68,7 @@ public class PointerPage extends PageController implements Initializable {
     }
 
     @Override
-    protected void addRegister(Pane page) {
+    protected void addRegister(PageView page) {
 
         pagesChildren.add(page);
     }

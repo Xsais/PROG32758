@@ -8,7 +8,7 @@
 
 <GridPane xmlns="http://javafx.com/javafx" fx:id="pagesRegistry"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.views.PointerPage.PointerPage" alignment="CENTER">
+            fx:controller="com.views.pointerpage.PointerPage" alignment="CENTER">
 
     <stylesheets>
         <URL value="@/com/res/styles/css-root.css"/>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<fx:root alignment="CENTER" type="GridPane" styleClass="lightBlue" xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml">
+        <children>
+            <ImageView fitHeight="84.0" fitWidth="194.0">
+                <image>
+                    <Image url="@/com/res/images/png-sheridan.jpg"/>
+                </image>
+            </ImageView>
+            <Label alignment="CENTER" minHeight="56" minWidth="630" styleClass="game-label" text="CAR RACING GAME"
+                   GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
+            <GridPane alignment="BASELINE_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                      minWidth="-Infinity" styleClass="credit-box" GridPane.columnIndex="1"
+                      GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
+                <children>
+                    <Label fx:id="lblDesignedBy" styleClass="credit-text" GridPane.columnSpan="2"
+                           GridPane.halignment="CENTER" GridPane.valignment="BOTTOM"/>
+                    <VBox fx:id="vbCredits" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <padding>
+                            <Insets right="10.0"/>
+                        </padding>
+                    </VBox>
+                </children>
+                <columnConstraints>
+                    <ColumnConstraints percentWidth="50.0"/>
+                    <ColumnConstraints percentWidth="50.0"/>
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints/>
+                    <RowConstraints/>
+                </rowConstraints>
+            </GridPane>
+        </children>
+        <columnConstraints>
+            <ColumnConstraints percentWidth="50.0"/>
+            <ColumnConstraints percentWidth="50.0"/>
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints/>
+        </rowConstraints>
+        <GridPane.margin>
+            <Insets/>
+        </GridPane.margin>
+        <padding>
+            <Insets left="37.0" right="37.0"/>
+        </padding>
+</fx:root>

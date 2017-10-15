@@ -8,15 +8,29 @@
  * Filename: PageController.java
  * Main class: com.init.Main.java
  * Other Files in this Project:
- *     - com.views.StartPage.java
- *     - com.views.StartPage.StartPage.fxml
- *     - com.util.PageView.java
- *     - com.util.FXMLHelper.java
+ *     com
+ *      ├── controls
+ *      │   └── banner
+ *      │       ├── Banner.fxml
+ *      │       └── Banner.java
+ *      ├── util
+ *      │   ├── FXMLHelper.java
+ *      │   └── PageView.java
+ *      └── views
+ *          ├── adminPage
+ *          │   ├── AdminPage.fxml
+ *          │   └── AdminPage.java
+ *          ├── pointerPage
+ *          │   ├── PointerPage.fxml
+ *          │   └── PointerPage.java
+ *          └── startPage
+ *              ├── StartPage.fxml
+ *              └── StartPage.java
  * Assignment: Midterm - Micro-Project 1 (Part 1)
  * Creation Date: 10, 2017 14
  * Last Modified: 10, 2017 14
  * Java Version: 1.8.0_141
- * Description: The representation of a Car object
+ * Description: Controls the visibility of each registered page
  * ----------------------------------------------------------------------------+
  */
 
@@ -24,22 +38,20 @@ package com.util;
 
 import java.util.List;
 import java.util.ArrayList;
-import javafx.scene.layout.Pane;
-import java.util.stream.Stream;
 
-public abstract class PageController extends Pane {
+public abstract class PageController {
 
-    protected final List<Pane> pages = new ArrayList<>();
+    protected final List<PageView> pages = new ArrayList<>();
 
-    protected Pane previousPage;
+    protected PageView previousPage;
 
-    protected Pane currentPage;
+    protected PageView currentPage;
 
-    protected Pane mainPage;
+    protected PageView mainPage;
 
     public PageController() { }
 
-    protected final void initMainPage(Pane page) {
+    protected final void initMainPage(PageView page) {
 
         if (page == null) {
 
@@ -52,17 +64,19 @@ public abstract class PageController extends Pane {
         this.mainPage = page;
     }
 
-    private void pageSetUp(Pane page) {
+    private void pageSetUp(PageView page) {
 
         page.managedProperty().bind(page.visibleProperty());
         page.setVisible(false);
+        pages.add(page);
+
+        page.init(this);
     }
 
 
-    protected final void showMain() {
+    public final void showMain() {
 
-        pages.forEach(p -> p.setVisible(false));
-        mainPage.setVisible(true);
+        switchPages(mainPage);
     }
     /**
      * Register a page to the controller
@@ -71,7 +85,7 @@ public abstract class PageController extends Pane {
      * @throws NullPointerException If the page is null
      * @throws IllegalArgumentException IF the page has already been registered
      */
-    public final PageController registerPage(Pane page) throws NullPointerException, IllegalArgumentException {
+    public final PageController registerPage(PageView page) throws NullPointerException, IllegalArgumentException {
 
         if (page == null) {
 
@@ -85,12 +99,20 @@ public abstract class PageController extends Pane {
         pageSetUp(page);
         addRegister(page);
 
-        pages.add(page);
-
         return this;
     }
 
-    protected abstract void addRegister(Pane page);
+    private void switchPages(PageView page) {
+
+        previousPage = currentPage;
+
+        pages.forEach(p -> p.setVisible(false));
+        page.setVisible(true);
+
+        currentPage = page;
+    }
+
+    protected abstract void addRegister(PageView page);
 
     /**
      * Shows the specified page
@@ -98,23 +120,17 @@ public abstract class PageController extends Pane {
      * @param page The page in which to be shown
      * @throws IllegalArgumentException If the page was not registered
      */
-    protected void showPage(Pane page) throws IllegalArgumentException {
+    public void showPage(PageView page) throws IllegalArgumentException {
 
         //Verify the giving pane is registered correctly
-        Pane selected = pages.stream().findFirst().filter(p -> p.getId().equals(page.getId())).get();
+        PageView selected = pages.stream().filter(p -> p.equals(page)).toArray(PageView[]::new)[0];
 
         if (selected == null) {
 
             throw new IllegalArgumentException("ERROR: The page was not registered correctly");
         }
 
-        Stream<Pane> paneStream =  pages.stream().filter(p -> !p.getId().equals(page.getId()));
-        previousPage = paneStream.findFirst().filter(p -> p.isVisible()).get();
-
-        paneStream.forEach(p -> p.setVisible(false));
-        selected.setVisible(true);
-
-        currentPage = selected;
+        switchPages(selected);
     }
 
     /**
@@ -122,7 +138,7 @@ public abstract class PageController extends Pane {
      *
      * @throws NullPointerException If their was no previous page
      */
-    protected void showPrevious() throws NullPointerException {
+    public void showPrevious() throws NullPointerException {
 
         if (previousPage == null) {
 
@@ -138,7 +154,6 @@ public abstract class PageController extends Pane {
             showMain();
         }
 
-        pages.forEach(p -> p.setVisible(false));
-        previousPage.setVisible(true);
+        switchPages(previousPage);
     }
 }

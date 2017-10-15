@@ -5,59 +5,48 @@
  *            Nathaniel Primo
  *            Michael Marc
  * Group #: 1
- * Filename: StartPage.java
- * Main class: com.init.Main.java
+ * Filename: Banner.java
+ * Main class: 
  * Other Files in this Project:
- *     - com.views.StartPage.java
- *     - com.util.PageController.java
- *     - com.util.PageView.java
- *     - com.util.FXMLHelper.java
- * Assignment: Midterm - Micro-Project 1 (Part 1)
- * Creation Date: 10, 2017 14
- * Last Modified: 10, 2017 14
- * Java Version: 1.8.0_141
- * Description:
+ *     - 
+ * Assignment: 
+ * Creation Date: 10, 2017 15
+ * Last Modified: 10, 2017 15
+ * Java Version: 
+ * Description: The representation of a Car object
  * ----------------------------------------------------------------------------+
  */
 
-package com.views.StartPage;
+package com.controls.banner;
 
 import javafx.fxml.Initializable;
-import java.util.ResourceBundle;
-import java.net.URL;
 import javafx.scene.layout.GridPane;
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
-import javafx.scene.control.Label;
+import javafx.fxml.FXML;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Label;
+import java.net.URL;
+import java.util.ResourceBundle;
 import com.util.FXMLHelper;
-import javafx.event.ActionEvent;
 
-public class StartPage extends GridPane implements Initializable {
-
-    private final String groupName = "Group 1";
-
-    private final String[] groupMembers = {
-      "Daniel Hope",
-      "Georgina Luce",
-      "Nathaniel Primo",
-      "Michael Marc"
-    };
-
-    @FXML
-    private Label lblDesignedBy;
-
-    @FXML
-    private Button btnAdmin;
-
-    @FXML
-    private Button btnUser;
+public class Banner extends GridPane implements Initializable {
 
     @FXML
     private VBox vbCredits;
 
-    public StartPage() {
+    @FXML
+    private Label lblDesignedBy;
+
+    private final String groupName = "Group 1";
+
+    private final String[] groupMembers = {
+            "Daniel Hope",
+            "Georgina Luce",
+            "Nathaniel Primo",
+            "Michael Marc"
+    };
+
+    public Banner() {
 
         FXMLHelper.loadControl(this);
     }
@@ -73,10 +62,6 @@ public class StartPage extends GridPane implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
         lblDesignedBy.setText(String.format("Game designed by %s", groupName));
-
-        btnAdmin.setText("Administrator\n(DB Creation and Initialization)");
-
-        btnUser.setText("User\n(Sign-up and Login)");
 
         ObservableList<javafx.scene.Node> creditNames = vbCredits.getChildren();
         for (String name : groupMembers) {

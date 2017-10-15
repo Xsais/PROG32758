@@ -24,6 +24,7 @@
 
 .lightBlue .game-button {
 
+    -fx-cursor: hand;
     -fx-font-weight: 700;
     -fx-font-size: 19px;
     -fx-background-color: button-game;
@@ -36,4 +37,10 @@
     -fx-font-size: 29px;
     -fx-border-width: 1px;
     -fx-border-color: title-border;
+}
+
+.lightBlue .game-sublabel {
+
+    -fx-font-size: 20px;
+    -fx-font-weight: 700;
 }
