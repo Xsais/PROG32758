@@ -1,0 +1,58 @@
+
+
+
+// DB check
+try {
+	// Register with the DeviceManager
+	Class.forName("com.mysql.jdbc.Driver");
+	//Check for DB
+	Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306", "root", "$up3RmAr10!");
+	
+	if(conn != null){
+		ResultSet rs = conn.getMetaData().getCatalogs();
+
+		while(rs.next()){
+			String catalog = rs.getString(1);
+			if(catalog.equals("DBProg32758")) {
+				// window that warns user that the database already exsists
+				JOptionPane.showDialog(frame, "The database already exsists.", "Car Racing Game", JOptionPane.WARNING_MESSAGE);
+			} else {
+				try {
+                                        String createDB = "CREATE DATABASE DBProg32758;";
+					stm = conn.createStatement();
+					stm.executeUpdate(createDB);
+				} catch (SQLException ex) {
+					if (ex.getSQLState().equals("HY000") && ex.getErrorCode() == 1007)
+						JOptionPane.showDialog(frame, "The database already exsists.", "Car Racing Game", JOptionPane.WARNING_MESSAGE);
+	else {
+		JOptionPane.showDialog(frame, ex.getMessage() + "SQL State: " + ex.getSQLState() + " ErrorCode: " + ex.getErrorCode(), "Car Racing Game", 				JOptionPane.WARNING_MESSAGE);    	
+			}
+		} 
+	}
+} catch(SQLException e){
+	JOptionPane.showDialog(frame, ex.getMessage() + "SQL State: " + ex.getSQLState() + " ErrorCode: " + ex.getErrorCode(), "Car Racing Game", 				JOptionPane.WARNING_MESSAGE);
+}
+
+
+// creates table called Players in DBProg32758
+public void createTable() {
+	Statement stm = null;
+	String createTblSql = "CREATE TABLE Players (Last_Name VARCHAR(20), First_Name VARCHAR(20), Group VARCHAR(20), Login VARCHAR(20), Password VARCHAR(20), Preferred_Car_Name VARCHAR(20), Logo VARCHAR(20), Score VARCHAR(20));";
+try {
+	stm = conn.createStatement();
+	stm.executeUpdate(createTblSql);
+} catch (SQLException ex) {
+	if (ex.getSQLState().equals("42S01") && ex.getErrorCode() == 1050)
+		JOptionPane.showDialog(frame, "The table already exsists.", 		"Car Racing Game", JOptionPane.WARNING_MESSAGE);
+	else {
+		JOptionPane.showDialog(frame, ex.getMessage() + "SQL State: " + ex.getSQLState() + " ErrorCode: " + ex.getErrorCode(), "Car Racing Game", JOptionPane.WARNING_MESSAGE);
+} finally {
+	try {
+	stm.close();
+	conn.close();
+} catch (SQLException e) {
+	JOptionPane.showDialog(frame, e.getMessage() + "SQL State: " + e.getSQLState() + " ErrorCode: " + e.getErrorCode(), "Car Racing Game", JOptionPane.WARNING_MESSAGE);
+}
+	
+}
+}
