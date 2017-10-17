@@ -1,46 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.Button?>
 <?import com.controls.banner.Banner?>
-<?import javafx.scene.layout.*?>
-<fx:root type="GridPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-          prefHeight="802.0" prefWidth="1211.0" vgap="10.0" xmlns="http://javafx.com/javafx/8.0.121"
-          xmlns:fx="http://javafx.com/fxml/1">
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="802.0" prefWidth="1211.0" type="GridPane" vgap="10.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <Banner />
         <GridPane styleClass="lightBlue" GridPane.rowIndex="1">
             <children>
-                <Button fx:id="btnAdmin" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                        minWidth="-Infinity" prefHeight="80.0" prefWidth="321.0" styleClass="game-button"
-                        textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                <Button fx:id="btnAdmin" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="321.0" styleClass="game-button" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.valignment="TOP">
                     <GridPane.margin>
-                        <Insets top="52.0"/>
+                        <Insets top="52.0" />
                     </GridPane.margin>
                 </Button>
-                <Button fx:id="btnUser" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                        minWidth="-Infinity" prefHeight="80.0" prefWidth="321.0" styleClass="game-button"
-                        textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER"
-                        GridPane.valignment="TOP">
+                <Button fx:id="btnUser" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="321.0" styleClass="game-button" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
                     <GridPane.margin>
-                        <Insets top="52.0"/>
+                        <Insets top="52.0" />
                     </GridPane.margin>
                 </Button>
             </children>
             <columnConstraints>
-                <ColumnConstraints percentWidth="50.0"/>
-                <ColumnConstraints percentWidth="50.0"/>
+                <ColumnConstraints percentWidth="50.0" />
+                <ColumnConstraints percentWidth="50.0" />
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints/>
+                <RowConstraints />
+            <RowConstraints />
             </rowConstraints>
         </GridPane>
     </children>
     <columnConstraints>
-        <ColumnConstraints percentWidth="100.0"/>
+        <ColumnConstraints percentWidth="100.0" />
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints percentHeight="12.9898"/>
-        <RowConstraints percentHeight="87.0102"/>
+        <RowConstraints percentHeight="12.9898" />
+        <RowConstraints percentHeight="87.0102" />
     </rowConstraints>
 </fx:root>

@@ -9,10 +9,10 @@
  * Filename: CreateDataBAse.java
  * Other Files in this Project:
  *     -
- * Assignment:
+ * Assignment: Midterm - Micro-Project 1 (Part 1)
  * Creation Date: 10, 2017 16
  * Last Modified: 10, 2017 16
- * Java Version:
+ * Java Version: 1.8.1_141
  * Description: The representation of a Car object
  * ----------------------------------------------------------------------------+
  */

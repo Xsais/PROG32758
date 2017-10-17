@@ -26,7 +26,7 @@
  *          └── startPage
  *              ├── StartPage.fxml
  *              └── StartPage.java
- * Assignment: 
+ * Assignment: Midterm - Micro-Project 1 (Part 1)
  * Creation Date: 10, 2017 14
  * Last Modified: 10, 2017 14
  * Java Version: 1.8.0_141

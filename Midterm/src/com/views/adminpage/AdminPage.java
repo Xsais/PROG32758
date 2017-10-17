@@ -26,7 +26,7 @@
  *          └── startPage
  *              ├── StartPage.fxml
  *              └── StartPage.java
- * Assignment: 
+ * Assignment: Midterm - Micro-Project 1 (Part 1)
  * Creation Date: 10, 2017 14
  * Last Modified: 10, 2017 14
  * Java Version: 1.8.0_141
@@ -45,8 +45,6 @@ import javafx.scene.control.Button;
 import com.util.CreateDataBase;
 
 public class AdminPage extends PageView implements Initializable {
-
-    private PageController pageController;
 
     @FXML
     private Button btnExit;
@@ -87,11 +85,5 @@ public class AdminPage extends PageView implements Initializable {
             btnDisplay.setOnAction();
          **/
 
-    }
-
-    @Override
-    public void init(PageController pageController) {
-
-        this.pageController = pageController;
     }
 }

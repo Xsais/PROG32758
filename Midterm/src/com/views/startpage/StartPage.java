@@ -48,8 +48,6 @@ import com.util.PageController;
 
 public class StartPage extends PageView implements Initializable {
 
-    private PageController pageController;
-
     @FXML
     private Button btnAdmin;
 
@@ -85,7 +83,7 @@ public class StartPage extends PageView implements Initializable {
     @Override
     public void init(PageController pageController) {
 
-        this.pageController = pageController;
+        super.init(pageController);
         pageController.registerPage(adminPage);
     }
 }
