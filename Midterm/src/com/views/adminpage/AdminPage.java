@@ -42,6 +42,7 @@ import com.util.PageController;
 import com.util.FXMLHelper;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import com.util.CreateDataBase;
 
 public class AdminPage extends PageView implements Initializable {
 
@@ -76,7 +77,7 @@ public class AdminPage extends PageView implements Initializable {
 
         btnExit.setOnAction(evt -> pageController.showPrevious());
 
-        btnCreate.setOnAction(p -> com.util.CreateDataBase.createTable());
+        btnCreate.setOnAction(p -> CreateDataBase.createTable("root",  ""));
 
         /** TODO : Debase Initialization
             btnInit.setOnAction();
