@@ -133,8 +133,8 @@ public class CreateDataBase {
 
 
         String createTblSql = "CREATE TABLE Players (`Last_Name` VARCHAR(20), `First_Name` VARCHAR(20), "
-        		+ "`Group` VARCHAR(20), `Login` VARCHAR(20), `Password` VARCHAR(20), `Preferred_Car_Name` VARCHAR(20), "
-        		+ "`Logo` VARCHAR(20), `Score` VARCHAR(20));";
+        		+ "`Group` INT(10), `Login` VARCHAR(20), `Password` VARCHAR(20), `Preferred_Car_Name` VARCHAR(20), "
+        		+ "`Logo` VARCHAR(20), `Score` INT(999));";
 
         try {
 
