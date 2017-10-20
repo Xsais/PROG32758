@@ -1,0 +1,34 @@
+An,Joon,3
+Arseneau,Andre,8
+Bandehe,Ramtin,5
+Bettencourt,Reece,7
+Chu,Anthony,7
+Dang,Kevin,4
+Deol,Mohit,6
+Effendi,Jason,5
+Elbanby,Omar,2
+Eubanks-Wilson,Zachary,4
+Gonzalez,Kristian,3
+Haddad,Jason,6
+Harrison,Kristien,2
+Holland,Garrett,6
+Hope,Daniel,1
+Javer,Zakim,2
+Le,John Huy,8
+Lim,Matthew,7
+Luce,Georgina,1
+Marc,Michael,1
+Mooken,Julian,6
+Penney,Jordan,5
+Primo,Nathaniel,1
+Ramanna,Emily,7
+Shazam,Khalil,4
+Siddiqui,Saud,8
+Sulinski,Philip,4
+Sun,Jinuk,3
+Turner,John Scott,2
+Van Roosendaal,5
+Walls,Riley,4
+Wharram,Andrew,7
+Winger,Robert,8
+Zhao,Frank,3
