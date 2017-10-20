@@ -75,7 +75,7 @@ public class AdminPage extends PageView implements Initializable {
 
         btnExit.setOnAction(evt -> pageController.showPrevious());
 
-        btnCreate.setOnAction(p -> CreateDataBase.createTable("root",  ""));
+        btnCreate.setOnAction(p -> new CreateDataBase("root",  ""));
 
         /** TODO : Debase Initialization
             btnInit.setOnAction();
