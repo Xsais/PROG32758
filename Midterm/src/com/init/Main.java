@@ -42,9 +42,17 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.fxml.FXMLLoader;
 import java.io.IOException;
+import com.util.ConnectToDB;
 
 
 public class Main extends Application {
+
+    private static ConnectToDB dbConnection;
+
+    public static ConnectToDB getDbConnection() {
+
+        return dbConnection;
+    }
 
     public static void main(String[] args) {
 
@@ -64,6 +72,10 @@ public class Main extends Application {
         }
 
         primaryStage.setTitle("Car Racing Game");
+
+        dbConnection = new ConnectToDB("localhost","root", "");
+
+        primaryStage.setOnCloseRequest(c -> dbConnection.closeConnection());
 
         //Specify the scene to be used for the stage a show the window.
         primaryStage.setScene(scene);

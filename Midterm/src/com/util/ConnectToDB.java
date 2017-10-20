@@ -25,7 +25,7 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.DriverManager;
 
-public abstract class ConnectToDB {
+public class ConnectToDB {
 
     private Connection connection;
 
