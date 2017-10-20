@@ -66,7 +66,7 @@ public class CreateDataBase {
 
                     // window that warns user that the database already exists
 
-                    JOptionPane.showMessageDialog(null, "The database already exsists.", "Car Racing Game", javax.swing.JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "The database already exists.", "Car Racing Game", javax.swing.JOptionPane.WARNING_MESSAGE);
 
                 } else {
 
@@ -83,7 +83,7 @@ public class CreateDataBase {
 
                         if (ex.getSQLState().equals("HY000") && ex.getErrorCode() == 1007)
 
-                            JOptionPane.showMessageDialog(null, "The database already exsists.", "Car Racing Game", javax.swing.JOptionPane.WARNING_MESSAGE);
+                            JOptionPane.showMessageDialog(null, "The database already exists.", "Car Racing Game", javax.swing.JOptionPane.WARNING_MESSAGE);
 
                         else {
 
@@ -117,7 +117,7 @@ public class CreateDataBase {
 
             if (ex.getSQLState().equals("42S01") && ex.getErrorCode() == 1050)
 
-                JOptionPane.showMessageDialog(null, "The table already exsists.", "Car Racing Game", javax.swing.JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, "The table already exists.", "Car Racing Game", javax.swing.JOptionPane.WARNING_MESSAGE);
 
             else {
 
