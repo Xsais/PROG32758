@@ -12,17 +12,17 @@
 
     -fx-background-color: game-blue;
 }
-.lightBlue .credit-box {
+.credit-box {
 
     -fx-background-color: credit-blue;
 }
 
-.credit-box .credit-text {
+.credit-text {
 
     -fx-text-fill: pure-white;
 }
 
-.lightBlue .game-button {
+.game-button {
 
     -fx-cursor: hand;
     -fx-font-weight: 700;
@@ -32,14 +32,14 @@
     -fx-effect: innerShadow(three-pass-box, button-border, 6, 0, 0, 0);
 }
 
-.lightBlue .game-label {
+.game-label {
 
     -fx-font-size: 29px;
     -fx-border-width: 1px;
     -fx-border-color: title-border;
 }
 
-.lightBlue .game-sublabel {
+.game-sublabel {
 
     -fx-font-size: 20px;
     -fx-font-weight: 700;
