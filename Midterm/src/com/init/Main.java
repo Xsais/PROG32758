@@ -43,6 +43,9 @@ import javafx.scene.Scene;
 import javafx.fxml.FXMLLoader;
 import java.io.IOException;
 import com.util.ConnectToDB;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import com.util.ConnectToDB;
 
 
 public class Main extends Application {
@@ -73,7 +76,15 @@ public class Main extends Application {
 
         primaryStage.setTitle("Car Racing Game");
 
-        dbConnection = new ConnectToDB("localhost","root", "");
+        try {
+
+            dbConnection = new ConnectToDB("localhost","root", "");
+        } catch (SQLException e) {
+
+            JOptionPane.showMessageDialog(null,e.getMessage() + "SQL State: "
+                            + e.getSQLState() + " ErrorCode: " + e.getErrorCode(), "Car Racing Game",
+                    javax.swing.JOptionPane.WARNING_MESSAGE);
+        }
 
         primaryStage.setOnCloseRequest(c -> dbConnection.closeConnection());
 

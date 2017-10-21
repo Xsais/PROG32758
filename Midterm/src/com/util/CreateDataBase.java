@@ -1,5 +1,4 @@
 /*
-
  * ----------------------------------------------------------------------------+
  * Group Leader: Daniel Hope
  * Member(s): Georgina Luce
@@ -13,130 +12,95 @@
  * Creation Date: 10, 2017 16
  * Last Modified: 10, 2017 16
  * Java Version: 1.8.1_141
- * Description: The representation of a Car object
+ * Description: Initializes the DBProg32758 database and prepares it for data entry
  * ----------------------------------------------------------------------------+
  */
 
 package com.util;
 
-import javax.swing.*;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.Connection;
+import javax.swing.JOptionPane;
 import com.init.Main;
+import java.sql.SQLException;
 
 
 public class CreateDataBase {
 
-    // creates table called Players in DBProg32758
+    /**
+     * Initializes the database and prepares it for data entry
+     *
+     */
+    public CreateDataBase() {
 
-    public static void createTable() {
+        try {
+            ConnectToDB dbConnection = Main.getDbConnection();
 
-        Connection conn = null;
+            dbValidate(dbConnection);
+            createTable(dbConnection);
+        } catch (SQLException ex) {
 
-        Statement stm = null;
+            JOptionPane.showMessageDialog(null,ex.getMessage() + "SQL State: "
+                    + ex.getSQLState() + " ErrorCode: " + ex.getErrorCode(), "Car Racing Game",
+                    javax.swing.JOptionPane.WARNING_MESSAGE);
 
+        }
+    }
+
+    /**
+     * Creates table called Players in DBProg32758
+     *
+     * @param dbConnection The statement object for the desired connection
+     */
+    private void createTable(ConnectToDB dbConnection) throws SQLException {
+
+        try {
+            dbConnection.executeUpdate("CREATE TABLE DBProg32758.Players (`Last_Name` VARCHAR(20)," +
+                    " `First_Name` VARCHAR(20), Group INT(255), `Login` VARCHAR(20), `Password` VARCHAR(20)," +
+                    " `Preferred_Car_Name` VARCHAR(20), `Logo` VARCHAR(20), `Score` INT(255))");
+
+            JOptionPane.showMessageDialog(null,
+                    "Table Successfully created...\n Click OK to continue.", "Car Racing Game",
+                    JOptionPane.INFORMATION_MESSAGE);
+
+        } catch (SQLException ex) {
+
+            if (ex.getErrorCode() != 1050) {
+
+                throw ex;
+            }
+
+            JOptionPane.showMessageDialog(null, "The table already exists.",
+                    "Car Racing Game", JOptionPane.WARNING_MESSAGE);
+
+        }
+    }
+
+    /**
+     * Verify that DBProg32758 is created
+     *
+     * @param dbConnection The statement object for the desired connection
+     * @throws SQLException If there was an error creating the database
+     */
+    private void dbValidate(ConnectToDB dbConnection) throws SQLException {
 
         // DB check
         try {
 
-            //Check for DB
-            conn = Main.getDbConnection().getConnection();
+            dbConnection.execute("USE DBProg32758");
 
-            if (conn != null) {
+            JOptionPane.showMessageDialog(null, "The database already exists.",
+                    "Car Racing Game", JOptionPane.WARNING_MESSAGE);
+        } catch (SQLException e) {
 
-                ResultSet rs = conn.getMetaData().getCatalogs();
+            if (e.getErrorCode() != 1049) {
 
-                boolean doesExist = false;
-
-                while (rs.next()) {
-
-                    String catalog = rs.getString(1);
-
-                    if (catalog.equalsIgnoreCase("DBProg32758")) {
-
-                        doesExist = true;
-
-                        break;
-                    }
-                }
-
-                if (doesExist) {
-
-                    // window that warns user that the database already exists
-
-                    JOptionPane.showMessageDialog(null, "The database already exists.", "Car Racing Game", javax.swing.JOptionPane.WARNING_MESSAGE);
-
-                } else {
-
-                    try {
-
-                        String createDB = "CREATE DATABASE DBProg32758;";
-
-                        stm = conn.createStatement();
-
-                        stm.execute(createDB);
-
-                        JOptionPane.showMessageDialog(null, "Database Successfully created...\n Click OK to continue.", "Car Racing Game", javax.swing.JOptionPane.INFORMATION_MESSAGE);
-                    } catch (SQLException ex) {
-
-                        if (ex.getSQLState().equals("HY000") && ex.getErrorCode() == 1007)
-
-                            JOptionPane.showMessageDialog(null, "The database already exists.", "Car Racing Game", javax.swing.JOptionPane.WARNING_MESSAGE);
-
-                        else {
-
-                            JOptionPane.showMessageDialog(null, ex.getMessage() + "SQL State: " + ex.getSQLState() + " ErrorCode: " + ex.getErrorCode(), "Car Racing Game", javax.swing.JOptionPane.WARNING_MESSAGE);
-                        }
-
-                    }
-
-                }
+                throw e;
             }
 
-        } catch (SQLException ex) {
+            dbConnection.execute("CREATE DATABASE DBProg32758");
 
-            JOptionPane.showMessageDialog(null, ex.getMessage() + "SQL State: " + ex.getSQLState() + " ErrorCode: " + ex.getErrorCode(), "Car Racing Game", javax.swing.JOptionPane.WARNING_MESSAGE);
-
-        }
-        
-        String createTblSql = "CREATE TABLE Players (`Last_Name` VARCHAR(20), `First_Name` VARCHAR(20), `Group` VARCHAR(20), `Login` VARCHAR(20), `Password` VARCHAR(20), `Preferred_Car_Name` VARCHAR(20), `Logo` VARCHAR(20), `Score` VARCHAR(20));";
-
-        try {
-
-            stm = conn.createStatement();
-
-            stm.execute("USE DBProg32758;");
-
-            stm.executeUpdate(createTblSql);
-
-            JOptionPane.showMessageDialog(null, "Table Successfully created...\n Click OK to continue.", "Car Racing Game", javax.swing.JOptionPane.INFORMATION_MESSAGE);
-
-        } catch (SQLException ex) {
-
-            if (ex.getSQLState().equals("42S01") && ex.getErrorCode() == 1050)
-
-                JOptionPane.showMessageDialog(null, "The table already exists.", "Car Racing Game", javax.swing.JOptionPane.WARNING_MESSAGE);
-
-            else {
-
-                JOptionPane.showMessageDialog(null, ex.getMessage() + "SQL State: "
-                        + ex.getSQLState() + " ErrorCode: "
-                        + ex.getErrorCode(), "Car Racing Game", JOptionPane.WARNING_MESSAGE);
-            }
-
-        } finally {
-
-            try {
-
-                stm.close();
-
-                conn.close();
-            } catch (java.sql.SQLException e) {
-
-                JOptionPane.showMessageDialog(null, e.getMessage() + "SQL State: " + e.getSQLState() + " ErrorCode: " + e.getErrorCode(), "Car Racing Game", javax.swing.JOptionPane.WARNING_MESSAGE);
-            }
+            JOptionPane.showMessageDialog(null,
+                    "Database Successfully created...\n Click OK to continue.", "Car Racing Game",
+                    JOptionPane.INFORMATION_MESSAGE);
         }
 
     }
