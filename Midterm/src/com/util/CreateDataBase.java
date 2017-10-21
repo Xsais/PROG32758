@@ -20,18 +20,18 @@
 package com.util;
 
 import javax.swing.*;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Connection;
+import com.init.Main;
 
 
 public class CreateDataBase {
 
     // creates table called Players in DBProg32758
 
-    public static void createTable(String user, String password) {
+    public static void createTable() {
 
         Connection conn = null;
 
@@ -42,7 +42,7 @@ public class CreateDataBase {
         try {
 
             //Check for DB
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306", user, password);
+            conn = Main.getDbConnection().getConnection();
 
             if (conn != null) {
 
