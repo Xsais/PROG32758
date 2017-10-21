@@ -19,11 +19,7 @@
 
 package com.util;
 
-import java.sql.SQLException;
-import java.sql.Connection;
-import java.sql.Statement;
-import java.sql.ResultSet;
-import java.sql.DriverManager;
+import java.sql.*;
 
 public class ConnectToDB {
 
@@ -64,22 +60,14 @@ public class ConnectToDB {
      * Method for registering Driver and creating connection to user defined database
      *
      * @param subName The desired Sub-Domain
-     * @param user The desired user
-     * @param pass The desired password for the giving user
+     * @param user    The desired user
+     * @param pass    The desired password for the giving user
      */
-    public ConnectToDB(String subName, String user, String pass) {
+    public ConnectToDB(String subName, String user, String pass) throws SQLException {
 
-        try {
+        connection = DriverManager.getConnection(String.format("jdbc:mysql://%s:3306", subName), user, pass);
 
-            // create connection
-            connection = DriverManager.getConnection(String.format("jdbc:mysql://%s:3306", subName), user, pass);
-
-            statement = connection.createStatement();
-
-        } catch (SQLException e) {
-
-            e.printStackTrace();
-        }
+        statement = connection.createStatement();
     }
 
 
@@ -88,16 +76,10 @@ public class ConnectToDB {
      *
      * @param query The desired query to be executed
      */
-    public void execute(String query) {
+    public void execute(String query) throws SQLException {
 
         // create user defined execute statement for sql
-        try {
-            statement.execute(query);
-
-        } catch (SQLException e) {
-
-            e.printStackTrace();
-        }
+        statement.execute(query);
     }
 
 
@@ -107,15 +89,9 @@ public class ConnectToDB {
      * @param query The desired query to be executed
      * @return The result set of the last successfully executed query
      */
-    public ResultSet executeUpdate(String query) {
+    public ResultSet executeUpdate(String query) throws SQLException {
 
-        try {
-            lastResult = statement.executeQuery(query);
-
-        } catch (SQLException e) {
-
-            e.printStackTrace();
-        }
+        lastResult = statement.executeQuery(query);
 
         return lastResult;
 
