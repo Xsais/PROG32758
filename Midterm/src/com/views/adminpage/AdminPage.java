@@ -6,7 +6,7 @@
  *            Michael Marc
  * Group #: 1
  * Filename: AdminPage.java
- * Main class: 
+ * Main class:
  * Other Files in this Project:
  *     com
  *      ├── controls
@@ -38,11 +38,13 @@ package com.views.adminpage;
 
 import javafx.fxml.Initializable;
 import com.util.PageView;
-import com.util.PageController;
+import com.util.ConnectToDB;
 import com.util.FXMLHelper;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import java.net.URL;
 import com.util.CreateDataBase;
+import java.util.ResourceBundle;
 
 public class AdminPage extends PageView implements Initializable {
 
@@ -71,11 +73,11 @@ public class AdminPage extends PageView implements Initializable {
      * @param resources The resources used to localize the root object, or <tt>null</tt> if
      */
     @Override
-    public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
+    public void initialize(URL location, ResourceBundle resources) {
 
         btnExit.setOnAction(evt -> pageController.showPrevious());
 
-        btnCreate.setOnAction(p -> new CreateDataBase("root",  ""));
+        btnCreate.setOnAction(p -> new CreateDataBase());
 
         /** TODO : Debase Initialization
             btnInit.setOnAction();

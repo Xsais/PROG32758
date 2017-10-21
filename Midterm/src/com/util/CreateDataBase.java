@@ -19,10 +19,8 @@
 package com.util;
 
 import javax.swing.JOptionPane;
-import java.sql.Connection;
-import java.sql.DriverManager;
+import com.init.Main;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 
 public class CreateDataBase {
@@ -30,27 +28,19 @@ public class CreateDataBase {
     /**
      * Initializes the database and prepares it for data entry
      *
-     * @param user The desired user for the database
-     * @param pass The password required for the desired user
      */
-    public CreateDataBase(String user, String pass) {
+    public CreateDataBase() {
 
         try {
+            ConnectToDB dbConnection = Main.getDbConnection();
 
-            //Check for DB
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306", user, pass);
-
-            if (conn == null) {
-
-                throw new IllegalArgumentException("ERROR: Internal or external error connecting to DataBase");
-            }
-            Statement stm = conn.createStatement();
-
-            dbValidate(stm);
-            createTable(stm);
+            dbValidate(dbConnection);
+            createTable(dbConnection);
         } catch (SQLException ex) {
 
-            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null,ex.getMessage() + "SQL State: "
+                    + ex.getSQLState() + " ErrorCode: " + ex.getErrorCode(), "Car Racing Game",
+                    javax.swing.JOptionPane.WARNING_MESSAGE);
 
         }
     }
@@ -58,12 +48,12 @@ public class CreateDataBase {
     /**
      * Creates table called Players in DBProg32758
      *
-     * @param stm The statement object for the desired connection
+     * @param dbConnection The statement object for the desired connection
      */
-    private void createTable(Statement stm) {
+    private void createTable(ConnectToDB dbConnection) throws SQLException {
 
         try {
-            stm.executeUpdate("CREATE TABLE DBProg32758.Players (`Last_Name` VARCHAR(20)," +
+            dbConnection.executeUpdate("CREATE TABLE DBProg32758.Players (`Last_Name` VARCHAR(20)," +
                     " `First_Name` VARCHAR(20), Group INT(255), `Login` VARCHAR(20), `Password` VARCHAR(20)," +
                     " `Preferred_Car_Name` VARCHAR(20), `Logo` VARCHAR(20), `Score` INT(255))");
 
@@ -73,11 +63,13 @@ public class CreateDataBase {
 
         } catch (SQLException ex) {
 
-            if (ex.getErrorCode() == 1050) {
+            if (ex.getErrorCode() != 1050) {
 
-                JOptionPane.showMessageDialog(null, "The table already exists.",
-                        "Car Racing Game", JOptionPane.WARNING_MESSAGE);
+                throw ex;
             }
+
+            JOptionPane.showMessageDialog(null, "The table already exists.",
+                    "Car Racing Game", JOptionPane.WARNING_MESSAGE);
 
         }
     }
@@ -85,21 +77,26 @@ public class CreateDataBase {
     /**
      * Verify that DBProg32758 is created
      *
-     * @param stm The statement object for the desired connection
+     * @param dbConnection The statement object for the desired connection
      * @throws SQLException If there was an error creating the database
      */
-    private void dbValidate(Statement stm) throws SQLException {
+    private void dbValidate(ConnectToDB dbConnection) throws SQLException {
 
         // DB check
         try {
 
-            stm.execute("USE DBProg32758");
+            dbConnection.execute("USE DBProg32758");
 
             JOptionPane.showMessageDialog(null, "The database already exists.",
                     "Car Racing Game", JOptionPane.WARNING_MESSAGE);
         } catch (SQLException e) {
 
-            stm.execute("CREATE DATABASE DBProg32758");
+            if (e.getErrorCode() != 1049) {
+
+                throw e;
+            }
+
+            dbConnection.execute("CREATE DATABASE DBProg32758");
 
             JOptionPane.showMessageDialog(null,
                     "Database Successfully created...\n Click OK to continue.", "Car Racing Game",
