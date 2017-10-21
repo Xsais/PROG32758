@@ -95,7 +95,19 @@ public class ConnectToDB {
      * @param query The desired query to be executed
      * @return The result set of the last successfully executed query
      */
-    public ResultSet executeUpdate(String query) throws SQLException {
+    public int executeUpdate(String query) throws SQLException {
+
+        return statement.executeUpdate(query);
+    }
+
+
+    /**
+     * Method for executing queries in sql returning a ResultSet
+     *
+     * @param query The desired query to be executed
+     * @return The result set of the last successfully executed query
+     */
+    public ResultSet executeQuerry(String query) throws SQLException {
 
         lastResult = statement.executeQuery(query);
 

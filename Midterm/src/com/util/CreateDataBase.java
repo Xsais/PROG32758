@@ -54,7 +54,7 @@ public class CreateDataBase {
 
         try {
             dbConnection.executeUpdate("CREATE TABLE DBProg32758.Players (`Last_Name` VARCHAR(20)," +
-                    " `First_Name` VARCHAR(20), Group INT(255), `Login` VARCHAR(20), `Password` VARCHAR(20)," +
+                    " `First_Name` VARCHAR(20), `Group` INT(255), `Login` VARCHAR(20), `Password` VARCHAR(20)," +
                     " `Preferred_Car_Name` VARCHAR(20), `Logo` VARCHAR(20), `Score` INT(255))");
 
             JOptionPane.showMessageDialog(null,
