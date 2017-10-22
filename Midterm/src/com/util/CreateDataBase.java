@@ -29,11 +29,9 @@ public class CreateDataBase {
      * Initializes the database and prepares it for data entry
      *
      */
-    public CreateDataBase() {
+    public CreateDataBase(ConnectToDB dbConnection) {
 
         try {
-            ConnectToDB dbConnection = Main.getDbConnection();
-
             dbValidate(dbConnection);
             createTable(dbConnection);
         } catch (SQLException ex) {

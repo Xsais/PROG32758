@@ -48,25 +48,20 @@ import java.io.IOException;
 
 public class FXMLHelper {
 
-    public static <T extends Node> void loadControl(T controller) {
+    public static <T extends Node> FXMLLoader loadControl(T controller) {
 
-        loadControl(controller, String.format("%s.fxml"
+        return loadControl(controller, String.format("%s.fxml"
                 , controller.getClass().getSimpleName()));
     }
 
-    public static <T extends Node> void loadControl(T controller, String fxmlName) {
+    public static <T extends Node> FXMLLoader loadControl(T controller, String fxmlName) {
 
         Class<?> controllerClass = controller.getClass();
 
-        FXMLLoader fxmlLoader = new FXMLLoader(controllerClass.getResource(fxmlName));
+        return new FXMLLoader(controllerClass.getResource(fxmlName)) {{
 
-        fxmlLoader.setRoot(controller);
-        fxmlLoader.setController(controller);
-
-        try {
-            fxmlLoader.load();
-        } catch(IOException exception) {
-            throw new RuntimeException(exception);
-        }
+            setRoot(controller);
+            setController(controller);
+        }};
     }
 }

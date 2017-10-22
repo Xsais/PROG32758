@@ -45,17 +45,10 @@ import java.io.IOException;
 import com.util.ConnectToDB;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
-import com.util.ConnectToDB;
+import com.views.pointerpage.PointerPage;
 
 
 public class Main extends Application {
-
-    private static ConnectToDB dbConnection;
-
-    public static ConnectToDB getDbConnection() {
-
-        return dbConnection;
-    }
 
     public static void main(String[] args) {
 
@@ -65,32 +58,23 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
 
+        PointerPage loadPage = new PointerPage();
+
         Scene scene = null;
         try {
 
-            scene = new Scene(FXMLLoader.load(getClass().getResource("/com/views/pointerpage/PointerPage.fxml")));
+            scene = new Scene(loadPage.getLoader().load());
         } catch (IOException e) {
-
             e.printStackTrace();
         }
 
         primaryStage.setTitle("Car Racing Game");
 
-        try {
-
-            dbConnection = new ConnectToDB("localhost","root", "");
-        } catch (SQLException e) {
-
-            JOptionPane.showMessageDialog(null,e.getMessage() + "SQL State: "
-                            + e.getSQLState() + " ErrorCode: " + e.getErrorCode(), "Car Racing Game",
-                    javax.swing.JOptionPane.WARNING_MESSAGE);
-        }
-
-        primaryStage.setOnCloseRequest(c -> dbConnection.closeConnection());
-
         //Specify the scene to be used for the stage a show the window.
         primaryStage.setScene(scene);
 
         primaryStage.show();
+
+        primaryStage.setOnCloseRequest(c -> loadPage.close());
     }
 }

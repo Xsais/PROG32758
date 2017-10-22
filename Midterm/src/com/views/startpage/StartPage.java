@@ -45,6 +45,8 @@ import javafx.scene.control.Button;
 import com.util.FXMLHelper;
 import com.views.adminpage.AdminPage;
 import com.util.PageController;
+import com.util.ConnectToDB;
+import com.views.userpage.UserPage;
 
 public class StartPage extends PageView implements Initializable {
 
@@ -54,9 +56,19 @@ public class StartPage extends PageView implements Initializable {
     @FXML
     private Button btnUser;
 
-    public StartPage() {
+    private PageView userPage;
 
-        FXMLHelper.loadControl(this);
+    private ConnectToDB dbConnection;
+
+    public StartPage(ConnectToDB dbConnection) {
+
+        this.dbConnection = dbConnection;
+
+        try {
+            com.util.FXMLHelper.loadControl(this).load();
+        } catch (java.io.IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private PageView adminPage;
@@ -75,9 +87,12 @@ public class StartPage extends PageView implements Initializable {
 
         btnUser.setText("User\n(Sign-up and Login)");
 
+        btnUser.setOnAction(evt -> pageController.showPage(userPage));
+
         btnAdmin.setOnAction(evt -> pageController.showPage(adminPage));
 
-        adminPage = new AdminPage();
+        adminPage = new AdminPage(dbConnection);
+        userPage = new UserPage(dbConnection);
     }
 
     @Override
@@ -85,5 +100,6 @@ public class StartPage extends PageView implements Initializable {
 
         super.init(pageController);
         pageController.registerPage(adminPage);
+        pageController.registerPage(userPage);
     }
 }

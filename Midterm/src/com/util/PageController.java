@@ -36,18 +36,40 @@
 
 package com.util;
 
-import java.util.List;
-import java.util.ArrayList;
+import com.controls.banner.Banner;
+import com.controls.exitbar.ExitBar;
+import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.effect.BoxBlur;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 
-public abstract class PageController {
+import java.util.ArrayList;
+import java.util.List;
+
+public class PageController extends GridPane implements Initializable {
 
     protected final List<PageView> pages = new ArrayList<>();
 
-    protected PageView previousPage;
+    protected final GridPane switchablePages = new GridPane();
 
-    protected PageView currentPage;
+    protected final GridPane popOuts = new GridPane();
 
-    protected PageView mainPage;
+    private PageView previousPage;
+
+    private PageView currentPage;
+
+    private PageView previousPopup;
+
+    private PageView currentPopup;
+
+    private PageView mainPage;
+
+    private BoxBlur boxBlur = new BoxBlur() {{
+
+        setIterations(2);
+    }};
 
     public PageController() { }
 
@@ -68,9 +90,10 @@ public abstract class PageController {
 
         page.managedProperty().bind(page.visibleProperty());
         page.setVisible(false);
-        pages.add(page);
 
         page.init(this);
+
+        pages.add(page);
     }
 
 
@@ -78,14 +101,30 @@ public abstract class PageController {
 
         switchPages(mainPage);
     }
+
+    /**
+     * Register a page to the controller
+     *
+     * @param pages The desired pane to register
+     * @throws NullPointerException     If the page is null
+     * @throws IllegalArgumentException IF the page has already been registered
+     */
+    public final void registerPage(PageView... pages) throws NullPointerException, IllegalArgumentException {
+
+        for (PageView page : pages) {
+
+            registerPage(page);
+        }
+    }
+
     /**
      * Register a page to the controller
      *
      * @param page The desired pane to register
-     * @throws NullPointerException If the page is null
+     * @throws NullPointerException     If the page is null
      * @throws IllegalArgumentException IF the page has already been registered
      */
-    public final PageController registerPage(PageView page) throws NullPointerException, IllegalArgumentException {
+    public final void registerPage(PageView page) throws NullPointerException, IllegalArgumentException {
 
         if (page == null) {
 
@@ -98,21 +137,93 @@ public abstract class PageController {
 
         pageSetUp(page);
         addRegister(page);
+    }
 
-        return this;
+    private void addRegister(PageView page) {
+
+        switch (page.getPageType()) {
+
+            case Page:
+
+                switchablePages.add(page, 0, 1);
+                break;
+            case Popout:
+
+                popOuts.add(page, 0, 1);
+                break;
+        }
+
+        GridPane.setHgrow(page, Priority.ALWAYS);
+        GridPane.setVgrow(page, Priority.ALWAYS);
     }
 
     private void switchPages(PageView page) {
 
         previousPage = currentPage;
+        previousPopup = currentPopup;
 
         pages.forEach(p -> p.setVisible(false));
         page.setVisible(true);
 
         currentPage = page;
+        currentPopup = null;
+
+        popOuts.setVisible(false);
     }
 
-    protected abstract void addRegister(PageView page);
+    private void switchPopOut(PageView page) {
+
+        previousPopup = currentPopup;
+
+        page.setVisible(true);
+
+        currentPopup = page;
+
+        popOuts.setVisible(true);
+        switchablePages.setEffect(boxBlur);
+    }
+
+    public int hidePopOut() {
+
+        previousPopup = currentPopup;
+
+        if (currentPopup != null) {
+
+            currentPopup.setVisible(false);
+        }
+        currentPopup = null;
+
+        popOuts.setVisible(false);
+        switchablePages.setEffect(null);
+        return 0;
+    }
+
+    /**
+     * Called to initialize a controller after its root element has been completely processed.
+     *
+     * @param location  The location used to resolve relative paths for the root object, or <tt>null</tt> if the
+     *                  location is not known.
+     * @param resources The resources used to localize the root object, or <tt>null</tt> if
+     */
+    @Override
+    public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
+        switchablePages.add(new Banner(), 0, 0);
+
+        switchablePages.setVgap(8.0);
+        switchablePages.setOnMouseClicked(p -> hidePopOut());
+
+        popOuts.add(new ExitBar(sender -> hidePopOut()), 0, 0);
+
+        popOuts.getStyleClass().add("pop-out");
+
+        add(switchablePages, 0, 0);
+        GridPane.setColumnSpan(switchablePages, 3);
+        GridPane.setRowSpan(switchablePages, 3);
+
+        add(popOuts,1, 1);
+        switchablePages.setPrefWidth(getPrefWidth());
+        switchablePages.setPrefHeight(getPrefHeight());
+    }
 
     /**
      * Shows the specified page
@@ -122,15 +233,22 @@ public abstract class PageController {
      */
     public void showPage(PageView page) throws IllegalArgumentException {
 
-        //Verify the giving pane is registered correctly
-        PageView selected = pages.stream().filter(p -> p.equals(page)).toArray(PageView[]::new)[0];
+        if (page.getPageType() != PageType.Page) {
 
-        if (selected == null) {
-
-            throw new IllegalArgumentException("ERROR: The page was not registered correctly");
+            throw new IllegalArgumentException("ERROR: The giving page is not valid");
         }
 
-        switchPages(selected);
+        switchPages(page);
+    }
+
+    public void showPopout(PageView page) throws IllegalArgumentException {
+
+        if (page.getPageType() != com.util.PageType.Popout) {
+
+            throw new IllegalArgumentException("ERROR: The giving page is not valid");
+        }
+
+        switchPopOut(page);
     }
 
     /**
@@ -144,7 +262,7 @@ public abstract class PageController {
 
             if (currentPage == null) {
 
-                throw new  NullPointerException("Error: The requested previous page is null");
+                throw new NullPointerException("Error: The requested previous page is null");
             }
 
             if (mainPage == null) {

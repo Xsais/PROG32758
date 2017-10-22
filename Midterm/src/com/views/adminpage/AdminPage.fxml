@@ -1,45 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import com.controls.banner.Banner?>
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="802.0"
-         prefWidth="1211.0" type="GridPane" vgap="10.0" xmlns="http://javafx.com/javafx/8.0.121"
-         xmlns:fx="http://javafx.com/fxml/1">
-    <Banner />
-    <GridPane styleClass="lightBlue" GridPane.rowIndex="1">
-        <children>
-            <Label styleClass="game-sublabel" text="Database Administration" GridPane.columnSpan="3"
-                   GridPane.halignment="CENTER" GridPane.rowIndex="0"/>
-            <Button styleClass="game-button" text="Create the Database" GridPane.halignment="CENTER"
-                    GridPane.rowIndex="1" GridPane.valignment="TOP" fx:id="btnCreate" />
-            <Button styleClass="game-button" text="Initialize the Database" GridPane.columnIndex="1"
-                    GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" fx:id="btnInit" />
-            <Button styleClass="game-button" text="Display the Database" GridPane.columnIndex="2"
-                    GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" fx:id="btnDisplay" />
-            <Button styleClass="game-button" text="Exit Admin" GridPane.columnIndex="2" GridPane.halignment="CENTER"
-                    GridPane.rowIndex="1" GridPane.valignment="BOTTOM" fx:id="btnExit">
-                <GridPane.margin>
-                    <Insets bottom="85.0"/>
-                </GridPane.margin>
-            </Button>
-        </children>
-        <rowConstraints>
-            <RowConstraints percentHeight="8.9898"/>
-            <RowConstraints percentHeight="91.0102"/>
-        </rowConstraints>
-        <columnConstraints>
-            <ColumnConstraints percentWidth="33.3333"/>
-            <ColumnConstraints percentWidth="33.3333"/>
-            <ColumnConstraints percentWidth="33.3333"/>
-        </columnConstraints>
-    </GridPane>
-    <columnConstraints>
-        <ColumnConstraints percentWidth="100.0"/>
-    </columnConstraints>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<fx:root type="GridPane" styleClass="lightBlue" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Label styleClass="game-sublabel" text="Database Administration" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="0">
+         <GridPane.margin>
+            <Insets bottom="24.0" />
+         </GridPane.margin></Label>
+        <Button fx:id="btnCreate" styleClass="game-button" text="_Create the Database" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+        <Button fx:id="btnInit" styleClass="game-button" text="_Initialize the Database" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+        <Button fx:id="btnDisplay" styleClass="game-button" text="_Display the Database" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+        <Button fx:id="btnExit" styleClass="game-button" text="_Exit Admin" cancelButton="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+            <GridPane.margin>
+                <Insets bottom="85.0" />
+            </GridPane.margin>
+        </Button>
+    </children>
     <rowConstraints>
-        <RowConstraints percentHeight="12.9898"/>
-        <RowConstraints percentHeight="87.0102"/>
+        <RowConstraints />
+      <RowConstraints />
     </rowConstraints>
+    <columnConstraints>
+        <ColumnConstraints percentWidth="33.3333" />
+        <ColumnConstraints percentWidth="33.3333" />
+        <ColumnConstraints percentWidth="33.3333" />
+    </columnConstraints>
 </fx:root>

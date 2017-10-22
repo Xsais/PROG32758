@@ -40,6 +40,13 @@ import javafx.scene.layout.GridPane;
 
 public abstract class PageView extends GridPane {
 
+    protected PageType pageType = PageType.Page;
+
+    public PageType getPageType() {
+
+        return this.pageType;
+    }
+
     protected PageController pageController;
 
     public void init(PageController pageController) {

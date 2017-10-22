@@ -60,9 +60,17 @@ public class AdminPage extends PageView implements Initializable {
     @FXML
     private Button btnDisplay;
 
-    public AdminPage() {
+    private ConnectToDB dbConnection;
 
-        FXMLHelper.loadControl(this);
+    public AdminPage(ConnectToDB dbConnection) {
+
+        this.dbConnection = dbConnection;
+
+        try {
+            com.util.FXMLHelper.loadControl(this).load();
+        } catch (java.io.IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -77,15 +85,15 @@ public class AdminPage extends PageView implements Initializable {
 
         btnExit.setOnAction(evt -> pageController.showPrevious());
 
-        btnCreate.setOnAction(p -> new CreateDataBase());
+        btnCreate.setOnAction(p -> new CreateDataBase(dbConnection));
 
-        /** TODO : Debase Initialization
+        /* TODO : Debase Initialization
             btnInit.setOnAction();
-         **/
+         */
 
-        /** TODO : Debase Display
+        /* TODO : Debase Display
             btnDisplay.setOnAction();
-         **/
+         */
 
     }
 }
