@@ -19,12 +19,11 @@
 
 package com.views.userpage;
 
-import com.util.PageView;
-import com.util.FXMLHelper;
-import javafx.fxml.Initializable;
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import com.util.ConnectToDB;
+import com.util.PageView;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 
 public class UserPage extends PageView implements Initializable {
 

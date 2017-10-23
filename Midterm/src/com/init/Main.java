@@ -37,15 +37,12 @@
 
 package com.init;
 
-import javafx.application.Application;
-import javafx.stage.Stage;
-import javafx.scene.Scene;
-import javafx.fxml.FXMLLoader;
-import java.io.IOException;
-import com.util.ConnectToDB;
-import java.sql.SQLException;
-import javax.swing.JOptionPane;
 import com.views.pointerpage.PointerPage;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 
 public class Main extends Application {

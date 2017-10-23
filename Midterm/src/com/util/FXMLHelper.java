@@ -36,9 +36,8 @@
 
 package com.util;
 
-import javafx.scene.Node;
 import javafx.fxml.FXMLLoader;
-import java.io.IOException;
+import javafx.scene.Node;
 
 /**
  * Maintains the required data for the FXMLHelper object

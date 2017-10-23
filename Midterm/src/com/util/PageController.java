@@ -39,11 +39,9 @@ package com.util;
 import com.controls.banner.Banner;
 import com.controls.exitbar.ExitBar;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.effect.BoxBlur;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,7 +69,9 @@ public class PageController extends GridPane implements Initializable {
         setIterations(2);
     }};
 
-    public PageController() { }
+    public PageController() {
+
+    }
 
     protected final void initMainPage(PageView page) {
 
@@ -207,6 +207,7 @@ public class PageController extends GridPane implements Initializable {
      */
     @Override
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
+
         switchablePages.add(new Banner(), 0, 0);
 
         switchablePages.setVgap(8.0);
@@ -220,7 +221,7 @@ public class PageController extends GridPane implements Initializable {
         GridPane.setColumnSpan(switchablePages, 3);
         GridPane.setRowSpan(switchablePages, 3);
 
-        add(popOuts,1, 1);
+        add(popOuts, 1, 1);
         switchablePages.setPrefWidth(getPrefWidth());
         switchablePages.setPrefHeight(getPrefHeight());
     }

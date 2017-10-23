@@ -18,8 +18,7 @@
 
 package com.util;
 
-import javax.swing.JOptionPane;
-import com.init.Main;
+import javax.swing.*;
 import java.sql.SQLException;
 
 
@@ -27,7 +26,6 @@ public class CreateDataBase {
 
     /**
      * Initializes the database and prepares it for data entry
-     *
      */
     public CreateDataBase(ConnectToDB dbConnection) {
 
@@ -36,8 +34,8 @@ public class CreateDataBase {
             createTable(dbConnection);
         } catch (SQLException ex) {
 
-            JOptionPane.showMessageDialog(null,ex.getMessage() + "SQL State: "
-                    + ex.getSQLState() + " ErrorCode: " + ex.getErrorCode(), "Car Racing Game",
+            JOptionPane.showMessageDialog(null, ex.getMessage() + "SQL State: "
+                            + ex.getSQLState() + " ErrorCode: " + ex.getErrorCode(), "Car Racing Game",
                     javax.swing.JOptionPane.WARNING_MESSAGE);
 
         }

@@ -7,24 +7,25 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<fx:root type="GridPane" styleClass="lightBlue" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root styleClass="lightBlue" type="GridPane" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Label styleClass="game-sublabel" text="Database Administration" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="0">
-         <GridPane.margin>
-            <Insets bottom="24.0" />
-         </GridPane.margin></Label>
-        <Button fx:id="btnCreate" styleClass="game-button" text="_Create the Database" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
-        <Button fx:id="btnInit" styleClass="game-button" text="_Initialize the Database" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
-        <Button fx:id="btnDisplay" styleClass="game-button" text="_Display the Database" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
-        <Button fx:id="btnExit" styleClass="game-button" text="_Exit Admin" cancelButton="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+        <Label styleClass="game-sublabel" text="Database Administration" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="TOP">
             <GridPane.margin>
-                <Insets bottom="85.0" />
+                <Insets bottom="24.0" />
             </GridPane.margin>
-        </Button>
+        </Label>
+        <Button fx:id="btnCreate" styleClass="game-button" text="Create the Database" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+        <Button fx:id="btnInit" styleClass="game-button" text="Initialize the Database" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+        <Button fx:id="btnDisplay" styleClass="game-button" text="Display the Database" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+        <Button fx:id="btnExit" cancelButton="true" styleClass="game-button" text="Exit Admin" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+         <GridPane.margin>
+            <Insets />
+         </GridPane.margin></Button>
     </children>
     <rowConstraints>
         <RowConstraints />
-      <RowConstraints />
+        <RowConstraints percentHeight="66.6667" />
+        <RowConstraints percentHeight="33.3333" />
     </rowConstraints>
     <columnConstraints>
         <ColumnConstraints percentWidth="33.3333" />

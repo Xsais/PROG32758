@@ -36,17 +36,17 @@
 
 package com.views.startpage;
 
-import javafx.fxml.Initializable;
-import java.util.ResourceBundle;
-import java.net.URL;
-import com.util.PageView;
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import com.util.FXMLHelper;
-import com.views.adminpage.AdminPage;
-import com.util.PageController;
 import com.util.ConnectToDB;
+import com.util.PageController;
+import com.util.PageView;
+import com.views.adminpage.AdminPage;
 import com.views.userpage.UserPage;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class StartPage extends PageView implements Initializable {
 
@@ -60,6 +60,8 @@ public class StartPage extends PageView implements Initializable {
 
     private ConnectToDB dbConnection;
 
+    private PageView adminPage;
+
     public StartPage(ConnectToDB dbConnection) {
 
         this.dbConnection = dbConnection;
@@ -70,8 +72,6 @@ public class StartPage extends PageView implements Initializable {
             e.printStackTrace();
         }
     }
-
-    private PageView adminPage;
 
     /**
      * Called to initialize a controller after its root element has been completely processed.

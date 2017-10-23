@@ -19,23 +19,17 @@
 
 package com.controls.banner;
 
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import javafx.fxml.FXML;
-import javafx.collections.ObservableList;
-import javafx.scene.control.Label;
+
 import java.net.URL;
 import java.util.ResourceBundle;
-import com.util.FXMLHelper;
 
 public class Banner extends GridPane implements Initializable {
-
-    @FXML
-    private VBox vbCredits;
-
-    @FXML
-    private Label lblDesignedBy;
 
     private final String groupName = "Group 1";
 
@@ -45,6 +39,12 @@ public class Banner extends GridPane implements Initializable {
             "Nathaniel Primo",
             "Michael Marc"
     };
+
+    @FXML
+    private VBox vbCredits;
+
+    @FXML
+    private Label lblDesignedBy;
 
     public Banner() {
 

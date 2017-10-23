@@ -42,12 +42,12 @@ public abstract class PageView extends GridPane {
 
     protected PageType pageType = PageType.Page;
 
+    protected PageController pageController;
+
     public PageType getPageType() {
 
         return this.pageType;
     }
-
-    protected PageController pageController;
 
     public void init(PageController pageController) {
 

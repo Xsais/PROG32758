@@ -49,14 +49,14 @@ public class PointerPage extends PageController {
 
     private ConnectToDB dbConnection;
 
-    public javafx.fxml.FXMLLoader getLoader() {
-
-        return loader;
-    }
-
     public PointerPage() {
 
         loader = com.util.FXMLHelper.loadControl(this);
+    }
+
+    public javafx.fxml.FXMLLoader getLoader() {
+
+        return loader;
     }
 
     /**
