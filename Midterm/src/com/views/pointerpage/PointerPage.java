@@ -36,21 +36,28 @@
 
 package com.views.pointerpage;
 
-import javafx.fxml.Initializable;
+import com.util.ConnectToDB;
 import com.util.PageController;
 import com.views.startpage.StartPage;
-import javafx.fxml.FXML;
-import javafx.scene.layout.GridPane;
-import com.util.PageView;
-import javafx.collections.ObservableList;
-import javafx.scene.Node;
 
-public class PointerPage extends PageController implements Initializable {
+import java.net.URL;
+import java.util.ResourceBundle;
 
-    @FXML
-    private GridPane pagesRegistry;
+public class PointerPage extends PageController {
 
-    private ObservableList<Node> pagesChildren;
+    private javafx.fxml.FXMLLoader loader;
+
+    private ConnectToDB dbConnection;
+
+    public PointerPage() {
+
+        loader = com.util.FXMLHelper.loadControl(this);
+    }
+
+    public javafx.fxml.FXMLLoader getLoader() {
+
+        return loader;
+    }
 
     /**
      * Called to initialize a controller after its root element has been completely processed.
@@ -60,16 +67,26 @@ public class PointerPage extends PageController implements Initializable {
      * @param resources The resources used to localize the root object, or <tt>null</tt> if
      */
     @Override
-    public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
+    public void initialize(URL location, ResourceBundle resources) {
 
-        pagesChildren = pagesRegistry.getChildren();
-        initMainPage(new StartPage());
+        super.initialize(location, resources);
+        try {
+
+            dbConnection = new ConnectToDB("localhost", "root", "");
+        } catch (java.sql.SQLException e) {
+
+            javax.swing.JOptionPane.showMessageDialog(null, e.getMessage() + "SQL State: "
+                            + e.getSQLState() + " ErrorCode: " + e.getErrorCode(), "Car Racing Game",
+                    javax.swing.JOptionPane.WARNING_MESSAGE);
+        }
+
+        initMainPage(new StartPage(dbConnection));
         showMain();
     }
 
-    @Override
-    protected void addRegister(PageView page) {
+    public int close() {
 
-        pagesChildren.add(page);
+        dbConnection.closeConnection();
+        return 0;
     }
 }

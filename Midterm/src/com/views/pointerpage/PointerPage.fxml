@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import java.net.URL?>
 <?import javafx.scene.layout.*?>
-
-<GridPane xmlns="http://javafx.com/javafx" fx:id="pagesRegistry"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.views.pointerpage.PointerPage" alignment="CENTER">
-
+<?import java.net.URL?>
+<fx:root xmlns:fx="http://javafx.com/fxml/1" type="GridPane"
+         alignment="CENTER" minWidth="-Infinity" minHeight="-Infinity" maxHeight="Infinity" maxWidth="Infinity"
+         prefHeight="802.0" prefWidth="1211.0"
+         xmlns="http://javafx.com/javafx/8.0.121">
     <stylesheets>
         <URL value="@/com/res/styles/css-root.css"/>
     </stylesheets>
-</GridPane>
+    <columnConstraints>
+        <ColumnConstraints percentWidth="10.0"/>
+        <ColumnConstraints percentWidth="80.0"/>
+        <ColumnConstraints percentWidth="10.0"/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints percentHeight="10.0"/>
+        <RowConstraints percentHeight="80.0"/>
+        <RowConstraints percentHeight="10.0"/>
+    </rowConstraints>
+</fx:root>

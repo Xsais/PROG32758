@@ -29,6 +29,20 @@ public class ConnectToDB {
 
     private ResultSet lastResult;
 
+    /**
+     * Method for registering Driver and creating connection to user defined database
+     *
+     * @param subName The desired Sub-Domain
+     * @param user    The desired user
+     * @param pass    The desired password for the giving user
+     */
+    public ConnectToDB(String subName, String user, String pass) throws SQLException {
+
+        connection = DriverManager.getConnection(String.format("jdbc:mysql://%s:3306", subName), user, pass);
+
+        statement = connection.createStatement();
+    }
+
     public Connection getConnection() {
 
         return connection;
@@ -61,21 +75,6 @@ public class ConnectToDB {
             e.printStackTrace();
         }
     }
-
-    /**
-     * Method for registering Driver and creating connection to user defined database
-     *
-     * @param subName The desired Sub-Domain
-     * @param user    The desired user
-     * @param pass    The desired password for the giving user
-     */
-    public ConnectToDB(String subName, String user, String pass) throws SQLException {
-
-        connection = DriverManager.getConnection(String.format("jdbc:mysql://%s:3306", subName), user, pass);
-
-        statement = connection.createStatement();
-    }
-
 
     /**
      * Method for executing statements in sql
