@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.SVGPath?>
+<fx:root xmlns:fx="http://javafx.com/fxml/1" alignment="TOP_RIGHT" type="GridPane"
+         xmlns="http://javafx.com/javafx/8.0.121">
+    <children>
+        <Pane fx:id="pneClose" styleClass="climbable">
+            <SVGPath content="M2 14L14 2M2 2l12 12" stroke="#F44336" strokeWidth="2.0" scaleX="0.75"
+                     scaleY="0.75"/>
+            <GridPane.margin>
+                <Insets right="10.0" top="10.0" bottom="16.0"/>
+            </GridPane.margin>
+        </Pane>
+    </children>
+    <columnConstraints>
+        <ColumnConstraints/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints/>
+    </rowConstraints>
+</fx:root>
