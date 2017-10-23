@@ -35,7 +35,8 @@ public class UserLogin {
 		if(isValidLogin()) {
 			
 			// TODO: open page to play game
-		// inform user after 3 falied attempts that they have been locked out of the database	
+			
+		// inform user after 3 failed attempts that they have been locked out of the database	
 		} else {
 			
 			JOptionPane.showConfirmDialog(null, "Your account has been locked\n Please contact your Database "
@@ -88,11 +89,15 @@ public class UserLogin {
 			if(rs != null && rs.getString("Password") == userPassword) {
 				
 				valid = true;
+				break;	
+			
+			// check if user account is already locked and break loop if so
+			} else if(rs.getString("Password") == "xxxxxx") {
+				
 				break;
 				
-			
-			//	inform user that user login and/or password are incorrect
-			} else {
+			// inform user that user login and/or password are incorrect	
+			}else {
 				
 				JOptionPane.showConfirmDialog(null, "The Login and Password are not correct\n Please try again"
 						+ "if you are already registered or complete your registration if you are not", "Car Racing Game", 
