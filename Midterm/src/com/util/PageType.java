@@ -21,6 +21,6 @@ package com.util;
 
 public enum PageType {
 
-    Page,
-    Popout
+    PAGE,
+    POP_OUT
 }

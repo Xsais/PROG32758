@@ -37,10 +37,14 @@
 package com.views.pointerpage;
 
 import com.util.ConnectToDB;
+import com.util.FXMLHelper;
 import com.util.PageController;
 import com.views.startpage.StartPage;
+import javafx.fxml.FXMLLoader;
 
+import javax.swing.*;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class PointerPage extends PageController {
@@ -51,10 +55,10 @@ public class PointerPage extends PageController {
 
     public PointerPage() {
 
-        loader = com.util.FXMLHelper.loadControl(this);
+        loader = FXMLHelper.loadControl(this);
     }
 
-    public javafx.fxml.FXMLLoader getLoader() {
+    public FXMLLoader getLoader() {
 
         return loader;
     }
@@ -73,11 +77,11 @@ public class PointerPage extends PageController {
         try {
 
             dbConnection = new ConnectToDB("localhost", "root", "");
-        } catch (java.sql.SQLException e) {
+        } catch (SQLException e) {
 
-            javax.swing.JOptionPane.showMessageDialog(null, e.getMessage() + "SQL State: "
+            JOptionPane.showMessageDialog(null, e.getMessage() + "SQL State: "
                             + e.getSQLState() + " ErrorCode: " + e.getErrorCode(), "Car Racing Game",
-                    javax.swing.JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.WARNING_MESSAGE);
         }
 
         initMainPage(new StartPage(dbConnection));

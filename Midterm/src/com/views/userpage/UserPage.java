@@ -24,6 +24,7 @@ import com.util.PageView;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import com.util.UserLogin;
 
 public class UserPage extends PageView implements Initializable {
 
@@ -55,9 +56,7 @@ public class UserPage extends PageView implements Initializable {
     @Override
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
 
-        /* TODO: User Login
-            btnLogin.setOnAction();
-        */
+        btnLogin.setOnAction(p -> new UserLogin(dbConnection));
 
         /* TODO: User Creation
             btnCreate.setOnAction();

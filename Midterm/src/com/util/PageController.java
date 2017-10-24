@@ -143,11 +143,11 @@ public class PageController extends GridPane implements Initializable {
 
         switch (page.getPageType()) {
 
-            case Page:
+            case PAGE:
 
                 switchablePages.add(page, 0, 1);
                 break;
-            case Popout:
+            case POP_OUT:
 
                 popOuts.add(page, 0, 1);
                 break;
@@ -231,10 +231,12 @@ public class PageController extends GridPane implements Initializable {
      *
      * @param page The page in which to be shown
      * @throws IllegalArgumentException If the page was not registered
+     * @deprecated Replaced by {@link #show(PageView)}
      */
+    @Deprecated
     public void showPage(PageView page) throws IllegalArgumentException {
 
-        if (page.getPageType() != PageType.Page) {
+        if (page.getPageType() != PageType.PAGE) {
 
             throw new IllegalArgumentException("ERROR: The giving page is not valid");
         }
@@ -242,9 +244,39 @@ public class PageController extends GridPane implements Initializable {
         switchPages(page);
     }
 
+    /**
+     * Shows the specified page or popout
+     *
+     * @param page The page in which to be shown
+     * @throws IllegalArgumentException If the page was not registered
+     */
+    public void show(PageView page) throws IllegalArgumentException {
+
+        switch (page.getPageType()) {
+            case PAGE:
+
+                switchPages(page);
+                break;
+            case POP_OUT:
+
+                showPopout(page);
+                break;
+        }
+
+        switchPages(page);
+    }
+
+    /**
+     * Shows the specified popout
+     *
+     * @param page The page in which to be shown
+     * @throws IllegalArgumentException If the page was not registered
+     * @deprecated Replaced by {@link #show(PageView)}
+     */
+    @Deprecated
     public void showPopout(PageView page) throws IllegalArgumentException {
 
-        if (page.getPageType() != com.util.PageType.Popout) {
+        if (page.getPageType() != com.util.PageType.POP_OUT) {
 
             throw new IllegalArgumentException("ERROR: The giving page is not valid");
         }

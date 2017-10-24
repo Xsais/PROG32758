@@ -73,6 +73,10 @@ public class AdminPage extends PageView implements Initializable {
         }
     }
 
+    public void s(javafx.beans.Observable p) {
+
+    }
+
     /**
      * Called to initialize a controller after its root element has been completely processed.
      *

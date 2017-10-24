@@ -87,9 +87,9 @@ public class StartPage extends PageView implements Initializable {
 
         btnUser.setText("User\n(Sign-up and Login)");
 
-        btnUser.setOnAction(evt -> pageController.showPage(userPage));
+        btnUser.setOnAction(evt -> pageController.show(userPage));
 
-        btnAdmin.setOnAction(evt -> pageController.showPage(adminPage));
+        btnAdmin.setOnAction(evt -> pageController.show(adminPage));
 
         adminPage = new AdminPage(dbConnection);
         userPage = new UserPage(dbConnection);

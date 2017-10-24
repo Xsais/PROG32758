@@ -38,9 +38,9 @@ package com.util;
 
 import javafx.scene.layout.GridPane;
 
-public abstract class PageView extends GridPane {
+public class PageView extends GridPane {
 
-    protected PageType pageType = PageType.Page;
+    protected PageType pageType = PageType.PAGE;
 
     protected PageController pageController;
 
