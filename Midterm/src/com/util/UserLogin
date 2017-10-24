@@ -7,10 +7,11 @@ import javax.swing.*;
 
 public class UserLogin {
 
-	String userLogin = null;
-	String userPassword = null;
-	ResultSet rs = null;
-	ConnectToDB dbConnection;
+	private String userLogin = null;
+	private String userPassword = null;
+	private ResultSet rs = null;
+	private ConnectToDB dbConnection;
+	private static final String LOCK_OUT_CODE = "xxxxxx";
 
 	public UserLogin() throws HeadlessException, SQLException {
 
@@ -35,8 +36,7 @@ public class UserLogin {
 
 			// TODO: open page to play game
 
-			// inform user after 3 failed attempts that they have been locked out of the
-			// database
+			// inform user after 3 failed attempts that they have been locked out of the database
 		} else {
 
 			JOptionPane.showMessageDialog(null,
@@ -45,7 +45,7 @@ public class UserLogin {
 			try {
 
 				dbConnection.executeUpdate(
-						String.format("UPDATE Players SET Password = 'xxxxxx' WHERE Login = '%s'", userLogin));
+						String.format("UPDATE Players SET Password = '%s' WHERE Login = '%s'", LOCK_OUT_CODE, userLogin));
 
 			} catch (SQLException e) {
 
@@ -54,6 +54,7 @@ public class UserLogin {
 		}
 	}
 
+	
 	public boolean isValidLogin() throws HeadlessException, SQLException {
 
 		boolean valid = false;
@@ -68,14 +69,24 @@ public class UserLogin {
 			JTextField password = new JPasswordField();
 			Object[] userInput = { loginLabel, login, passwordLabel, password };
 
-			// show login pop window to user
+			// show login pop up window to user
 			JOptionPane.showConfirmDialog(null, userInput, "Please enter your login and password",
 					JOptionPane.DEFAULT_OPTION);
 
+			/* account for empty fields and prompt user for corrections to mistakes
+			while(userInput[1].equals(null) || userInput[3].equals(null) || userInput[3].toString().equals(LOCK_OUT_CODE)) {
+				JOptionPane.showMessageDialog(null, "Login and Password fields can not be empty\n Your password can not be 'xxxxxx'",
+						"Car Racing Game", JOptionPane.WARNING_MESSAGE);
+				
+				JOptionPane.showConfirmDialog(null, userInput, "Please enter your login and password",
+						JOptionPane.DEFAULT_OPTION);
+			}*/
+			
 			// capture user data
 			userLogin = login.getText();
 			userPassword = password.getText();
 
+			
 			// check existence of user login
 			try {
 
@@ -87,15 +98,16 @@ public class UserLogin {
 			}
 
 			if (rs.next()) {
+				// check if user account is already locked and break loop if so
+				if (rs.getString("Password").equals(LOCK_OUT_CODE)) {
+					
+					
+					break;
+					
 				// check password
-				if (rs.getString("Password").equals(userPassword)) {
+				} else if (rs.getString("Password").equals(userPassword)) {
 
 					valid = true;
-					break;
-
-					// check if user account is already locked and break loop if so
-				} else if (rs.getString("Password").equals("xxxxxx")) {
-
 					break;
 
 					// inform user that user login and/or password are incorrect
@@ -114,8 +126,8 @@ public class UserLogin {
 								+ " if you are already registered or complete your registration if you are not",
 						"Car Racing Game", JOptionPane.INFORMATION_MESSAGE);
 			}
-
 		}
+		
 		// returns true if valid user login and password are given, false if not
 		return valid;
 	}
