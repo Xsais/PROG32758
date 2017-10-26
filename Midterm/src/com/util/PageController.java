@@ -58,8 +58,6 @@ public class PageController extends GridPane implements Initializable {
 
     private PageView currentPage;
 
-    private PageView previousPopup;
-
     private PageView currentPopup;
 
     private PageView mainPage;
@@ -159,8 +157,9 @@ public class PageController extends GridPane implements Initializable {
 
     private void switchPages(PageView page) {
 
+        hidePopOut();
+
         previousPage = currentPage;
-        previousPopup = currentPopup;
 
         pages.forEach(p -> p.setVisible(false));
         page.setVisible(true);
@@ -173,7 +172,7 @@ public class PageController extends GridPane implements Initializable {
 
     private void switchPopOut(PageView page) {
 
-        previousPopup = currentPopup;
+        hidePopOut();
 
         page.setVisible(true);
 
@@ -184,8 +183,6 @@ public class PageController extends GridPane implements Initializable {
     }
 
     public int hidePopOut() {
-
-        previousPopup = currentPopup;
 
         if (currentPopup != null) {
 
@@ -259,11 +256,9 @@ public class PageController extends GridPane implements Initializable {
                 break;
             case POP_OUT:
 
-                showPopout(page);
+                switchPopOut(page);
                 break;
         }
-
-        switchPages(page);
     }
 
     /**
