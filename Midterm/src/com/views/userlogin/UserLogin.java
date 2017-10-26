@@ -1,117 +1,137 @@
-package com.views.userlogin;
+/*
 
-import javax.swing.*;
-import java.awt.*;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+ * ----------------------------------------------------------------------------+
 
-public class UserLogin {
+ * Group Leader: Daniel Hope
 
-    private static final String LOCK_OUT_CODE = "xxxxxx";
+ * Member(s): Georgina Luce
 
-    public UserLogin(com.util.ConnectToDB dbConnection) {
+ *            Nathaniel Primo
 
-        String[] userCred = new String[2];
+ *            Michael Marc
 
-        // check if user defined login and password are valid
+ * Group #: 1
+
+ * Filename: UserPage.java
+
+ * Main class: 
+
+ * Other Files in this Project:
+
+ *     - 
+
+ * Assignment: 
+
+ * Creation Date: 10, 2017 21
+
+ * Last Modified: 10, 2017 21
+
+ * Java Version: 
+
+ * Description: The representation of a Car object
+
+ * ----------------------------------------------------------------------------+
+
+ */
+
+
+
+package com.views.userpage;
+
+
+
+import com.util.ConnectToDB;
+import com.util.PageController;
+import com.util.PageType;
+import com.util.PageView;
+import com.views.adminpage.AdminPage;
+import com.views.userlogin.UserLogin;
+
+import javafx.fxml.FXML;
+
+import javafx.fxml.Initializable;
+
+import javafx.scene.control.Button;
+
+
+
+public class UserPage extends PageView implements Initializable {
+
+
+
+    @FXML
+
+    private Button btnLogin;
+
+
+
+    @FXML
+
+    private Button btnCreate;
+
+
+
+    private ConnectToDB dbConnection;
+    
+    
+    private UserLogin userLogin;
+
+    
+
+    public UserPage(ConnectToDB dbConnection) {
+
+
+
+        this.dbConnection = dbConnection;
+
         try {
-            if (isValidLogin(dbConnection, userCred)) {
 
-                // TODO: open page to play game
+            com.util.FXMLHelper.loadControl(this).load();
 
-                // inform user after 3 failed attempts that they have been locked out of the database
-            } else {
+        } catch (java.io.IOException e) {
 
-                javax.swing.JOptionPane.showMessageDialog(null,
-                        "Your account has been locked\n Please contact your Database " + "Administrator", "Car Racing Game",
-                        javax.swing.JOptionPane.INFORMATION_MESSAGE);
-                try {
-
-                    dbConnection.executeUpdate(
-                            String.format("UPDATE DBProg32758.Players SET Password = '%s' WHERE Login = '%s'", LOCK_OUT_CODE, userCred[0]));
-
-                } catch (java.sql.SQLException e) {
-
-                    e.printStackTrace();
-                }
-            }
-        } catch (SQLException e) {
             e.printStackTrace();
+
         }
+
     }
 
+    /**
 
-    public boolean isValidLogin(com.util.ConnectToDB dbConnection, String[] userCred) throws HeadlessException, SQLException {
+     * Called to initialize a controller after its root element has been completely processed.
 
-        // Create pop up window for user to enter login and password
-        JTextField login = new JTextField();
-        JTextField password = new JPasswordField();
+     *
 
-        Object[] userInput = {new JLabel("User Login: "), login, new JLabel("Password: "), password};
+     * @param location  The location used to resolve relative paths for the root object, or <tt>null</tt> if the
 
-        // check for valid login and password combo 3 times
-        for (int i = 0; i < 3; i++) {
+     *                  location is not known.
 
-            // show login pop up window to user
-            JOptionPane.showConfirmDialog(null, userInput, "Please enter your login and password",
-                    JOptionPane.DEFAULT_OPTION);
+     * @param resources The resources used to localize the root object, or <tt>null</tt> if
 
-            // account for empty fields and prompt user for corrections to mistakes
-            if (login.getText().equals("")) {
-                JOptionPane.showMessageDialog(null, "Login fields can not be empty",
-                        "Car Racing Game", JOptionPane.WARNING_MESSAGE);
+     */
 
-                --i;
-                continue;
-            }
+    @Override
 
-            // capture user data
-            userCred[0] = login.getText();
-            userCred[1] = password.getText();
+    public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
 
-            ResultSet rs = null;
+    	userLogin = new UserLogin(dbConnection);
+    	  
+        btnLogin.setOnAction(p -> pageController.show(userLogin));
+			
 
+        /* TODO: User Creation
 
-            // check existence of user login
-            try {
+            btnCreate.setOnAction();
 
-                rs = dbConnection.executeQuerry(String.format("SELECT * FROM DBProg32758.Players WHERE Login = '%s'", userCred[0]));
+        */
+          
+    }
+    
+    public void init(PageController pageController) {
 
-            } catch (SQLException e) {
+    	super.init(pageController);
 
-                e.printStackTrace();
-            }
-            if (rs.next()) {
-                // check if user account is already locked and break loop if so
-                if (rs.getString("Password").equals(LOCK_OUT_CODE)) {
+    	pageController.registerPage(userLogin);
 
-
-                    break;
-
-                    // check password
-                } else if (rs.getString("Password").equals(userCred[1])) {
-
-                    return true;
-
-                    // inform user that user login and/or password are incorrect
-                } else {
-
-                    JOptionPane.showMessageDialog(null,
-                            "The Login and Password are not correct\n Please try again"
-                                    + " if you are already registered or complete your registration if you are not",
-                            "Car Racing Game", JOptionPane.INFORMATION_MESSAGE);
-
-                }
-            } else {
-
-                JOptionPane.showMessageDialog(null,
-                        "The Login and Password are not correct\n Please try again"
-                                + " if you are already registered or complete your registration if you are not",
-                        "Car Racing Game", JOptionPane.INFORMATION_MESSAGE);
-            }
-        }
-
-        // returns true if valid user login and password are given, false if not
-        return false;
     }
 }
