@@ -18,7 +18,7 @@
 
                 GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
         
-        <Label fx:id="lblPassword" text="Enter User Password: " GridPane.Halignment="CENTER" GridPane.rowIndex="3"
+        <Label fx:id="lblPassword" text="Enter User Password: " GridPane.halignment="CENTER" GridPane.rowIndex="3"
 
                 GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP"/>
                 
@@ -26,11 +26,11 @@
 
                 GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="TOP"/>  
                
-       <TextField fx:id="txtPassword" GridPane.Halignment="CENTER" GridPane.rowIndex="3"
+       <TextField fx:id="txtPassword" GridPane.halignment="CENTER" GridPane.rowIndex="3"
 
                 GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="TOP"/>  
                 
-       <Label fx:id="lblLoginEmpty" text="Your User Login can not be empty..." GridPane.Halignment="CENTER" GridPane.rowIndex="2"
+       <Label fx:id="lblLoginEmpty" text="Your User Login can not be empty..." GridPane.halignment="CENTER" GridPane.rowIndex="2"
 
                 GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="TOP"/>  
                 
@@ -38,7 +38,7 @@
 
                 GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="TOP"/>  
                 
-       <Button fx:id="btnLogin" styleClass="game-button" text="Login" GridPane.Halignment="CENTER"
+       <Button fx:id="btnLogin" styleClass="game-button" text="Login" GridPane.halignment="CENTER"
 
                 GridPane.halignment="CENTER" GridPane.valignment="BOTTOM"/>          
 
@@ -54,8 +54,11 @@
 
     <rowConstraints>
 
-        <RowConstraints/>
-
+		<RowConstraints percentHeight="25.0"/>
+        <RowConstraints percentHeight="25.0"/>
+		<RowConstraints percentHeight="25.0"/>
+		<RowConstraints percentHeight="25.0"/>
+		
     </rowConstraints>
 
     <padding>
