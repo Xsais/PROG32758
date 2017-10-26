@@ -24,7 +24,7 @@ import com.util.PageView;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import com.util.UserLogin;
+import com.views.userlogin.UserLogin;
 
 public class UserPage extends PageView implements Initializable {
 

@@ -1,4 +1,4 @@
-package com.util;
+package com.views.userlogin;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,7 +9,7 @@ public class UserLogin {
 
     private static final String LOCK_OUT_CODE = "xxxxxx";
 
-    public UserLogin(ConnectToDB dbConnection) {
+    public UserLogin(com.util.ConnectToDB dbConnection) {
 
         String[] userCred = new String[2];
 
@@ -41,7 +41,7 @@ public class UserLogin {
     }
 
 
-    public boolean isValidLogin(ConnectToDB dbConnection, String[] userCred) throws HeadlessException, SQLException {
+    public boolean isValidLogin(com.util.ConnectToDB dbConnection, String[] userCred) throws HeadlessException, SQLException {
 
         // Create pop up window for user to enter login and password
         JTextField login = new JTextField();
