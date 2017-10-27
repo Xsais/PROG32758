@@ -82,6 +82,8 @@ public class PointerPage extends PageController {
             JOptionPane.showMessageDialog(null, e.getMessage() + "SQL State: "
                             + e.getSQLState() + " ErrorCode: " + e.getErrorCode(), "Car Racing Game",
                     JOptionPane.WARNING_MESSAGE);
+
+            System.exit(close());
         }
 
         initMainPage(new StartPage(dbConnection));
@@ -90,6 +92,10 @@ public class PointerPage extends PageController {
 
     public int close() {
 
+        if (dbConnection == null) {
+
+            return -1;
+        }
         dbConnection.closeConnection();
         return 0;
     }
