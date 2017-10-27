@@ -39,6 +39,9 @@ package com.util;
 import com.controls.banner.Banner;
 import com.controls.exitbar.ExitBar;
 import javafx.fxml.Initializable;
+import javafx.geometry.HPos;
+import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.effect.BoxBlur;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
@@ -178,6 +181,11 @@ public class PageController extends GridPane implements Initializable {
 
         currentPopup = page;
 
+        popOuts.setPrefWidth(page.getPrefWidth());
+        popOuts.setPrefHeight(page.getPrefHeight());
+
+        popOuts.setBackground(page.getBackground());
+
         popOuts.setVisible(true);
         switchablePages.setEffect(boxBlur);
     }
@@ -215,12 +223,20 @@ public class PageController extends GridPane implements Initializable {
         popOuts.getStyleClass().add("pop-out");
 
         add(switchablePages, 0, 0);
-        GridPane.setColumnSpan(switchablePages, 3);
-        GridPane.setRowSpan(switchablePages, 3);
 
-        add(popOuts, 1, 1);
-        switchablePages.setPrefWidth(getPrefWidth());
-        switchablePages.setPrefHeight(getPrefHeight());
+        GridPane.setHgrow(switchablePages, Priority.ALWAYS);
+        GridPane.setVgrow(switchablePages, Priority.ALWAYS);
+
+        popOuts.setMinWidth(Double.NEGATIVE_INFINITY);
+        popOuts.setMinHeight(Double.NEGATIVE_INFINITY);
+        popOuts.setMaxWidth(Double.NEGATIVE_INFINITY);
+        popOuts.setMaxHeight(Double.NEGATIVE_INFINITY);
+
+        add(popOuts, 0, 0);
+        popOuts.setAlignment(Pos.CENTER);
+
+        GridPane.setHalignment(popOuts, HPos.CENTER);
+        GridPane.setValignment(popOuts, VPos.CENTER);
     }
 
     /**
