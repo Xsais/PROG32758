@@ -29,7 +29,9 @@ public class UserLogin extends PageView implements Initializable {
 	private ResultSet rs = null;
 	private ConnectToDB dbConnection;
 	private static final String LOCK_OUT_CODE = "xxxxxx";
-
+	
+	
+	// constructor that creates connection to DB and sets object as pop out type page
 	public UserLogin(ConnectToDB dbConnection) {
 		
 		pageType = PageType.POP_OUT;
@@ -58,8 +60,33 @@ public class UserLogin extends PageView implements Initializable {
 			
 	}
 
+	
+	// method informs user that their account has been locked, locks the account, and exits login pop out window
+	public void showLockOutMessage() throws SQLException {
 		
-	public boolean isValidLogin() throws HeadlessException, SQLException {
+		JOptionPane.showMessageDialog(null,
+				"Your account has been locked\n Please contact your Database Administrator",
+				"Car Racing Game", JOptionPane.INFORMATION_MESSAGE);
+		
+		dbConnection.executeUpdate(String.format("UPDATE Players SET Password = 'xxxxxx' WHERE Login = '%s'",  
+				txtLogin.getText()));
+		
+		btnExit.fire();
+	}
+	
+	// method informs user of incorrect login/password and increments falied attempts counter by one
+	public void showLoginErrorMessage() {
+		
+		JOptionPane.showMessageDialog(null,
+				"The Login and Password are not correct\n Please try again"
+						+ " if you are already registered or complete your registration if you are not",
+				"Car Racing Game", JOptionPane.INFORMATION_MESSAGE);
+		
+		failCount +=1;
+	}
+	
+	// method queries DB for login/password and checks against user input for validity
+	public void isValidLogin() throws HeadlessException, SQLException {
 
 		if (failCount < 3) {
 
@@ -67,8 +94,7 @@ public class UserLogin extends PageView implements Initializable {
 			try {
 				
 				// check DB for user defined login
-				rs = dbConnection
-						.executeQuerry(String.format("SELECT * FROM Players WHERE Login = '%s'", 
+				rs = dbConnection.executeQuerry(String.format("SELECT * FROM Players WHERE Login = '%s'", 
 								txtLogin.getText()));
 
 			} catch (SQLException e) {
@@ -82,62 +108,47 @@ public class UserLogin extends PageView implements Initializable {
 				// if login is valid, check if user account is already locked
 				if (rs.getString("Password").equals(LOCK_OUT_CODE)) {
 					
-					JOptionPane.showMessageDialog(null,
-							"Your account has been locked\n Please contact your Database Administrator",
-							"Car Racing Game", JOptionPane.INFORMATION_MESSAGE);
+					showLockOutMessage();
 
 					failCount = 3;
 
 					// if login is valid, check password validity associated with login
 				} else if (rs.getString("Password").equals(txtPassword.getText())) {
 					
-					btnUserLogin.setDisable(false);
 					failCount = 0;
-					return true;
+					
+					//TODO: connect to GamePage
+					
 
 					// inform user that login and/or password are incorrect (password incorrect scenario)
 				} else {
 
-					JOptionPane.showMessageDialog(null,
-							"The Login and Password are not correct\n Please try again"
-									+ " if you are already registered or complete your registration if you are not",
-							"Car Racing Game", JOptionPane.INFORMATION_MESSAGE);
+					showLoginErrorMessage();
 					
-					if (failCount == 2) {
-						JOptionPane.showMessageDialog(null,
-								"Your account has been locked\n Please contact your Database Administrator",
-								"Car Racing Game", JOptionPane.INFORMATION_MESSAGE);
-						dbConnection.executeUpdate(String.format("UPDATE Players SET Password = 'xxxxxx' WHERE Login = '%s'",  
-								txtLogin.getText()));
+					if (failCount == 3) {
+						
+						showLockOutMessage();
+						
 					}
 
 				}
 				// inform user that login and/or password are incorrect (login incorrect scenario)
 			} else {
 
-				JOptionPane.showMessageDialog(null,
-						"The Login and Password are not correct\n Please try again"
-								+ " if you are already registered or complete your registration if you are not",
-						"Car Racing Game", JOptionPane.INFORMATION_MESSAGE);
+				showLoginErrorMessage();
 				
-				if (failCount == 2) {
-					JOptionPane.showMessageDialog(null,
-							"Your account has been locked\n Please contact your Database Administrator",
-							"Car Racing Game", JOptionPane.INFORMATION_MESSAGE);
-					dbConnection.executeUpdate(String.format("UPDATE Players SET Password = 'xxxxxx' WHERE Login = '%s'",  
-							txtLogin.getText()));
+				if (failCount == 3) {
+					
+					showLockOutMessage();
+					
 				}
 			}
 		} else {
 			
-			JOptionPane.showMessageDialog(null,
-					"Your account has been locked\n Please contact your Database Administrator",
-					"Car Racing Game", JOptionPane.INFORMATION_MESSAGE);
+			showLockOutMessage();
 		}
-
-		// returns false for incorrect login and/or password
-		return false;
 	}
+	
 	
 	public void isBlankField() {
 		
@@ -155,14 +166,18 @@ public class UserLogin extends PageView implements Initializable {
 			
 			lblPasswordEmpty.setText("Invalid password, password can not be xxxxxx");
 			lblPasswordEmpty.setVisible(true);
+			
 			btnUserLogin.setDisable(true);
 			
 		} else if (txtPassword.getText().equals("")) {
 			
 			lblPasswordEmpty.setText("The Password field can not be blank, please enter a password.");
 			lblPasswordEmpty.setVisible(true);
+			
 			btnUserLogin.setDisable(true);
+			
 		} else {
+			
 			btnUserLogin.setDisable(false);
 		}
 	}
@@ -180,27 +195,32 @@ public class UserLogin extends PageView implements Initializable {
 		  
 		  }); 
 		  
+		  
 		  txtPassword.textProperty().addListener(p -> {
 		  
 		  	isBlankField();
 		  
 		  });
 		  
+		  
 		  btnUserLogin.setOnAction(evt -> {
 			try {
+				
 				isValidLogin();
-				failCount += 1;
+				
 			} catch (HeadlessException e) {
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
+				
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
+				
 			}
 		});
 		  
+		  
 		  btnExit.setOnAction(p ->  pageController.hidePopOut());
 		 
-
 	}
 }
