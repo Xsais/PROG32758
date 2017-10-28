@@ -160,7 +160,12 @@ public class PageController extends GridPane implements Initializable {
 
     private void switchPages(PageView page) {
 
-        hidePopOut();
+        hidePopOut(-1);
+
+        if (currentPage != null) {
+            
+            currentPage.onClose(this, 0);
+        }
 
         previousPage = currentPage;
 
@@ -175,10 +180,9 @@ public class PageController extends GridPane implements Initializable {
 
     private void switchPopOut(PageView page) {
 
-        hidePopOut();
+        hidePopOut(0);
 
         page.setVisible(true);
-
         currentPopup = page;
 
         popOuts.setPrefWidth(page.getPrefWidth());
@@ -190,11 +194,12 @@ public class PageController extends GridPane implements Initializable {
         switchablePages.setEffect(boxBlur);
     }
 
-    public int hidePopOut() {
+    public int hidePopOut(int statusCode) {
 
         if (currentPopup != null) {
 
             currentPopup.setVisible(false);
+            currentPopup.onClose(this, statusCode);
         }
         currentPopup = null;
 
@@ -216,9 +221,17 @@ public class PageController extends GridPane implements Initializable {
         switchablePages.add(new Banner(), 0, 0);
 
         switchablePages.setVgap(8.0);
-        switchablePages.setOnMouseClicked(p -> hidePopOut());
+        switchablePages.setOnMouseClicked(p -> {
 
-        popOuts.add(new ExitBar(sender -> hidePopOut()), 0, 0);
+            if (!popOuts.isVisible()) {
+
+                return;
+            }
+
+            hidePopOut(-1);
+        });
+
+        popOuts.add(new ExitBar(sender -> hidePopOut(-1)), 0, 0);
 
         popOuts.getStyleClass().add("pop-out");
 

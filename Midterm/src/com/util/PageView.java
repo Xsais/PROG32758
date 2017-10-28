@@ -37,8 +37,10 @@
 package com.util;
 
 import javafx.scene.layout.GridPane;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 
-public class PageView extends GridPane {
+public abstract class PageView extends GridPane {
 
     protected PageType pageType = PageType.PAGE;
 
@@ -48,6 +50,8 @@ public class PageView extends GridPane {
 
         return this.pageType;
     }
+
+    public abstract void onClose(Object sender, int statusCode);
 
     public void init(PageController pageController) {
 

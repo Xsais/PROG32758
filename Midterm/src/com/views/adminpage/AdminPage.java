@@ -100,4 +100,9 @@ public class AdminPage extends PageView implements Initializable {
          */
 
     }
+
+    @Override
+    public void onClose(Object sender, int statusCode) {
+
+    }
 }

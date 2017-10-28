@@ -96,6 +96,11 @@ public class StartPage extends PageView implements Initializable {
     }
 
     @Override
+    public void onClose(Object sender, int statusCode) {
+
+    }
+
+    @Override
     public void init(PageController pageController) {
 
         super.init(pageController);

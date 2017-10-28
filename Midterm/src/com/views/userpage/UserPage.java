@@ -35,28 +35,19 @@
  */
 
 
-
 package com.views.userpage;
-
 
 
 import com.util.ConnectToDB;
 import com.util.PageController;
-import com.util.PageType;
 import com.util.PageView;
-import com.views.adminpage.AdminPage;
 import com.views.userlogin.UserLogin;
-
 import javafx.fxml.FXML;
-
 import javafx.fxml.Initializable;
-
 import javafx.scene.control.Button;
 
 
-
 public class UserPage extends PageView implements Initializable {
-
 
 
     @FXML
@@ -64,22 +55,18 @@ public class UserPage extends PageView implements Initializable {
     private Button btnLogin;
 
 
-
     @FXML
 
     private Button btnCreate;
 
 
-
     private ConnectToDB dbConnection;
-    
-    
+
+
     private UserLogin userLogin;
 
-    
 
     public UserPage(ConnectToDB dbConnection) {
-
 
 
         this.dbConnection = dbConnection;
@@ -97,41 +84,41 @@ public class UserPage extends PageView implements Initializable {
     }
 
     /**
-
      * Called to initialize a controller after its root element has been completely processed.
-
      *
-
      * @param location  The location used to resolve relative paths for the root object, or <tt>null</tt> if the
-
+     *                  <p>
      *                  location is not known.
-
      * @param resources The resources used to localize the root object, or <tt>null</tt> if
-
      */
 
     @Override
 
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
 
-    	userLogin = new UserLogin(dbConnection);
-    	  
+        userLogin = new UserLogin(dbConnection);
+
         btnLogin.setOnAction(p -> pageController.show(userLogin));
-			
+
 
         /* TODO: User Creation
 
             btnCreate.setOnAction();
 
         */
-          
+
     }
-    
+
     public void init(PageController pageController) {
 
-    	super.init(pageController);
+        super.init(pageController);
 
-    	pageController.registerPage(userLogin);
+        pageController.registerPage(userLogin);
+
+    }
+
+    @Override
+    public void onClose(Object sender, int statusCode) {
 
     }
 }
