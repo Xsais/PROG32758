@@ -71,11 +71,6 @@ public class UserLogin extends PageView implements Initializable {
 		dbConnection.executeUpdate(
 				String.format("UPDATE Players SET Password = 'xxxxxx' WHERE Login = '%s'", txtLogin.getText()));
 
-		// reset fail counter, login and password text fields for next user login
-		failCount = 0;
-		txtLogin.clear();
-		txtPassword.clear();
-
 		// exit login screen
 		btnExit.fire();
 	}
@@ -182,7 +177,7 @@ public class UserLogin extends PageView implements Initializable {
 		// disable Login button
 		if (txtPassword.getText().equals(LOCK_OUT_CODE)) {
 
-			lblPasswordEmpty.setText("Invalid password, password can not be xxxxxx");
+			lblPasswordEmpty.setText("Password can not be xxxxxx.  Please try a different password.");
 			lblPasswordEmpty.setVisible(true);
 
 			btnUserLogin.setDisable(true);
@@ -222,8 +217,14 @@ public class UserLogin extends PageView implements Initializable {
 
 			btnUserLogin.setDisable(true);
 			lblLoginEmpty.setVisible(true);
-			lblPasswordEmpty.setText("Invalid password, password can not be xxxxxx");
+			lblPasswordEmpty.setText("Password can not be xxxxxx.  Please try a different password.");
 			lblPasswordEmpty.setVisible(true);
+		}
+		
+		if (txtLogin.getText().equals("") && !txtPassword.getText().equals("")) {
+			
+			lblLoginEmpty.setVisible(true);
+			btnUserLogin.setDisable(true);
 		}
 	}
 
@@ -268,7 +269,17 @@ public class UserLogin extends PageView implements Initializable {
 		});
 
 		// exit login pop out page
-		btnExit.setOnAction(p -> pageController.hidePopOut());
+		btnExit.setOnAction(p -> pageController.hidePopOut(0));
 
+	}
+
+	@Override
+	public void onClose(Object sender, int statusCode) {
+		
+		// reset fail counter, login and password text fields for next user login
+		failCount = 0;
+		txtLogin.clear();
+		txtPassword.clear();
+		
 	}
 }
