@@ -1,49 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- TODO: Specify Layout --> 
+<!-- TODO: Specify Layout -->
 
 <?import javafx.geometry.Insets?>
-
 <?import javafx.scene.control.*?>
-
 <?import javafx.scene.layout.*?>
-
 <fx:root xmlns:fx="http://javafx.com/fxml/1" styleClass="lightBlue" type="GridPane"
 
          xmlns="http://javafx.com/javafx/8.0.121">
 
-    <children> 
+    <children>
 
         <Label fx:id="lblLogin" text="Enter User Login: " GridPane.rowIndex="0"
 
-                GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM"/>
-        
+               GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM"/>
+
         <Label fx:id="lblPassword" text="Enter User Password: " GridPane.rowIndex="2"
 
-                GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM"/>
-                
-       <TextField fx:id="txtLogin" GridPane.rowIndex="0"
+               GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM"/>
 
-                GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM"/>  
-               
-       <TextField fx:id="txtPassword" GridPane.rowIndex="2"
+        <TextField fx:id="txtLogin" GridPane.rowIndex="0"
 
-                GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM"/>  
-                
-       <Label fx:id="lblLoginEmpty" GridPane.halignment="CENTER" 
-       		GridPane.rowIndex="1" GridPane.columnIndex="1" GridPane.valignment="TOP"/>  
-                
-       <Label fx:id="lblPasswordEmpty" GridPane.rowIndex="3"
+                   GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM"/>
 
-                GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP"/>  
-                
-       <Button fx:id="btnUserLogin" styleClass="game-button" text="Login" GridPane.halignment="RIGHT" GridPane.rowIndex="4"
+        <TextField fx:id="txtPassword" GridPane.rowIndex="2"
 
-                 GridPane.columnIndex="0" GridPane.valignment="BOTTOM"/>  
-                 
-       <Button fx:id="btnExit" styleClass="game-button" text="Exit" GridPane.halignment="RIGHT" GridPane.rowIndex="4"
+                   GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM"/>
 
-                 GridPane.columnIndex="1" GridPane.valignment="BOTTOM"/>        
+        <Label fx:id="lblLoginEmpty" GridPane.halignment="CENTER"
+               GridPane.rowIndex="1" GridPane.columnIndex="1" GridPane.valignment="TOP"/>
+
+        <Label fx:id="lblPasswordEmpty" GridPane.rowIndex="3"
+
+               GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP"/>
+
+        <Button fx:id="btnUserLogin" styleClass="game-button" text="Login" GridPane.halignment="RIGHT"
+                GridPane.rowIndex="4"
+
+                GridPane.columnIndex="0" GridPane.valignment="BOTTOM"/>
+
+        <Button fx:id="btnExit" styleClass="game-button" text="Exit" GridPane.halignment="RIGHT" GridPane.rowIndex="4"
+
+                GridPane.columnIndex="1" GridPane.valignment="BOTTOM"/>
 
     </children>
 
@@ -57,12 +55,12 @@
 
     <rowConstraints>
 
-		<RowConstraints percentHeight="10.0"/>
         <RowConstraints percentHeight="10.0"/>
-		<RowConstraints percentHeight="10.0"/>
-		<RowConstraints percentHeight="10.0"/>
-		<RowConstraints percentHeight="15.0"/>
-		
+        <RowConstraints percentHeight="10.0"/>
+        <RowConstraints percentHeight="10.0"/>
+        <RowConstraints percentHeight="10.0"/>
+        <RowConstraints percentHeight="15.0"/>
+
     </rowConstraints>
 
     <padding>

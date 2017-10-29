@@ -109,16 +109,42 @@ public class UserPage extends PageView implements Initializable {
 
     }
 
+    /**
+     * Occurs when the PageView has been requested to close
+     *
+     * @param sender     The object in which closed the PageView
+     * @param statusCode The giving status code of the page closure
+     */
+    @Override
+    public void onClose(Object sender, int statusCode) {
+
+    }
+
+    /**
+     * Occurs when the application classes peacefully
+     *
+     * @param evt The WindowEvent associated with the closure
+     */
+    @Override
+    public void onCloseRequest(javafx.stage.WindowEvent evt) {
+
+    }
+
+    /**
+     * Occurs when the PageView has been requested to open
+     *
+     * @param sender The Object in which sent the request
+     */
+    @Override
+    public void onOpen(Object sender) {
+
+    }
+
     public void init(PageController pageController) {
 
         super.init(pageController);
 
         pageController.registerPage(userLogin);
-
-    }
-
-    @Override
-    public void onClose(Object sender, int statusCode) {
 
     }
 }

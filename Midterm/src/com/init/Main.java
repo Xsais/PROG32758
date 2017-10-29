@@ -72,6 +72,6 @@ public class Main extends Application {
 
         primaryStage.show();
 
-        primaryStage.setOnCloseRequest(c -> loadPage.close());
+        primaryStage.setOnCloseRequest(evt -> loadPage.close(evt));
     }
 }

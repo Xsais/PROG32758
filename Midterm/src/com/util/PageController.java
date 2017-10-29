@@ -163,7 +163,7 @@ public class PageController extends GridPane implements Initializable {
         hidePopOut(-1);
 
         if (currentPage != null) {
-            
+
             currentPage.onClose(this, 0);
         }
 
@@ -176,6 +176,7 @@ public class PageController extends GridPane implements Initializable {
         currentPopup = null;
 
         popOuts.setVisible(false);
+        page.onOpen(this);
     }
 
     private void switchPopOut(PageView page) {
@@ -192,6 +193,8 @@ public class PageController extends GridPane implements Initializable {
 
         popOuts.setVisible(true);
         switchablePages.setEffect(boxBlur);
+
+        page.onOpen(this);
     }
 
     public int hidePopOut(int statusCode) {
@@ -330,5 +333,10 @@ public class PageController extends GridPane implements Initializable {
         }
 
         switchPages(previousPage);
+    }
+
+    public void close(javafx.stage.WindowEvent evt) {
+
+        pages.forEach(page -> page.onCloseRequest(evt));
     }
 }
