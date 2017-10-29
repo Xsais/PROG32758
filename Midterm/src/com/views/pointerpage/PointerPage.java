@@ -53,6 +53,8 @@ public class PointerPage extends PageController {
 
     private ConnectToDB dbConnection;
 
+    private StartPage startPage;
+
     public PointerPage() {
 
         loader = FXMLHelper.loadControl(this);
@@ -83,20 +85,25 @@ public class PointerPage extends PageController {
                             + e.getSQLState() + " ErrorCode: " + e.getErrorCode(), "Car Racing Game",
                     JOptionPane.WARNING_MESSAGE);
 
-            System.exit(close());
+            System.exit(-1);
+            close(null);
         }
 
-        initMainPage(new StartPage(dbConnection));
+        startPage = new StartPage(dbConnection);
+
+        initMainPage(startPage);
         showMain();
     }
 
-    public int close() {
+    @Override
+    public void close(javafx.stage.WindowEvent evt) {
 
+        super.close(evt);
         if (dbConnection == null) {
 
-            return -1;
+            return;
         }
         dbConnection.closeConnection();
-        return 0;
+        return;
     }
 }
