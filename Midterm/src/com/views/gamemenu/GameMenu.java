@@ -107,6 +107,7 @@ public class GameMenu extends PageView implements Initializable {
     @Override
     public void onClose(Object sender, int statusCode) {
 
+        pmPlayer.dispose();
     }
 
     /**

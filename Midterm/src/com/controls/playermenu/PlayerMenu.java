@@ -59,39 +59,34 @@ public class PlayerMenu extends GridPane implements Initializable {
 
     public javafx.beans.property.DoubleProperty credit = new javafx.beans.property.SimpleDoubleProperty(this, "credit", 0);
 
+    // instantiate MusicPlayer Object for use in vbMusic action event
+    MusicPlayer musicPlayer = new MusicPlayer();
 
     @FXML
-
     private VBox vbMusic;
 
 
     @FXML
-
     private VBox vbScore;
 
 
     @FXML
-
     private VBox vbCredit;
 
 
     @FXML
-
     private VBox vbScoreContainer;
 
 
     @FXML
-
     private VBox vbCreditContainer;
 
 
     @FXML
-
     private Label lblScore;
 
 
     @FXML
-
     private Label lblCredit;
 
 
@@ -194,12 +189,8 @@ public class PlayerMenu extends GridPane implements Initializable {
 
         vbCredit.setOnMouseClicked(evt -> creditVisible.set(!creditVisible.get()));
 
-
-        // instantiate MusicPlayer Object for use in vbMusic action event
-        MusicPlayer mp = new MusicPlayer();
-
         vbMusic.setOnMouseClicked(evt -> {
-            mp.play_pauseMusic();
+            musicPlayer.play_pauseMusic();
         });
 
 
@@ -255,6 +246,11 @@ public class PlayerMenu extends GridPane implements Initializable {
 
         return creditVisible;
 
+    }
+
+    public void dispose() {
+
+        musicPlayer.dispose();
     }
 
 }
