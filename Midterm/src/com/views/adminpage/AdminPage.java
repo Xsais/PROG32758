@@ -36,9 +36,9 @@
 
 package com.views.adminpage;
 
-import com.util.ConnectToDB;
-import com.util.CreateDataBase;
-import com.util.PageView;
+import com.util.fxml.page.PageView;
+import com.util.jdbc.ConnectToDB;
+import com.util.jdbc.CreateDataBase;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -67,7 +67,7 @@ public class AdminPage extends PageView implements Initializable {
         this.dbConnection = dbConnection;
 
         try {
-            com.util.FXMLHelper.loadControl(this).load();
+            com.util.fxml.FXMLHelper.loadControl(this).load();
         } catch (java.io.IOException e) {
             e.printStackTrace();
         }

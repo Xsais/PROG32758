@@ -36,9 +36,9 @@
 
 package com.views.startpage;
 
-import com.util.ConnectToDB;
-import com.util.PageController;
-import com.util.PageView;
+import com.util.fxml.page.PageController;
+import com.util.fxml.page.PageView;
+import com.util.jdbc.ConnectToDB;
 import com.views.adminpage.AdminPage;
 import com.views.userpage.UserPage;
 import javafx.fxml.FXML;
@@ -67,7 +67,7 @@ public class StartPage extends PageView implements Initializable {
         this.dbConnection = dbConnection;
 
         try {
-            com.util.FXMLHelper.loadControl(this).load();
+            com.util.fxml.FXMLHelper.loadControl(this).load();
         } catch (java.io.IOException e) {
             e.printStackTrace();
         }

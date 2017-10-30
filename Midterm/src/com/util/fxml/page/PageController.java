@@ -34,10 +34,10 @@
  * ----------------------------------------------------------------------------+
  */
 
-package com.util;
+package com.util.fxml.page;
 
-import com.controls.banner.Banner;
 import com.controls.exitbar.ExitBar;
+import com.util.fxml.NodeConstraint;
 import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
@@ -52,6 +52,8 @@ import java.util.List;
 public class PageController extends GridPane implements Initializable {
 
     protected final List<PageView> pages = new ArrayList<>();
+
+    protected final List<NodeConstraint> nodeConstraints = new ArrayList<>();
 
     protected final GridPane switchablePages = new GridPane();
 
@@ -72,6 +74,41 @@ public class PageController extends GridPane implements Initializable {
 
     public PageController() {
 
+    }
+
+    public PageController(NodeConstraint... nodeConstraints) {
+
+        for (NodeConstraint nodeConstraint : nodeConstraints) {
+
+            int columnSpan = nodeConstraint.getColumnSpan();
+            int rowSpan = nodeConstraint.getRowSpan();
+
+            this.nodeConstraints.add(nodeConstraint);
+
+            if (columnSpan != -1 && rowSpan != -1) {
+
+                switchablePages.add(nodeConstraint.getNode(), nodeConstraint.getColumnIndex(), nodeConstraint.getRowIndex(), columnSpan, rowSpan);
+                return;
+            }
+            switchablePages.add(nodeConstraint.getNode(), nodeConstraint.getColumnIndex(), nodeConstraint.getRowIndex());
+        }
+    }
+
+    public NodeConstraint getNode(String simpleName) {
+
+        for (NodeConstraint nodeConstraint : nodeConstraints) {
+
+            if (nodeConstraint.getNode().getClass().getSigners().equals(simpleName)) {
+
+                return nodeConstraint;
+            }
+        }
+        return null;
+    }
+
+    public NodeConstraint[] getNodes(String simpleName) {
+
+        return nodeConstraints.stream().filter(n -> n.getNode().getClass().getSigners().equals(simpleName)).toArray(NodeConstraint[]::new);
     }
 
     protected final void initMainPage(PageView page) {
@@ -221,8 +258,6 @@ public class PageController extends GridPane implements Initializable {
     @Override
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
 
-        switchablePages.add(new Banner(), 0, 0);
-
         switchablePages.setVgap(8.0);
         switchablePages.setOnMouseClicked(p -> {
 
@@ -303,7 +338,7 @@ public class PageController extends GridPane implements Initializable {
     @Deprecated
     public void showPopout(PageView page) throws IllegalArgumentException {
 
-        if (page.getPageType() != com.util.PageType.POP_OUT) {
+        if (page.getPageType() != com.util.fxml.page.PageType.POP_OUT) {
 
             throw new IllegalArgumentException("ERROR: The giving page is not valid");
         }

@@ -34,7 +34,7 @@
  * ----------------------------------------------------------------------------+
  */
 
-package com.util;
+package com.util.fxml;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;

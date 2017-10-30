@@ -20,9 +20,9 @@
 package com.views.gamemenu;
 
 import com.controls.playermenu.PlayerMenu;
-import com.util.FXMLHelper;
-import com.util.PageController;
-import com.util.PageView;
+import com.util.fxml.FXMLHelper;
+import com.util.fxml.page.PageController;
+import com.util.fxml.page.PageView;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -31,7 +31,7 @@ import java.io.IOException;
 
 public class GameMenu extends PageView implements Initializable {
 
-    private final com.util.ConnectToDB dbConnection;
+    private final com.util.jdbc.ConnectToDB dbConnection;
 
     @FXML
     private Button btnStart;
@@ -39,13 +39,13 @@ public class GameMenu extends PageView implements Initializable {
     @FXML
     private PlayerMenu pmPlayer;
 
-    private com.util.User user;
+    private com.util.info.User user;
 
     private javafx.beans.property.StringProperty username = new javafx.beans.property.SimpleStringProperty(this, "username", null);
 
     private java.sql.PreparedStatement pullInfo;
 
-    public GameMenu(com.util.ConnectToDB dbConnection) {
+    public GameMenu(com.util.jdbc.ConnectToDB dbConnection) {
 
         this.dbConnection = dbConnection;
 
@@ -57,34 +57,36 @@ public class GameMenu extends PageView implements Initializable {
             e.printStackTrace();
         }
 
-        username.addListener(evt -> {
-
-            try {
-
-                String username = this.username.get();
-
-                pullInfo.setString(1, username);
-                java.sql.ResultSet userInfo = pullInfo.executeQuery();
-
-                if (userInfo.first()) {
-
-                    this.user = new com.util.User(userInfo.getString(1), userInfo.getString(2), userInfo.getInt(3), username, userInfo.getString(4), userInfo.getInt(5), userInfo.getInt(6));
-
-                    pmPlayer.scoreProperty().bindBidirectional(this.user.scoreProperty());
-                    pmPlayer.creditProperty().bindBidirectional(this.user.creditProperty());
-                }
-
-                userInfo.close();
-            } catch (java.sql.SQLException e) {
-
-                e.printStackTrace();
-            }
-        });
+        username.addListener(evt -> setUser());
 
         try {
 
             FXMLHelper.loadControl(this).load();
         } catch (IOException e) {
+
+            e.printStackTrace();
+        }
+    }
+
+    private void setUser() {
+
+        try {
+
+            String username = this.username.get();
+
+            pullInfo.setString(1, username);
+            java.sql.ResultSet userInfo = pullInfo.executeQuery();
+
+            if (userInfo.first()) {
+
+                this.user = new com.util.info.User(userInfo.getString(1), userInfo.getString(2), userInfo.getInt(3), username, userInfo.getString(4), userInfo.getInt(5), userInfo.getInt(6));
+
+                pmPlayer.scoreProperty().bind(this.user.scoreProperty());
+                pmPlayer.creditProperty().bind(this.user.creditProperty());
+            }
+
+            userInfo.close();
+        } catch (java.sql.SQLException e) {
 
             e.printStackTrace();
         }

@@ -19,8 +19,8 @@
 
 package com.controls.playermenu;
 
-import com.util.ConnectToDB;
-import com.util.FXMLHelper;
+import com.util.fxml.FXMLHelper;
+import com.util.jdbc.ConnectToDB;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;

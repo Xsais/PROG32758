@@ -49,7 +49,7 @@ public class Banner extends GridPane implements Initializable {
     public Banner() {
 
         try {
-            com.util.FXMLHelper.loadControl(this).load();
+            com.util.fxml.FXMLHelper.loadControl(this).load();
         } catch (java.io.IOException e) {
             e.printStackTrace();
         }
