@@ -38,13 +38,9 @@
 
 package com.controls.playermenu;
 
-
-
 import com.util.ConnectToDB;
-
 import com.util.FXMLHelper;
 import com.util.MusicPlayer;
-
 import javafx.beans.property.BooleanProperty;
 
 import javafx.beans.property.SimpleBooleanProperty;
@@ -60,7 +56,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import junit.framework.Test;
 
 import java.io.IOException;
 import java.net.URISyntaxException;

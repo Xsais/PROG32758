@@ -36,9 +36,11 @@
 
 package com.views.pointerpage;
 
-import com.util.ConnectToDB;
-import com.util.FXMLHelper;
-import com.util.PageController;
+import com.controls.banner.Banner;
+import com.util.fxml.FXMLHelper;
+import com.util.fxml.NodeConstraint;
+import com.util.fxml.page.PageController;
+import com.util.jdbc.ConnectToDB;
 import com.views.startpage.StartPage;
 import javafx.fxml.FXMLLoader;
 
@@ -57,6 +59,7 @@ public class PointerPage extends PageController {
 
     public PointerPage() {
 
+        super(new NodeConstraint(new Banner(), 0, 0));
         loader = FXMLHelper.loadControl(this);
     }
 

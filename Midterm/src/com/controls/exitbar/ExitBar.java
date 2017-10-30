@@ -38,7 +38,7 @@ public class ExitBar extends GridPane implements Initializable {
     public ExitBar(Function<Object, Integer> exitAction) {
 
         try {
-            com.util.FXMLHelper.loadControl(this).load();
+            com.util.fxml.FXMLHelper.loadControl(this).load();
         } catch (java.io.IOException e) {
             e.printStackTrace();
         }

@@ -38,9 +38,9 @@
 package com.views.userpage;
 
 
-import com.util.ConnectToDB;
-import com.util.PageController;
-import com.util.PageView;
+import com.util.fxml.page.PageController;
+import com.util.fxml.page.PageView;
+import com.util.jdbc.ConnectToDB;
 import com.views.userlogin.UserLogin;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -73,7 +73,7 @@ public class UserPage extends PageView implements Initializable {
 
         try {
 
-            com.util.FXMLHelper.loadControl(this).load();
+            com.util.fxml.FXMLHelper.loadControl(this).load();
 
         } catch (java.io.IOException e) {
 

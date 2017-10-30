@@ -34,7 +34,7 @@
  * ----------------------------------------------------------------------------+
  */
 
-package com.util;
+package com.util.fxml.page;
 
 import javafx.scene.layout.GridPane;
 import javafx.stage.WindowEvent;

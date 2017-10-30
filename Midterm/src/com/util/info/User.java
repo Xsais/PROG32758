@@ -17,7 +17,7 @@
  * ----------------------------------------------------------------------------+
  */
 
-package com.util;
+package com.util.info;
 
 public class User {
 

@@ -1,9 +1,9 @@
 package com.views.userlogin;
 
 import com.controls.playermenu.PlayerMenu;
-import com.util.ConnectToDB;
-import com.util.PageType;
-import com.util.PageView;
+import com.util.fxml.page.PageType;
+import com.util.fxml.page.PageView;
+import com.util.jdbc.ConnectToDB;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -57,7 +57,7 @@ public class UserLogin extends PageView implements Initializable {
 
         try {
 
-            com.util.FXMLHelper.loadControl(this).load();
+            com.util.fxml.FXMLHelper.loadControl(this).load();
 
         } catch (java.io.IOException e) {
 
@@ -285,7 +285,7 @@ public class UserLogin extends PageView implements Initializable {
     }
 
     @Override
-    public void init(com.util.PageController pageController) {
+    public void init(com.util.fxml.page.PageController pageController) {
 
         super.init(pageController);
         pageController.registerPage(gameMenu);

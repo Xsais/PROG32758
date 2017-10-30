@@ -17,7 +17,7 @@
  * ----------------------------------------------------------------------------+
  */
 
-package com.util;
+package com.util.fxml.page;
 
 public enum PageType {
 

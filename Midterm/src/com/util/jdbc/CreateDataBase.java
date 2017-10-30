@@ -16,7 +16,7 @@
  * ----------------------------------------------------------------------------+
  */
 
-package com.util;
+package com.util.jdbc;
 
 import javax.swing.*;
 import java.sql.SQLException;
