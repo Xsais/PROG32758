@@ -16,7 +16,7 @@ public class MusicPlayer {
 		// initialize Media object and add path of mp3 file to it
 		Media media = null;
 		try {
-			media = new Media(getClass().getResource("/com/res/music/thedistance.mp3").toURI().toString());
+			media = new Media(getClass().getResource("/com/res/music/mp3-noise.mp3").toURI().toString());
 		} catch (URISyntaxException e) {
 
 			e.printStackTrace();

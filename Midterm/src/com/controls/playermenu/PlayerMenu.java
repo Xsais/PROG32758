@@ -35,43 +35,29 @@
  */
 
 
-
 package com.controls.playermenu;
 
-import com.util.ConnectToDB;
-import com.util.FXMLHelper;
 import com.util.MusicPlayer;
+import com.util.fxml.FXMLHelper;
+import com.util.jdbc.ConnectToDB;
 import javafx.beans.property.BooleanProperty;
-
 import javafx.beans.property.SimpleBooleanProperty;
-
 import javafx.fxml.FXML;
-
 import javafx.fxml.Initializable;
-
 import javafx.scene.control.Label;
-
 import javafx.scene.layout.GridPane;
-
 import javafx.scene.layout.VBox;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
-
 
 
 public class PlayerMenu extends GridPane implements Initializable {
 
-	
 
     public javafx.beans.property.IntegerProperty score = new javafx.beans.property.SimpleIntegerProperty(this, "score", 0);
 
 
-
     public javafx.beans.property.DoubleProperty credit = new javafx.beans.property.SimpleDoubleProperty(this, "credit", 0);
-
 
 
     @FXML
@@ -79,11 +65,9 @@ public class PlayerMenu extends GridPane implements Initializable {
     private VBox vbMusic;
 
 
-
     @FXML
 
     private VBox vbScore;
-
 
 
     @FXML
@@ -91,11 +75,9 @@ public class PlayerMenu extends GridPane implements Initializable {
     private VBox vbCredit;
 
 
-
     @FXML
 
     private VBox vbScoreContainer;
-
 
 
     @FXML
@@ -103,11 +85,9 @@ public class PlayerMenu extends GridPane implements Initializable {
     private VBox vbCreditContainer;
 
 
-
     @FXML
 
     private Label lblScore;
-
 
 
     @FXML
@@ -115,21 +95,16 @@ public class PlayerMenu extends GridPane implements Initializable {
     private Label lblCredit;
 
 
-
     private ConnectToDB dbConnection;
-
 
 
     private BooleanProperty scoreVisible = new SimpleBooleanProperty(this, "scoreVisible", false);
 
 
-
     private BooleanProperty creditVisible = new SimpleBooleanProperty(this, "creditVisible", false);
 
 
-
     public PlayerMenu() {
-
 
 
         try {
@@ -137,9 +112,7 @@ public class PlayerMenu extends GridPane implements Initializable {
             FXMLHelper.loadControl(this).load();
 
 
-
         } catch (IOException e) {
-
 
 
             e.printStackTrace();
@@ -149,9 +122,7 @@ public class PlayerMenu extends GridPane implements Initializable {
     }
 
 
-
     public int getScore() {
-
 
 
         return score.get();
@@ -159,9 +130,7 @@ public class PlayerMenu extends GridPane implements Initializable {
     }
 
 
-
     public void setScore(int score) {
-
 
 
         this.score.set(score);
@@ -169,9 +138,7 @@ public class PlayerMenu extends GridPane implements Initializable {
     }
 
 
-
     public javafx.beans.property.IntegerProperty scoreProperty() {
-
 
 
         return score;
@@ -179,9 +146,7 @@ public class PlayerMenu extends GridPane implements Initializable {
     }
 
 
-
     public double getCredit() {
-
 
 
         return credit.get();
@@ -189,9 +154,7 @@ public class PlayerMenu extends GridPane implements Initializable {
     }
 
 
-
     public void setCredit(double credit) {
-
 
 
         this.credit.set(credit);
@@ -199,9 +162,7 @@ public class PlayerMenu extends GridPane implements Initializable {
     }
 
 
-
     public javafx.beans.property.DoubleProperty creditProperty() {
-
 
 
         return credit;
@@ -209,19 +170,13 @@ public class PlayerMenu extends GridPane implements Initializable {
     }
 
 
-
     /**
-
      * Called to initialize a controller after its root element has been completely processed.
-
      *
-
      * @param location  The location used to resolve relative paths for the root object, or <tt>null</tt> if the
-
+     *                  <p>
      *                  location is not known.
-
      * @param resources The resources used to localize the root object, or <tt>null</tt> if
-
      */
 
     @Override
@@ -229,13 +184,10 @@ public class PlayerMenu extends GridPane implements Initializable {
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
 
 
-
         lblCredit.textProperty().bind(credit.asString("$%.2f"));
 
 
-
         lblScore.textProperty().bind(score.asString());
-
 
 
         vbScore.setOnMouseClicked(evt -> scoreVisible.set(!scoreVisible.get()));
@@ -246,10 +198,9 @@ public class PlayerMenu extends GridPane implements Initializable {
         // instantiate MusicPlayer Object for use in vbMusic action event
         MusicPlayer mp = new MusicPlayer();
 
-        vbMusic.setOnMouseClicked(evt -> {mp.play_pauseMusic();});
-
-        
-
+        vbMusic.setOnMouseClicked(evt -> {
+            mp.play_pauseMusic();
+        });
 
 
         vbScoreContainer.visibleProperty().bind(scoreVisible);
@@ -259,9 +210,7 @@ public class PlayerMenu extends GridPane implements Initializable {
     }
 
 
-
     public boolean isScoreVisible() {
-
 
 
         return scoreVisible.get();
@@ -269,9 +218,7 @@ public class PlayerMenu extends GridPane implements Initializable {
     }
 
 
-
     public void setScoreVisible(boolean scoreVisible) {
-
 
 
         this.scoreVisible.set(scoreVisible);
@@ -279,9 +226,7 @@ public class PlayerMenu extends GridPane implements Initializable {
     }
 
 
-
     public BooleanProperty scoreVisibleProperty() {
-
 
 
         return scoreVisible;
@@ -289,9 +234,7 @@ public class PlayerMenu extends GridPane implements Initializable {
     }
 
 
-
     public boolean isCreditVisible() {
-
 
 
         return creditVisible.get();
@@ -299,9 +242,7 @@ public class PlayerMenu extends GridPane implements Initializable {
     }
 
 
-
     public void setCreditVisible(boolean creditVisible) {
-
 
 
         this.scoreVisible.set(creditVisible);
@@ -309,9 +250,7 @@ public class PlayerMenu extends GridPane implements Initializable {
     }
 
 
-
     public BooleanProperty creditVisibleProperty() {
-
 
 
         return creditVisible;
