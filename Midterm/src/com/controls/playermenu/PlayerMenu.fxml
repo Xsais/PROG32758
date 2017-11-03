@@ -4,9 +4,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.SVGPath?>
-<fx:root xmlns:fx="http://javafx.com/fxml/1" type="GridPane" xmlns="http://javafx.com/javafx/8.0.121">
+<fx:root xmlns:fx="http://javafx.com/fxml/1" type="GridPane"
+         xmlns="http://javafx.com/javafx/8.0.121">
     <children>
-        <VBox fx:id="vbMusic" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+        <VBox fx:id="vbMusic" alignment="CENTER" maxHeight="-Infinity"
+              maxWidth="-Infinity" minHeight="-Infinity"
               minWidth="-Infinity" styleClass="important">
             <children>
                 <Label text="Play Music"/>
@@ -18,8 +20,10 @@
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
             </padding>
         </VBox>
-        <VBox fx:id="vbScore" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-              minWidth="-Infinity" styleClass="important" GridPane.columnIndex="1">
+        <VBox fx:id="vbScore" alignment="CENTER" maxHeight="-Infinity"
+              maxWidth="-Infinity" minHeight="-Infinity"
+              minWidth="-Infinity" styleClass="important"
+              GridPane.columnIndex="1">
             <children>
                 <Label text="View Score"/>
                 <SVGPath
@@ -30,8 +34,10 @@
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
             </padding>
         </VBox>
-        <VBox fx:id="vbCredit" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-              minWidth="-Infinity" styleClass="important" GridPane.columnIndex="2">
+        <VBox fx:id="vbCredit" alignment="CENTER" maxHeight="-Infinity"
+              maxWidth="-Infinity" minHeight="-Infinity"
+              minWidth="-Infinity" styleClass="important"
+              GridPane.columnIndex="2">
             <children>
                 <Label text="Credit Refill"/>
                 <SVGPath
@@ -42,8 +48,10 @@
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
             </padding>
         </VBox>
-        <VBox fx:id="vbScoreContainer" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
-              minHeight="-Infinity" minWidth="-Infinity" styleClass="important" GridPane.columnIndex="1"
+        <VBox fx:id="vbScoreContainer" alignment="CENTER" maxHeight="-Infinity"
+              maxWidth="-Infinity"
+              minHeight="-Infinity" minWidth="-Infinity" styleClass="important"
+              GridPane.columnIndex="1"
               GridPane.halignment="CENTER" GridPane.rowIndex="2">
             <Label alignment="BOTTOM_LEFT" text="Score"/>
             <Label fx:id="lblScore"/>
@@ -54,8 +62,10 @@
                 <Insets bottom="13.0"/>
             </GridPane.margin>
         </VBox>
-        <VBox fx:id="vbCreditContainer" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
-              minHeight="-Infinity" minWidth="-Infinity" styleClass="important" GridPane.columnIndex="2"
+        <VBox fx:id="vbCreditContainer" alignment="CENTER" maxHeight="-Infinity"
+              maxWidth="-Infinity"
+              minHeight="-Infinity" minWidth="-Infinity" styleClass="important"
+              GridPane.columnIndex="2"
               GridPane.halignment="CENTER" GridPane.rowIndex="2">
             <Label alignment="BOTTOM_LEFT" text="Credit"/>
             <Label fx:id="lblCredit"/>

@@ -1,26 +1,24 @@
 /*
- * ----------------------------------------------------------------------------+
- * Group Leader: Daniel Hope
- * Member(s): Georgina Luce
- *            Nathaniel Primo
- *            Michael Marc
- * Group #: 1
- * Filename: PageType.java
- * Main class: 
- * Other Files in this Project:
- *     - 
- * Assignment: 
- * Creation Date: 10, 2017 21
- * Last Modified: 10, 2017 21
- * Java Version: 
- * Description: The representation of a Car object
- * ----------------------------------------------------------------------------+
+ * ----------------------------------------------------------------------------------------------+
+ *  * Group Leader: Daniel Hope
+ *  * Member(s):
+ *  *     - Georgina Luce
+ *  *     - Nathaniel Primo
+ *  *     - Michael Marc
+ *  * Group #: 1
+ *  * Filename: com.util.fxml.page.PageType
+ *  * Main class: com.init.Main
+ *  * Assignment: Midterm
+ *  * Creation Date:
+ *  * Last Modified: 11/1/17 8:34 PM
+ *  * Java Version: 1.8.0_141
+ *  * Description:
+ * ----------------------------------------------------------------------------------------------+
  */
 
 package com.util.fxml.page;
 
 public enum PageType {
-
-    PAGE,
-    POP_OUT
+	
+	PAGE, POP_UP
 }
