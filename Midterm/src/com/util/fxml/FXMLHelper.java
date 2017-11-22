@@ -28,34 +28,34 @@ import javafx.scene.Node;
  **/
 
 public class FXMLHelper {
-	
-	/**
-	 * Loads the given control and links it to it FXML file
-	 *
-	 * @param controller The controller for the FXML document
-	 * @return An FXMLLoader object with the controller and root set
-	 */
-	public static <T extends Node> FXMLLoader loadControl(T controller) {
-		
-		return loadControl(controller, String.format("%s.fxml", controller.getClass()
-				.getSimpleName()));
-	}
-	
-	/**
-	 * Loads the given control and links it to it FXML file
-	 *
-	 * @param controller The controller for the FXML document
-	 * @param fxmlName The desired name of the FXML document to be linked to the controller
-	 * @return An FXMLLoader object with the controller and root set
-	 */
-	public static <T extends Node> FXMLLoader loadControl(T controller, String fxmlName) {
-		
-		Class<?> controllerClass = controller.getClass();
-		
-		return new FXMLLoader(controllerClass.getResource(fxmlName)) {{
-			
-			setRoot(controller);
-			setController(controller);
-		}};
-	}
+
+    /**
+     * Loads the given control and links it to it FXML file
+     *
+     * @param controller The controller for the FXML document
+     * @return An FXMLLoader object with the controller and root set
+     */
+    public static <T extends Node> FXMLLoader loadControl(T controller) {
+
+        return loadControl(controller, String.format("%s.fxml", controller.getClass()
+                .getSimpleName()));
+    }
+
+    /**
+     * Loads the given control and links it to it FXML file
+     *
+     * @param controller The controller for the FXML document
+     * @param fxmlName   The desired name of the FXML document to be linked to the controller
+     * @return An FXMLLoader object with the controller and root set
+     */
+    public static <T extends Node> FXMLLoader loadControl(T controller, String fxmlName) {
+
+        Class<?> controllerClass = controller.getClass();
+
+        return new FXMLLoader(controllerClass.getResource(fxmlName)) {{
+
+            setRoot(controller);
+            setController(controller);
+        }};
+    }
 }

@@ -32,15 +32,15 @@
 
  */
 
-package com.util;
-import javax.swing.*;
+package com.util.jdbc;
 
+import javax.swing.*;
 import java.sql.SQLException;
 
 
 /**
- * The CreateDataBase class checks for the existence of a database called DBProg32758, and if it does not exist the database
- * is created, and creates a table called Players
+ * The CreateDataBase class checks for the existence of a database called DBProg32758, and if it does not exist the
+ * database is created, and creates a table called Players
  */
 public class CreateDataBase {
 
@@ -49,14 +49,14 @@ public class CreateDataBase {
      */
     public CreateDataBase(ConnectToDB dbConnection) {
 
-    	// calls methods to check if DB has already been created and if not creates the DB and a table called Players
+        // calls methods to check if DB has already been created and if not creates the DB and a table called Players
         try {
 
             dbValidate(dbConnection);
 
             createTable(dbConnection);
 
-          // catch exception and show error message in pop up window
+            // catch exception and show error message in pop up window
         } catch (SQLException ex) {
 
             JOptionPane.showMessageDialog(null, ex.getMessage() + "SQL State: "
@@ -77,7 +77,7 @@ public class CreateDataBase {
      */
     private void createTable(ConnectToDB dbConnection) throws SQLException {
 
-    	// creates table called Players and show pop up window telling user table has been created
+        // creates table called Players and show pop up window telling user table has been created
         try {
 
             dbConnection.executeUpdate("CREATE TABLE DBProg32758.Players (`Last_Name` VARCHAR(20)," +

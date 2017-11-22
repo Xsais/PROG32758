@@ -34,61 +34,67 @@
 
 package com.util;
 
-import java.net.URISyntaxException;
-
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaPlayer.Status;
 
+import java.net.URISyntaxException;
+
 /**
- * 
  * MusicPlayer class allows the playing of one predefined song with the ability to start, pause, and restart the song
- * from the paused state. 
- *
+ * from the paused state.
  */
 public class MusicPlayer {
 
-	// initialize MediaPlayer Object
-	public MediaPlayer mp;
+    // initialize MediaPlayer Object
+    public MediaPlayer mp;
 
-	// constructor for MusicPlayer
-	public MusicPlayer() {
+    // constructor for MusicPlayer
+    public MusicPlayer() {
 
-		// initialize Media object and add path of mp3 file to it
-		Media media = null;
-		
-		// retrieve song from resources folder
-		try {
-			media = new Media(getClass().getResource("/com/res/music/thedistance.mp3").toURI().toString());
-			
-			// catch exception and print stack trace
-		} catch (URISyntaxException e) {
+        // initialize Media object and add path of mp3 file to it
+        Media media = null;
 
-			e.printStackTrace();
-		}
+        // retrieve song from resources folder
+        try {
+            media = new Media(getClass().getResource("/com/res/music/mp3-noise.mp3").toURI().toString());
 
-		// assign Media Object with path to MediaPlayer Object mp
-		mp = new MediaPlayer(media);
+            // catch exception and print stack trace
+        } catch (URISyntaxException e) {
 
-	}
+            e.printStackTrace();
+        }
 
-	/**
-	 * Method for playing and pausing mp3 file
-	 */
-	public void play_pauseMusic() {
+        // assign Media Object with path to MediaPlayer Object mp
+        mp = new MediaPlayer(media);
 
-		// check status of MediaPlayer object and play mp3 file
-		if (mp.getStatus().equals(Status.READY) || mp.getStatus().equals(Status.PAUSED)) {
+    }
 
-			mp.play();
-			
-			// check status of MediaPlayer object and pause mp3 file
-		} else if (mp.getStatus().equals(Status.PLAYING)) {
+    /**
+     * Method for playing and pausing mp3 file
+     */
+    public void play_pauseMusic() {
 
-			mp.pause();
-		}
-		
-		//TODO: mp.dispose() at end of game or in event of GameMenu exit (going back to UserLogin
-		// or anywhere else aside from closing the program)
-	}
+        // check status of MediaPlayer object and play mp3 file
+        if (mp.getStatus().equals(Status.READY) || mp.getStatus().equals(Status.PAUSED)) {
+
+            mp.play();
+
+            // check status of MediaPlayer object and pause mp3 file
+        } else if (mp.getStatus().equals(Status.PLAYING)) {
+
+            mp.pause();
+        }
+
+        //TODO: mp.dispose() at end of game or in event of GameMenu exit (going back to UserLogin
+        // or anywhere else aside from closing the program)
+    }
+
+    /**
+     * Handles disposing of the music
+     */
+    public void dispose() {
+
+        mp.dispose();
+    }
 }

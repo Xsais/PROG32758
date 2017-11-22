@@ -3,11 +3,8 @@
 <!-- TODO: Specify Layout -->
 
 <?import javafx.geometry.Insets?>
-
 <?import javafx.scene.control.*?>
-
 <?import javafx.scene.layout.*?>
-
 <fx:root xmlns:fx="http://javafx.com/fxml/1" styleClass="lightBlue" type="GridPane"
          xmlns="http://javafx.com/javafx/8.0.121">
 
@@ -19,7 +16,7 @@
         <TextField fx:id="txtLogin" GridPane.rowIndex="0"
                    GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM"/>
         <PasswordField fx:id="txtPassword" GridPane.rowIndex="2"
-                   GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM"/>
+                       GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM"/>
         <Label fx:id="lblLoginEmpty" GridPane.halignment="CENTER"
                GridPane.rowIndex="1" GridPane.columnIndex="1" GridPane.valignment="TOP"/>
         <Label fx:id="lblPasswordEmpty" GridPane.rowIndex="3"

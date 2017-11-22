@@ -19,6 +19,6 @@
 package com.util.fxml.page;
 
 public enum PageType {
-	
-	PAGE, POP_UP
+
+    PAGE, POP_UP
 }

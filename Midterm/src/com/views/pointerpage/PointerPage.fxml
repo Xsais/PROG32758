@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
 <?import javafx.scene.layout.GridPane?>
+<?import java.net.URL?>
 <fx:root xmlns:fx="http://javafx.com/fxml/1" type="GridPane"
          minWidth="-Infinity" minHeight="-Infinity"
          maxHeight="Infinity" maxWidth="Infinity"
