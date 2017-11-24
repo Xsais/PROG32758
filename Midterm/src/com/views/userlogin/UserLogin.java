@@ -122,45 +122,142 @@ public class UserLogin extends PageView implements Initializable {
 
     }
 
+    @Override
 
-    /**
-     * Inform user that their account has been locked, locks the account, and exits login pop out window
-     */
-    public void showLockOutMessage() throws SQLException {
+    public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
 
-        // inform user that account has been locked
-        JOptionPane.showMessageDialog(null, "Your account has been locked\n Please contact your Database Administrator",
+        // initialize Login page warning labels and Login button availability
+        btnUserLogin.setDisable(true);
 
-                "Car Racing Game", JOptionPane.INFORMATION_MESSAGE);
+        lblLoginEmpty.setText("The Login field can not be blank, please enter a login.");
 
-        // set user password to all x's in DB
-        dbConnection.executeUpdate(
+        lblPasswordEmpty.setText("The Password field can not be blank, please enter a password.");
 
-                String.format("UPDATE Players SET Password = 'xxxxxx' WHERE Login = '%s'", txtLogin.getText()));
+        // listen for valid scenarios in Login text field
+        txtLogin.textProperty().addListener(p -> {
 
-        // exit login screen
-        btnExit.fire();
+            isBlankField();
+
+        });
+
+        // listen for valid scenarios in Password text field
+        txtPassword.textProperty().addListener(p -> {
+
+            isBlankField();
+
+        });
+
+        // verify user credentials when Login button is clicked
+        btnUserLogin.setOnAction(evt -> {
+
+            try {
+
+                isValidLogin();
+
+            } catch (HeadlessException e) {
+
+                e.printStackTrace();
+
+            } catch (SQLException e) {
+
+                e.printStackTrace();
+
+            }
+
+        });
+
+        // exit login pop out page
+        btnExit.setOnAction(p -> pageController.hidePopUps(0));
+
     }
 
-
     /**
-     * Inform user of incorrect login/password and increments failed attempts counter by one
+     * Method for text field listener to prevent user from clicking Login button with empty Login/Password fields and to
+     * give them a warning message that fields can not be blank
      */
-    public void showLoginErrorMessage() {
+    public void isBlankField() {
 
-        // inform user of incorrect login/password
-        JOptionPane.showMessageDialog(null,
+        // check and warn user of empty text field, and disable Login button
+        if (txtLogin.getText().equals("")) {
 
-                "The Login and Password are not correct\n Please try again"
+            lblLoginEmpty.setText("The Login field can not be blank, please enter a login.");
 
-                        + " if you are already registered or complete your registration if you are not",
+            lblLoginEmpty.setVisible(true);
 
-                "Car Racing Game", JOptionPane.INFORMATION_MESSAGE);
+            btnUserLogin.setDisable(true);
 
-        // increase fail counter by 1
-        failCount += 1;
+        } else {
+
+            lblLoginEmpty.setVisible(false);
+
+        }
+
+        // check if user defined password is same as lock out code and warn user, disable Login button
+        if (txtPassword.getText().equals(LOCK_OUT_CODE)) {
+
+            lblPasswordEmpty.setText("Password can not be xxxxxx.  Please try a different password.");
+
+            lblPasswordEmpty.setVisible(true);
+
+            btnUserLogin.setDisable(true);
+
+        } else {
+
+            lblPasswordEmpty.setVisible(false);
+
+            btnUserLogin.setDisable(true);
+
+        }
+
+        // check and warn user if password field is empty, disable Login button
+        if (txtPassword.getText().equals("")) {
+
+            lblPasswordEmpty.setText("The Password field can not be blank, please enter a password.");
+
+            lblPasswordEmpty.setVisible(true);
+
+            btnUserLogin.setDisable(true);
+
+            // if text is present in both Login and Password fields, and not DB lock out password, then enable Login
+            // button
+        } else {
+
+            lblLoginEmpty.setVisible(false);
+
+        }
+
+        // check if login and password fields have text and password is not the same as lock out code, if so enable
+        // Login button
+        if (!txtLogin.getText().equals("") && !txtPassword.getText().equals("")
+
+                && !txtPassword.getText().equals(LOCK_OUT_CODE)) {
+
+            btnUserLogin.setDisable(false);
+
+        }
+
+        // check if login field is empty and password field is same as lock out code, if so disable Login button
+        if (txtLogin.getText().equals("") && txtPassword.getText().equals(LOCK_OUT_CODE)) {
+
+            btnUserLogin.setDisable(true);
+
+            lblLoginEmpty.setVisible(true);
+
+            lblPasswordEmpty.setText("Password can not be xxxxxx.  Please try a different password.");
+
+            lblPasswordEmpty.setVisible(true);
+
+        }
+
+        // check if login field is empty and password field is not, if so disable Login button
+        if (txtLogin.getText().equals("") && !txtPassword.getText().equals("")) {
+
+            lblLoginEmpty.setVisible(true);
+
+            btnUserLogin.setDisable(true);
+
+        }
     }
-
 
     /**
      * Query DB for login/password and check against user input for validity
@@ -237,148 +334,40 @@ public class UserLogin extends PageView implements Initializable {
     }
 
     /**
-     * Method for text field listener to prevent user from clicking Login button with empty Login/Password fields and to
-     * give them a warning message that fields can not be blank
+     * Inform user that their account has been locked, locks the account, and exits login pop out window
      */
-    public void isBlankField() {
+    public void showLockOutMessage() throws SQLException {
 
-        // check and warn user of empty text field, and disable Login button
-        if (txtLogin.getText().equals("")) {
+        // inform user that account has been locked
+        JOptionPane.showMessageDialog(null, "Your account has been locked\n Please contact your Database Administrator",
 
-            lblLoginEmpty.setText("The Login field can not be blank, please enter a login.");
+                "Car Racing Game", JOptionPane.INFORMATION_MESSAGE);
 
-            lblLoginEmpty.setVisible(true);
+        // set user password to all x's in DB
+        dbConnection.executeUpdate(
 
-            btnUserLogin.setDisable(true);
+                String.format("UPDATE Players SET Password = 'xxxxxx' WHERE Login = '%s'", txtLogin.getText()));
 
-        } else {
-
-            lblLoginEmpty.setVisible(false);
-
-        }
-
-        // check if user defined password is same as lock out code and warn user, disable Login button
-        if (txtPassword.getText().equals(LOCK_OUT_CODE)) {
-
-            lblPasswordEmpty.setText("Password can not be xxxxxx.  Please try a different password.");
-
-            lblPasswordEmpty.setVisible(true);
-
-            btnUserLogin.setDisable(true);
-
-        } else {
-
-            lblPasswordEmpty.setVisible(false);
-
-            btnUserLogin.setDisable(true);
-
-        }
-
-        // check and warn user if password field is empty, disable Login button
-        if (txtPassword.getText().equals("")) {
-
-            lblPasswordEmpty.setText("The Password field can not be blank, please enter a password.");
-
-            lblPasswordEmpty.setVisible(true);
-
-            btnUserLogin.setDisable(true);
-
-            // if text is present in both Login and Password fields, and not DB lock out password, then enable Login button
-        } else {
-
-            lblLoginEmpty.setVisible(false);
-
-        }
-
-        // check if login and password fields have text and password is not the same as lock out code, if so enable Login button
-        if (!txtLogin.getText().equals("") && !txtPassword.getText().equals("")
-
-                && !txtPassword.getText().equals(LOCK_OUT_CODE)) {
-
-            btnUserLogin.setDisable(false);
-
-        }
-
-        // check if login field is empty and password field is same as lock out code, if so disable Login button
-        if (txtLogin.getText().equals("") && txtPassword.getText().equals(LOCK_OUT_CODE)) {
-
-            btnUserLogin.setDisable(true);
-
-            lblLoginEmpty.setVisible(true);
-
-            lblPasswordEmpty.setText("Password can not be xxxxxx.  Please try a different password.");
-
-            lblPasswordEmpty.setVisible(true);
-
-        }
-
-        // check if login field is empty and password field is not, if so disable Login button
-        if (txtLogin.getText().equals("") && !txtPassword.getText().equals("")) {
-
-            lblLoginEmpty.setVisible(true);
-
-            btnUserLogin.setDisable(true);
-
-        }
+        // exit login screen
+        btnExit.fire();
     }
 
-    @Override
+    /**
+     * Inform user of incorrect login/password and increments failed attempts counter by one
+     */
+    public void showLoginErrorMessage() {
 
-    public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
+        // inform user of incorrect login/password
+        JOptionPane.showMessageDialog(null,
 
-        // initialize Login page warning labels and Login button availability
-        btnUserLogin.setDisable(true);
+                "The Login and Password are not correct\n Please try again"
 
-        lblLoginEmpty.setText("The Login field can not be blank, please enter a login.");
+                        + " if you are already registered or complete your registration if you are not",
 
-        lblPasswordEmpty.setText("The Password field can not be blank, please enter a password.");
+                "Car Racing Game", JOptionPane.INFORMATION_MESSAGE);
 
-        // listen for valid scenarios in Login text field
-        txtLogin.textProperty().addListener(p -> {
-
-            isBlankField();
-
-        });
-
-        // listen for valid scenarios in Password text field
-        txtPassword.textProperty().addListener(p -> {
-
-            isBlankField();
-
-        });
-
-        // verify user credentials when Login button is clicked
-        btnUserLogin.setOnAction(evt -> {
-
-            try {
-
-                isValidLogin();
-
-            } catch (HeadlessException e) {
-
-                e.printStackTrace();
-
-            } catch (SQLException e) {
-
-                e.printStackTrace();
-
-            }
-
-        });
-
-        // exit login pop out page
-        btnExit.setOnAction(p -> pageController.hidePopUps(0));
-
-    }
-
-    @Override
-
-    public void init(PageController pageController) {
-
-        super.init(pageController);
-
-        pageController.registerPage(gameMenu);
-
+        // increase fail counter by 1
+        failCount += 1;
     }
 
     /**
@@ -424,6 +413,16 @@ public class UserLogin extends PageView implements Initializable {
     public void onOpen(Object sender) {
 
         txtLogin.requestFocus();
+
+    }
+
+    @Override
+
+    public void init(PageController pageController) {
+
+        super.init(pageController);
+
+        pageController.registerPage(gameMenu);
 
     }
 }

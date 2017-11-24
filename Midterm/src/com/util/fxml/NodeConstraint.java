@@ -41,6 +41,11 @@ public class NodeConstraint {
         setRowIndex(rowIndex);
     }
 
+    private void initNode(Node node) {
+
+        this.node = node;
+    }
+
     public NodeConstraint(Node node, int columnIndex, int rowIndex, int columnSpan, int rowSpan) {
 
         initNode(node);
@@ -48,11 +53,6 @@ public class NodeConstraint {
         setRowIndex(rowIndex);
         setColumnSpan(columnSpan);
         setRowSpan(rowSpan);
-    }
-
-    private void initNode(Node node) {
-
-        this.node = node;
     }
 
     public int getColumnIndex() {

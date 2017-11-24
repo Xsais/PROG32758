@@ -3,9 +3,6 @@
 <?import javafx.scene.layout.GridPane?>
 <?import java.net.URL?>
 <fx:root xmlns:fx="http://javafx.com/fxml/1" type="GridPane"
-         minWidth="-Infinity" minHeight="-Infinity"
-         maxHeight="Infinity" maxWidth="Infinity"
-         prefHeight="802.0" prefWidth="1211.0"
          xmlns="http://javafx.com/javafx/8.0.121">
     <stylesheets>
         <URL value="@/com/res/styles/css-root.css"/>
