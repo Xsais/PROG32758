@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- TODO: Specify Layout -->
+
+<?import javafx.geometry.Insets?>
+
+<?import javafx.scene.control.*?>
+
+<?import javafx.scene.layout.*?>
+
+<fx:root xmlns:fx="http://javafx.com/fxml/1" styleClass="lightBlue" type="GridPane"
+         xmlns="http://javafx.com/javafx/8.0.121">
+
+    <children>
+        <Label fx:id="lblLastName" text="Last Name: " GridPane.rowIndex="0"
+               GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM"/>
+        <TextField fx:id="txtLastName" GridPane.rowIndex="0"
+               GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM"/>
+                   
+        <Label fx:id="lblFirstName" text="First Name: " GridPane.rowIndex="1"
+               GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM"/>
+        <TextField fx:id="txtFirstName" GridPane.rowIndex="1"
+               GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM"/>       
+              
+        <Label fx:id="lblGroup" text="Group #: " GridPane.rowIndex="2"
+               GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM"/>      
+        <TextField fx:id="txtGroup" GridPane.rowIndex="2"
+               GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM"/>      
+               
+        <Label fx:id="lblLogin" text="Login: " GridPane.rowIndex="3"
+               GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM"/>      
+        <TextField fx:id="txtLogin" GridPane.rowIndex="3"
+               GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM"/>      
+       
+        <Label fx:id="lblPassword" text="Password: " GridPane.rowIndex="4"
+               GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM"/>
+        <PasswordField fx:id="txtPassword" GridPane.rowIndex="4"
+               GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM"/>
+                   
+        <Label fx:id="lblPreferredCarName" text="Preferred Car Name: " GridPane.rowIndex="5"
+               GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM"/>
+        <TextField fx:id="txtPreferredCarName" GridPane.rowIndex="5"
+               GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM"/>
+                   
+        <Label fx:id="lblCredit" text="Credit: " GridPane.rowIndex="6"
+               GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM"/>
+        <TextField fx:id="txtCredit" GridPane.rowIndex="6"
+               GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM"/>       
+              
+        <Label fx:id="lblScore" text="Score: " GridPane.rowIndex="7"
+               GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM"/>      
+        <TextField fx:id="txtScore" GridPane.rowIndex="7"
+               GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM"/>      
+               
+        <Label fx:id="lblLogo" text="Logo: " GridPane.rowIndex="8"
+               GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM"/>      
+        <TextField fx:id="txtLogo" GridPane.rowIndex="8"
+               GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM"/>
+               
+        <Label fx:id="lblEmpty" GridPane.halignment="CENTER"
+               GridPane.rowIndex="9" GridPane.columnIndex="1" GridPane.valignment="TOP"/>       
+        <Label fx:id="lblLockout" GridPane.halignment="CENTER"
+               GridPane.rowIndex="10" GridPane.columnIndex="1" GridPane.valignment="TOP"/>       
+
+        <Button fx:id="btnOK" styleClass="game-button" text="OK" GridPane.halignment="RIGHT"
+                GridPane.rowIndex="11" GridPane.columnIndex="0" GridPane.valignment="BOTTOM"/>
+        <Button fx:id="btnExit" styleClass="game-button" text="Exit" GridPane.halignment="RIGHT" GridPane.rowIndex="11"
+                GridPane.columnIndex="1" GridPane.valignment="BOTTOM"/>
+    </children>
+
+    <columnConstraints>
+        <ColumnConstraints percentWidth="25.0"/>
+        <ColumnConstraints percentWidth="65.0"/>
+    </columnConstraints>
+
+    <padding>
+        <Insets top="5.0"/>
+    </padding>
+
+</fx:root>
