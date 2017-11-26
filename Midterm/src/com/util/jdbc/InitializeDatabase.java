@@ -36,10 +36,7 @@ package com.util.jdbc;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Scanner;
 
 import javax.swing.JOptionPane;
@@ -64,7 +61,7 @@ public class InitializeDatabase {
 				}
 				String[] tokens = line.split(",");
 	
-				dbConnection.executeUpdate("INSERT INTO Players (Last_Name, First_Name)" + "VALUES ('" + tokens[0] + "', '" + tokens[1] +"')");
+				dbConnection.executeUpdate("INSERT INTO Players (Last_Name, First_Name, `Group`) " + "VALUES ('" + tokens[0] + "', '" + tokens[1] + "', " + Integer.parseInt(tokens[2]) +")");
 				}
 			JOptionPane.showMessageDialog(null, "Database initialization successfully completed.\n Click OK to continue.", "Car Racing Game", JOptionPane.INFORMATION_MESSAGE);
 		}
