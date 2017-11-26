@@ -72,9 +72,7 @@ public class AdminPage extends PageView implements Initializable {
 
         btnCreate.setOnAction(p -> new CreateDataBase(dbConnection));
 
-        /* TODO : Debase Initialization to be implemented
-            btnInit.setOnAction();
-         */
+        btnInit.setOnAction(p -> new InitializeDatabase(dbConnection));
 
         /* TODO : Debase Display to be implemented
             btnDisplay.setOnAction();
