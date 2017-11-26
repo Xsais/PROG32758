@@ -69,46 +69,6 @@ public class CreateDataBase {
 
     }
 
-
-    /**
-     * Creates table called Players in DBProg32758
-     *
-     * @param dbConnection The statement object for the desired connection
-     */
-    private void createTable(ConnectToDB dbConnection) throws SQLException {
-
-        // creates table called Players and show pop up window telling user table has been created
-        try {
-
-            dbConnection.executeUpdate("CREATE TABLE DBProg32758.Players (`Last_Name` VARCHAR(20)," +
-
-                    " `First_Name` VARCHAR(20), `Group` INT(255), `Login` VARCHAR(20), `Password` VARCHAR(20)," +
-
-                    " `Preferred_Car_Name` VARCHAR(20), `Logo` VARCHAR(20), `Score` INT(255))");
-
-            JOptionPane.showMessageDialog(null,
-
-                    "Table Successfully created...\n Click OK to continue.", "Car Racing Game",
-
-                    JOptionPane.INFORMATION_MESSAGE);
-
-            // catch exception and show error message in pop up window (if error occurs) otherwise notify user that table exists
-        } catch (SQLException ex) {
-
-            if (ex.getErrorCode() != 1050) {
-
-                throw ex;
-
-            }
-
-            JOptionPane.showMessageDialog(null, "The table already exists.",
-
-                    "Car Racing Game", JOptionPane.WARNING_MESSAGE);
-
-        }
-    }
-
-
     /**
      * Verify that DBProg32758 is created
      *
@@ -141,6 +101,45 @@ public class CreateDataBase {
                     "Database Successfully created...\n Click OK to continue.", "Car Racing Game",
 
                     JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+
+    /**
+     * Creates table called Players in DBProg32758
+     *
+     * @param dbConnection The statement object for the desired connection
+     */
+    private void createTable(ConnectToDB dbConnection) throws SQLException {
+
+        // creates table called Players and show pop up window telling user table has been created
+        try {
+
+            dbConnection.executeUpdate("CREATE TABLE DBProg32758.Players (`Last_Name` VARCHAR(20)," +
+
+                    " `First_Name` VARCHAR(20), `Group` INT(255), `Login` VARCHAR(20), `Password` VARCHAR(20)," +
+
+                    " `Preferred_Car_Name` VARCHAR(20), `Logo` VARCHAR(20), `Score` INT(255))");
+
+            JOptionPane.showMessageDialog(null,
+
+                    "Table Successfully created...\n Click OK to continue.", "Car Racing Game",
+
+                    JOptionPane.INFORMATION_MESSAGE);
+
+            // catch exception and show error message in pop up window (if error occurs) otherwise notify user that
+            // table exists
+        } catch (SQLException ex) {
+
+            if (ex.getErrorCode() != 1050) {
+
+                throw ex;
+
+            }
+
+            JOptionPane.showMessageDialog(null, "The table already exists.",
+
+                    "Car Racing Game", JOptionPane.WARNING_MESSAGE);
+
         }
     }
 }

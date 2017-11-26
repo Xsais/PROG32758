@@ -17,13 +17,13 @@
 
 package com.init;
 
+
 import com.views.pointerpage.PointerPage;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-
 
 public class Main extends Application {
 

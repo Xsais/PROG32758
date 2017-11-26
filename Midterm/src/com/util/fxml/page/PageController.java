@@ -32,7 +32,6 @@ import javafx.stage.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  *
  */
@@ -206,7 +205,7 @@ public class PageController extends GridPane implements Initializable {
      * @throws IllegalArgumentException IF the page has already been registered
      */
     public final void registerPage(PageView... pages) throws NullPointerException,
-            IllegalArgumentException {
+                                                             IllegalArgumentException {
 
         for (PageView page : pages) {
 
@@ -222,7 +221,7 @@ public class PageController extends GridPane implements Initializable {
      * @throws IllegalArgumentException IF the page has already been registered
      */
     public final void registerPage(PageView page) throws NullPointerException,
-            IllegalArgumentException {
+                                                         IllegalArgumentException {
 
         if (page == null) {
 
@@ -249,6 +248,7 @@ public class PageController extends GridPane implements Initializable {
     @Override
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
 
+        switchablePages.setPrefHeight(800);
         switchablePages.setVgap(8.0);
         switchablePages.setOnMouseClicked(p -> {
 

@@ -19,6 +19,7 @@
 package com.views.adminpage;
 
 import com.util.fxml.FXMLHelper;
+import com.util.fxml.page.PageController;
 import com.util.fxml.page.PageView;
 import com.util.jdbc.ConnectToDB;
 import com.util.jdbc.CreateDataBase;
@@ -109,6 +110,18 @@ public class AdminPage extends PageView implements Initializable {
      */
     @Override
     public void onOpen(Object sender) {
+
+    }
+
+    /**
+     * Passes the reference of the PageController to registered PageView
+     *
+     * @param pageController The PageController that is the holder of the PageView
+     */
+    @Override
+    public void init(PageController pageController) {
+
+        super.init(pageController);
 
     }
 }

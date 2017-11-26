@@ -7,7 +7,8 @@
 <?import javafx.scene.layout.*?>
 <fx:root xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER"
          styleClass="lightBlue" type="GridPane"
-         xmlns="http://javafx.com/javafx/8.0.121">
+         xmlns="http://javafx.com/javafx/8.0.121"
+         minWidth="-Infinity" maxWidth="Infinity" prefWidth="1211.0">
     <children>
         <ImageView fitHeight="84.0" fitWidth="194.0">
             <image>
