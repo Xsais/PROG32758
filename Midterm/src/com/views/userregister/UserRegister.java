@@ -35,9 +35,11 @@
 package com.views.userregister;
 
 
-import com.util.ConnectToDB;
-import com.util.PageType;
-import com.util.PageView;
+import com.util.fxml.FXMLHelper;
+import com.util.fxml.page.PageController;
+import com.util.jdbc.ConnectToDB;
+import com.util.fxml.page.PageType;
+import com.util.fxml.page.PageView;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -76,7 +78,7 @@ public class UserRegister extends PageView implements Initializable {
 	// constructor that creates connection to DB and sets object as pop out type page
 	public UserRegister(ConnectToDB dbConnection) {
 
-		pageType = PageType.POP_OUT;
+		pageType = PageType.POP_UP;
 		gameMenu = new com.views.gamemenu.GameMenu(dbConnection);
 
 		// select DB for user detail verification
@@ -88,7 +90,7 @@ public class UserRegister extends PageView implements Initializable {
 		}
 
 		try {
-			com.util.FXMLHelper.loadControl(this).load();
+			FXMLHelper.loadControl(this).load();
 		} catch (java.io.IOException e) {
 			e.printStackTrace();
 		}
@@ -207,11 +209,11 @@ public class UserRegister extends PageView implements Initializable {
 		});
 
 		// exit login pop out page
-		btnExit.setOnAction(p -> pageController.hidePopOut(0));
+		btnExit.setOnAction(p -> pageController.hidePopUps(0));
 	}
 
 	@Override
-	public void init(com.util.PageController pageController) {
+	public void init(PageController pageController) {
 
 		super.init(pageController);
 		pageController.registerPage(gameMenu);
