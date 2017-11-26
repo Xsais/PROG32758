@@ -23,6 +23,7 @@ import com.util.fxml.page.PageController;
 import com.util.fxml.page.PageView;
 import com.util.jdbc.ConnectToDB;
 import com.views.userlogin.UserLogin;
+import com.views.userregister.UserRegister;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -43,7 +44,8 @@ public class UserPage extends PageView implements Initializable {
     private ConnectToDB dbConnection;
 
     private UserLogin userLogin;
-
+    
+    private UserRegister userRegister;
     /**
      * Initalizes the UserPage
      *
@@ -81,13 +83,8 @@ public class UserPage extends PageView implements Initializable {
 
         btnLogin.setOnAction(p -> pageController.show(userLogin));
 
-
-        /* TODO: User to be added when complete
-
-            btnCreate.setOnAction();
-
-        */
-
+        userRegister = new UserRegister(dbConnection);
+	    btnCreate.setOnAction(p -> pageController.show(userRegister));
     }
 
     /**
@@ -126,6 +123,6 @@ public class UserPage extends PageView implements Initializable {
         super.init(pageController);
 
         pageController.registerPage(userLogin);
-
+        pageController.registerPage(userRegister);
     }
 }
