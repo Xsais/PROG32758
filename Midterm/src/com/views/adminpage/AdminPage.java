@@ -23,6 +23,7 @@ import com.util.fxml.page.PageController;
 import com.util.fxml.page.PageView;
 import com.util.jdbc.ConnectToDB;
 import com.util.jdbc.CreateDataBase;
+import com.util.jdbc.InitializeDatabase;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
