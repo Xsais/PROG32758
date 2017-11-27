@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TreeTableColumn?>
+<?import javafx.scene.control.TreeTableView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<fx:root minHeight="360.0" minWidth="640.0" prefWidth="640.0" styleClass="lightBlue" type="GridPane" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
+		 
+  <columnConstraints>
+    <ColumnConstraints />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="600.0" minWidth="0.0" prefWidth="229.0" />
+  </columnConstraints>
+  
+  <rowConstraints>
+    <RowConstraints maxHeight="384.0" minHeight="10.0" prefHeight="360.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="195.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+  
+   <children>
+      <TreeTableView prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+        <columns>
+          <TreeTableColumn prefWidth="191.0" text="Name" />
+          <TreeTableColumn prefWidth="47.0" text="Group" />
+            <TreeTableColumn prefWidth="121.0" text="Login" />
+            <TreeTableColumn prefWidth="118.0" text="Password" />
+            <TreeTableColumn prefWidth="75.0" text="Logo" />
+            <TreeTableColumn prefWidth="47.0" text="Score" />
+        </columns>
+      </TreeTableView>
+      <Button alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="25.0" text="Return to Admin Page" translateX="-10.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+   </children>
+</fx:root>
