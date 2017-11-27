@@ -23,6 +23,7 @@ import com.util.fxml.page.PageController;
 import com.util.fxml.page.PageView;
 import com.util.jdbc.ConnectToDB;
 import com.util.jdbc.CreateDataBase;
+import com.util.jdbc.DisplayDataBase;
 import com.util.jdbc.InitializeDatabase;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -75,9 +76,8 @@ public class AdminPage extends PageView implements Initializable {
 
         btnInit.setOnAction(p -> new InitializeDatabase(dbConnection));
 
-        /* TODO : Debase Display to be implemented
-            btnDisplay.setOnAction();
-         */
+        btnDisplay.setOnAction(p -> new DisplayDataBase(dbConnection));
+       
 
     }
 
