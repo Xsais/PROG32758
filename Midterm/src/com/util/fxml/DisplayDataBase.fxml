@@ -1,25 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.TreeTableColumn?>
+<?import javafx.scene.control.TreeTableView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root minHeight="360.0" minWidth="640.0" prefWidth="640.0" styleClass="lightBlue" type="GridPane" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
+		 
+  <columnConstraints>
+    <ColumnConstraints />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="600.0" minWidth="0.0" prefWidth="229.0" />
+  </columnConstraints>
+  
+  <rowConstraints>
+    <RowConstraints maxHeight="384.0" minHeight="10.0" prefHeight="360.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="195.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+  
    <children>
-      <Button layoutX="452.0" layoutY="361.0" mnemonicParsing="false" text="Return to Admin Page" />
-      <Label layoutX="157.0" layoutY="174.0" text="Label" />
-      <TableView layoutX="74.0" layoutY="81.0" prefHeight="238.0" prefWidth="452.0">
+      <TreeTableView prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
         <columns>
-          <TableColumn prefWidth="75.0" text="Name" />
-          <TableColumn prefWidth="75.0" text="Group" />
-            <TableColumn prefWidth="75.0" text="Login" />
-            <TableColumn prefWidth="75.0" text="Password" />
-            <TableColumn prefWidth="75.0" text="Logo" />
-            <TableColumn prefWidth="75.0" text="Score" />
+          <TreeTableColumn prefWidth="191.0" text="Name" />
+          <TreeTableColumn prefWidth="47.0" text="Group" />
+            <TreeTableColumn prefWidth="121.0" text="Login" />
+            <TreeTableColumn prefWidth="118.0" text="Password" />
+            <TreeTableColumn prefWidth="75.0" text="Logo" />
+            <TreeTableColumn prefWidth="47.0" text="Score" />
         </columns>
-      </TableView>
+      </TreeTableView>
+      <Button alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="25.0" text="Return to Admin Page" translateX="-10.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
    </children>
-</AnchorPane>
+</fx:root>
