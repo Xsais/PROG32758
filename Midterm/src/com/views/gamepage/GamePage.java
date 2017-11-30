@@ -6,6 +6,7 @@ import com.util.fxml.FXMLHelper;
 import com.util.fxml.page.PageView;
 import com.util.info.User;
 import com.util.jdbc.ConnectToDB;
+import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -131,7 +132,7 @@ public class GamePage extends PageView implements Initializable {
                 return;
             }
 
-            activeUser.setScore(activeUser.getScore() + 50);
+            Platform.runLater(() -> activeUser.setScore(activeUser.getScore() + 50));
         });
     }
 
