@@ -59,12 +59,15 @@
                
         <Label fx:id="lblEmpty" GridPane.halignment="CENTER"
                GridPane.rowIndex="9" GridPane.columnIndex="1" GridPane.valignment="TOP"/>       
+        <Label fx:id="lblValidInput" GridPane.halignment="CENTER"
+               GridPane.rowIndex="10" GridPane.columnIndex="1" GridPane.valignment="TOP"/>        
         <Label fx:id="lblLockout" GridPane.halignment="CENTER"
-               GridPane.rowIndex="10" GridPane.columnIndex="1" GridPane.valignment="TOP"/>       
+               GridPane.rowIndex="11" GridPane.columnIndex="1" GridPane.valignment="TOP"/>       
+                     
 
         <Button fx:id="btnOK" styleClass="game-button" text="OK" GridPane.halignment="RIGHT"
-                GridPane.rowIndex="11" GridPane.columnIndex="0" GridPane.valignment="BOTTOM"/>
-        <Button fx:id="btnExit" styleClass="game-button" text="Exit" GridPane.halignment="RIGHT" GridPane.rowIndex="11"
+                GridPane.rowIndex="12" GridPane.columnIndex="0" GridPane.valignment="BOTTOM"/>
+        <Button fx:id="btnExit" styleClass="game-button" text="Exit" GridPane.halignment="RIGHT" GridPane.rowIndex="12"
                 GridPane.columnIndex="1" GridPane.valignment="BOTTOM"/>
     </children>
 
