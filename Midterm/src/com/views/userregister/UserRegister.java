@@ -65,7 +65,7 @@ public class UserRegister extends PageView implements Initializable {
 	private Button btnOK, btnExit;
 	@FXML
 	private Label lblLastName, lblFirstName, lblGroup, lblLogin, lblPassword,
-	lblPreferredCarName, lblCredit, lblScore, lblLogo, lblEmpty, lblLockout;
+	lblPreferredCarName, lblCredit, lblScore, lblLogo, lblEmpty, lblLockout, lblValidInput;
 	@FXML
 	private TextField txtLastName, txtFirstName, txtGroup, txtLogin,
 	txtPreferredCarName, txtCredit, txtScore, txtLogo;
@@ -78,7 +78,7 @@ public class UserRegister extends PageView implements Initializable {
 	// constructor that creates connection to DB and sets object as pop out type page
 	public UserRegister(ConnectToDB dbConnection) {
 
-		pageType = PageType.POP_UP;
+		pageType = PageType.POP_OUT;
 		gameMenu = new com.views.gamemenu.GameMenu(dbConnection);
 
 		// select DB for user detail verification
@@ -90,7 +90,7 @@ public class UserRegister extends PageView implements Initializable {
 		}
 
 		try {
-			FXMLHelper.loadControl(this).load();
+			com.util.FXMLHelper.loadControl(this).load();
 		} catch (java.io.IOException e) {
 			e.printStackTrace();
 		}
@@ -98,6 +98,7 @@ public class UserRegister extends PageView implements Initializable {
 	
 	/**
 	 * Query DB for lastname, firstname & group and check against user input for validity
+	 * Makes sure user does not already have an account registered
 	 * @throws HeadlessException
 	 * @throws SQLException
 	 */
@@ -106,7 +107,14 @@ public class UserRegister extends PageView implements Initializable {
 		rs = dbConnection.executeQuerry("SELECT * FROM Players WHERE Last_Name = '" + txtLastName.getText() 
 			+ "' AND First_Name = '" + txtFirstName.getText() + "' AND `Group` = '" + txtGroup.getText() + "'");
 		if (rs.next()) {
-			writeToDB();
+			ResultSet results = dbConnection.executeQuerry("SELECT * FROM Players WHERE Last_Name = '" + txtLastName.getText() 
+			+ "' AND First_Name = '" + txtFirstName.getText() + "' AND `Group` = '" + txtGroup.getText() + "' AND Login IS NOT NULL");
+			if (results.next()) {
+				JOptionPane.showMessageDialog(null, "You have already registered an account.", "Car Racing Game", javax.swing.JOptionPane.WARNING_MESSAGE);
+			}
+			else {
+				writeToDB();
+			}
 		} else {
 			JOptionPane.showMessageDialog(null, "Either you are not registered or your Last Name, First Name, Group are not correct.", "Car Racing Game", javax.swing.JOptionPane.WARNING_MESSAGE);
 		}	
@@ -132,66 +140,111 @@ public class UserRegister extends PageView implements Initializable {
 	}
 
 	/**
-	 *  Method for text field listener to prevent user from clicking OK button with empty fields
+	 *  Method for text field listener to prevent user from clicking OK button with empty or incorrect fields
 	 */
-	public void isBlankField() {
-		lblEmpty.setVisible(true);
-		// check if login and password fields have text and password is not the same as lock out code, if so enable Login button
-		if (txtPassword.getText().equals(LOCK_OUT_CODE)) {
-			lblLockout.setVisible(true);
-		}
-		if (!txtLastName.getText().equals("") && !txtFirstName.getText().equals("")	&& !txtPassword.getText().equals(LOCK_OUT_CODE) 
-			&& !txtPassword.getText().equals("") && !txtGroup.getText().equals("") && !txtLogin.getText().equals("")
-			&& !txtPreferredCarName.getText().equals("") && !txtCredit.getText().equals("") && !txtScore.getText().equals("")
-			&& !txtLogo.getText().equals("")) {
+	public void ValidateInput() {
+		ValidIntegers();
+		CheckLockout();
+		BlankFields();
+		if (ValidIntegers() && CheckLockout() && BlankFields()) {
 			btnOK.setDisable(false);
-			lblEmpty.setVisible(false);
-			lblLockout.setVisible(false);
 		}
+		else {
+			btnOK.setDisable(true);
+		}
+	}
+	
+	public boolean BlankFields() {
+		if (!txtLastName.getText().equals("") && !txtFirstName.getText().equals("")	&& !txtPassword.getText().equals(LOCK_OUT_CODE) 
+				&& !txtPassword.getText().equals("") && !txtGroup.getText().equals("") && !txtLogin.getText().equals("")
+				&& !txtPreferredCarName.getText().equals("") && !txtCredit.getText().equals("") && !txtScore.getText().equals("")
+				&& !txtLogo.getText().equals("")) {
+			lblEmpty.setVisible(false);
+			return true;
+		}
+		else {
+			lblEmpty.setVisible(true);
+			return false;
+		}
+	}
+	
+	public boolean CheckLockout() {
+		if (!txtPassword.getText().equals(LOCK_OUT_CODE)) {
+			lblLockout.setVisible(false);
+			return true;
+		}
+		else {
+			lblLockout.setVisible(true);
+			return false;
+		}
+	}
+	
+	public boolean ValidIntegers() {
+		if (isInt(txtGroup.getText()) && isInt(txtScore.getText())) {
+			lblValidInput.setVisible(false);
+			return true;
+		}
+		else {
+			lblValidInput.setVisible(true);
+			return false;
+		}
+	}
+	
+	public boolean isInt(String str) {  
+	  try  
+	  {  
+	    Integer i = Integer.parseInt(str);  
+	  }  
+	  catch(NumberFormatException nfe)  
+	  {  
+	    return false;  
+	  }  
+	  return true;  
 	}
 
 	@Override
 	public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
 
-		btnOK.setDisable(true);
 		lblLockout.setVisible(false);
+		lblValidInput.setVisible(false);
 		lblEmpty.setText("No fields can be left blank.");
 		lblLockout.setText("Password cannot be 'xxxxxx'.");
+		lblValidInput.setText("Group and Score values must be integers.");
 		
 		txtLastName.textProperty().addListener(p -> {
-			isBlankField();
+			ValidateInput();
 		});
 
 		txtFirstName.textProperty().addListener(p -> {
-			isBlankField();
+			ValidateInput();
 		});
 		
 		txtGroup.textProperty().addListener(p -> {
-			isBlankField();
+			ValidateInput();
 		});
 		
 		txtLogin.textProperty().addListener(p -> {
-			isBlankField();
+			ValidateInput();
 		});
 		
 		txtPassword.textProperty().addListener(p -> {
-			isBlankField();
+			ValidateInput();
 		});
 		
 		txtPreferredCarName.textProperty().addListener(p -> {
-			isBlankField();
+			ValidateInput();
 		});
 		
 		txtCredit.textProperty().addListener(p -> {
-			isBlankField();
+			ValidateInput();
 		});
 		
 		txtScore.textProperty().addListener(p -> {
-			isBlankField();
+			ValidateInput();
 		});
 		
 		txtLogo.textProperty().addListener(p -> {
-			isBlankField();
+			ValidateInput();
 		});
 
 		// verify user details when OK button is clicked
@@ -209,11 +262,11 @@ public class UserRegister extends PageView implements Initializable {
 		});
 
 		// exit login pop out page
-		btnExit.setOnAction(p -> pageController.hidePopUps(0));
+		btnExit.setOnAction(p -> pageController.hidePopOut(0));
 	}
 
 	@Override
-	public void init(PageController pageController) {
+	public void init(com.util.PageController pageController) {
 
 		super.init(pageController);
 		pageController.registerPage(gameMenu);
