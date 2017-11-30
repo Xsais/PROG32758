@@ -147,7 +147,7 @@ public class UseMyCar {
             mySecondCar.run(2, -1);
             //Pass the seconds between two sppeeds
             try {
-                Thread.sleep(1000);
+                //Thread.sleep(1000);
             } catch (Exception e) {
                 System.out.println("there is an error");
             }
