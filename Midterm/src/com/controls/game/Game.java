@@ -72,9 +72,7 @@ public class Game extends GridPane implements Initializable {
                     displayStrings.remove(0);
                 }
                 String finalWinner = winner;
-                Platform.runLater(() -> {
-                    gameWinner.set(finalWinner.trim());
-                });
+                Platform.runLater(() -> gameWinner.set(finalWinner.trim()));
                 gameRunning = false;
             }
         });

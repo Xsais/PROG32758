@@ -129,8 +129,8 @@ public class GamePage extends PageView implements Initializable {
 
             if (!activeUser.getPreferredCar().equalsIgnoreCase(gDisplay.getGameWinner())) {
 
-                return;
-            }
+                    return;
+                }
 
             Platform.runLater(() -> activeUser.setScore(activeUser.getScore() + 50));
         });

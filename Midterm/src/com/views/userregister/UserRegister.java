@@ -114,7 +114,8 @@ public class UserRegister extends PageView implements Initializable {
                 + "' AND First_Name = '" + txtFirstName.getText() + "' AND `Group` = '" + txtGroup.getText() + "'");
         if (rs.next()) {
 
-            if (!rs.getString(4).equals("")) {
+            String player = rs.getString(4);
+            if (player != null && !player.equals("")) {
                 JOptionPane.showMessageDialog(null, "You have already registered an account.", "Car Racing Game",
                         javax.swing.JOptionPane.WARNING_MESSAGE);
             } else {
