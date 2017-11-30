@@ -6,6 +6,8 @@ import com.util.fxml.FXMLHelper;
 import com.util.fxml.page.PageView;
 import com.util.info.User;
 import com.util.jdbc.ConnectToDB;
+import javafx.beans.property.ReadOnlyIntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -21,6 +23,8 @@ public class GamePage extends PageView implements Initializable {
 
     @FXML
     private Game gDisplay;
+
+    private SimpleIntegerProperty totalRuns = new SimpleIntegerProperty(this, "totalRuns");
 
     @FXML
     private PlayerMenu pmPlayer;
@@ -58,7 +62,7 @@ public class GamePage extends PageView implements Initializable {
     @Override
     public void onClose(Object sender, int statusCode) {
 
-        if (finalUpdate == null && activeUser != null) {
+        if (finalUpdate == null && activeUser != null || totalRuns.get() < 1) {
 
             return;
         }
@@ -69,7 +73,7 @@ public class GamePage extends PageView implements Initializable {
 
             finalUpdate.setDouble(2, activeUser.get().getCredit());
 
-            finalUpdate.setString(2, activeUser.get().getFullName().getFirstName());
+            finalUpdate.setString(3, activeUser.get().getFullName().getFirstName());
 
             finalUpdate.execute();
         } catch (SQLException e) {
@@ -118,7 +122,16 @@ public class GamePage extends PageView implements Initializable {
 
         gDisplay.gameWinnerProperty().addListener(i -> {
 
-            // TODO: Add score and credit calculation
+            totalRuns.add(1);
+
+            User activeUser = this.activeUser.get();
+
+            if (!activeUser.getPreferredCar().equalsIgnoreCase(gDisplay.getGameWinner())) {
+
+                return;
+            }
+
+            activeUser.setScore(activeUser.getScore() + 50);
         });
     }
 
@@ -151,9 +164,19 @@ public class GamePage extends PageView implements Initializable {
 
         try {
             finalUpdate = dbConnection.getConnection()
-                    .prepareStatement("UPDATE players SET `Score`=?, `Credits`=? WHERE `Login`=?");
+                    .prepareStatement("UPDATE dbprog32758.players SET `Score`=?, `Credits`=? WHERE `Login`=?");
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public int getTotalRuns() {
+
+        return totalRuns.get();
+    }
+
+    public ReadOnlyIntegerProperty totalRunsProperty() {
+
+        return totalRuns;
     }
 }
