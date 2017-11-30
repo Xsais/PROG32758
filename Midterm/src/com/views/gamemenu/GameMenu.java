@@ -63,7 +63,7 @@ public class GameMenu extends PageView implements Initializable {
         try {
 
             pullInfo = dbConnection.getConnection().prepareStatement("SELECT `Last_Name`, " +
-                    "`First_Name`, `Group`, `Preferred_Car_Name`, `Logo`, `Score` FROM " +
+                    "`First_Name`, `Group`, `Preferred_Car_Name`, `Logo`, `Score`, `Credits` FROM " +
                     "DBProg32758.Players WHERE `Login`=?");
         } catch (SQLException e) {
 
@@ -94,7 +94,7 @@ public class GameMenu extends PageView implements Initializable {
 
                 this.user = new User(userInfo.getString(1), userInfo.getString(2), userInfo.getInt
                         (3), username, userInfo.getString(4), userInfo.getInt(5), userInfo.getInt
-                        (6));
+                        (6), userInfo.getDouble(7));
 
                 gamePage.setActiveUser(user);
 

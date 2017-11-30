@@ -40,7 +40,7 @@ public class User {
     private int logo;
 
     public User(String firstName, String lastName, int groupNumber, String user, String
-            preferredCar, int logo, int score) {
+            preferredCar, int logo, int score, double credit) {
 
         setFullName(firstName, lastName);
         setGroupNumber(groupNumber);
@@ -48,6 +48,7 @@ public class User {
         setPreferredCar(preferredCar);
         setLogo(logo);
         setScore(score);
+        setCredit(credit);
     }
 
     /**
