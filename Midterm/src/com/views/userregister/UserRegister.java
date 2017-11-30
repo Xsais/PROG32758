@@ -22,7 +22,7 @@
 
  * Creation Date: 11, 2017 26
 
- * Last Modified: 11, 2017 26
+ * Last Modified: 11, 2017 30
 
  * Java Version: 1.8.1_141
 
@@ -128,9 +128,9 @@ public class UserRegister extends PageView implements Initializable {
 			+ "' AND First_Name = '" + txtFirstName.getText() + "' AND `Group` = '" + txtGroup.getText() + "'");
 			
 			dbConnection.executeUpdate("INSERT INTO Players (Last_Name, First_Name, `Group`, Login, Password, "
-				+ "Preferred_Car_Name, Logo, Score) VALUES ('" + txtLastName.getText() + "', '" + txtFirstName.getText() 
+				+ "Preferred_Car_Name, Logo, Score, Credits) VALUES ('" + txtLastName.getText() + "', '" + txtFirstName.getText() 
 				+ "', '" + Integer.parseInt(txtGroup.getText()) + "', '" + txtLogin.getText() + "', '" + txtPassword.getText() 
-				+ "', '" + txtPreferredCarName.getText() + "', '" + txtCredit.getText() + "', '" + txtLogo.getText() + "', '" + Integer.parseInt(txtScore.getText()) + "')");
+				+ "', '" + txtPreferredCarName.getText() + "', '" + txtLogo.getText() + "', '" + Integer.parseInt(txtScore.getText()) + "','" + txtCredit.getText() + "')");
 			
 			JOptionPane.showMessageDialog(null, "You are now registered, you can login.", "Car Racing Game", JOptionPane.INFORMATION_MESSAGE);
 			
@@ -146,12 +146,31 @@ public class UserRegister extends PageView implements Initializable {
 		ValidIntegers();
 		CheckLockout();
 		BlankFields();
-		if (ValidIntegers() && CheckLockout() && BlankFields()) {
+		ValidCredits(txtCredit.getText());
+		if (ValidIntegers() && CheckLockout() && BlankFields() && ValidCredits(txtCredit.getText())) {
 			btnOK.setDisable(false);
 		}
 		else {
 			btnOK.setDisable(true);
 		}
+	}
+	
+	public boolean ValidCredits(String str) {
+		try  
+		  {  
+		    Float i = Float.parseFloat(str);
+		    if (i > 99.99) {
+		    	lblValidInput.setVisible(true);
+		    	return false;
+		    }
+		  }  
+		  catch(NumberFormatException nfe)  
+		  {  
+			lblValidInput.setVisible(true);
+		    return false;  
+		  }
+		lblValidInput.setVisible(false);
+		return true;
 	}
 	
 	public boolean BlankFields() {
