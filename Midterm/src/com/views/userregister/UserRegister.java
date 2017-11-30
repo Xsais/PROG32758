@@ -130,7 +130,7 @@ public class UserRegister extends PageView implements Initializable {
 			dbConnection.executeUpdate("INSERT INTO Players (Last_Name, First_Name, `Group`, Login, Password, "
 				+ "Preferred_Car_Name, Logo, Score) VALUES ('" + txtLastName.getText() + "', '" + txtFirstName.getText() 
 				+ "', '" + Integer.parseInt(txtGroup.getText()) + "', '" + txtLogin.getText() + "', '" + txtPassword.getText() 
-				+ "', '" + txtPreferredCarName.getText() + "', '" + txtLogo.getText() + "', '" + Integer.parseInt(txtScore.getText()) + "')");
+				+ "', '" + txtPreferredCarName.getText() + "', '" + txtCredit.getText() + "', '" + txtLogo.getText() + "', '" + Integer.parseInt(txtScore.getText()) + "')");
 			
 			JOptionPane.showMessageDialog(null, "You are now registered, you can login.", "Car Racing Game", JOptionPane.INFORMATION_MESSAGE);
 			
