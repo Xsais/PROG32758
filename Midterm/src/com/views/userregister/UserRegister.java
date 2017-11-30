@@ -228,7 +228,7 @@ public class UserRegister extends PageView implements Initializable {
 		lblValidInput.setVisible(false);
 		lblEmpty.setText("No fields can be left blank.");
 		lblLockout.setText("Password cannot be 'xxxxxx'.");
-		lblValidInput.setText("Group and Score values must be integers.");
+		lblValidInput.setText("Group and Score values must be integers. Credits must be valid number.");
 		
 		txtLastName.textProperty().addListener(p -> {
 			ValidateInput();
