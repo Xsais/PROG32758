@@ -24,6 +24,7 @@ import com.util.fxml.page.PageController;
 import com.util.fxml.page.PageView;
 import com.util.info.User;
 import com.util.jdbc.ConnectToDB;
+import com.views.gamepage.GamePage;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
@@ -39,7 +40,7 @@ import java.util.ResourceBundle;
 
 public class GameMenu extends PageView implements Initializable {
 
-    private final ConnectToDB dbConnection;
+    private ConnectToDB dbConnection;
 
     @FXML
     private Button btnStart;
@@ -56,6 +57,8 @@ public class GameMenu extends PageView implements Initializable {
     public GameMenu(ConnectToDB dbConnection) {
 
         this.dbConnection = dbConnection;
+
+        gamePage = new GamePage(dbConnection);
 
         try {
 
@@ -92,6 +95,8 @@ public class GameMenu extends PageView implements Initializable {
                 this.user = new User(userInfo.getString(1), userInfo.getString(2), userInfo.getInt
                         (3), username, userInfo.getString(4), userInfo.getInt(5), userInfo.getInt
                         (6));
+
+                gamePage.setActiveUser(user);
 
                 pmPlayer.scoreProperty().bind(this.user.scoreProperty());
                 pmPlayer.creditProperty().bind(this.user.creditProperty());
@@ -143,10 +148,14 @@ public class GameMenu extends PageView implements Initializable {
 
     }
 
+    private GamePage gamePage;
+
     @Override
     public void init(PageController pageController) {
 
         super.init(pageController);
+
+        pageController.registerPage(gamePage);
     }
 
     /**
@@ -159,9 +168,7 @@ public class GameMenu extends PageView implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        /* TODO: To be removed for GamePage
-        btnStart.setOnAction();
-        */
+        btnStart.setOnAction(e -> pageController.show(gamePage));
     }
 
     public String getUsername() {

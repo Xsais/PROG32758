@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.controls.game.Game?>
+<?import com.controls.playermenu.PlayerMenu?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<fx:root hgap="20.0" styleClass="lightBlue" type="GridPane" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Game fx:id="gDisplay" alignment="CENTER">
+            <padding>
+                <Insets bottom="40.0" />
+            </padding>
+        </Game>
+        <PlayerMenu fx:id="pmPlayer" alignment="CENTER"
+                    GridPane.columnIndex="1" GridPane.vgrow="ALWAYS" />
+    </children>
+    <rowConstraints>
+        <RowConstraints percentHeight="100.0"/>
+    </rowConstraints>
+    <columnConstraints>
+        <ColumnConstraints percentWidth="80.0"/>
+        <ColumnConstraints percentWidth="20.0"/>
+    </columnConstraints>
+    <padding>
+        <Insets top="68.0" left="40.0" right="40.0"/>
+    </padding>
+</fx:root>

@@ -25,9 +25,9 @@ import javafx.beans.property.SimpleIntegerProperty;
 
 public class User {
 
-    public IntegerProperty score = new SimpleIntegerProperty(this, "score", 0);
+    private IntegerProperty score = new SimpleIntegerProperty(this, "score", 0);
 
-    public DoubleProperty credit = new SimpleDoubleProperty(this, "credit", 0);
+    private DoubleProperty credit = new SimpleDoubleProperty(this, "credit", 0);
 
     private Name fullName;
 

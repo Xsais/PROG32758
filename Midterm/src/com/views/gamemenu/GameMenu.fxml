@@ -10,26 +10,17 @@
     <children>
         <Button fx:id="btnStart" styleClass="game-button" text="Start the Game"
                 GridPane.halignment="CENTER"
-                GridPane.valignment="TOP">
-            <GridPane.margin>
-                <Insets top="99.0"/>
-            </GridPane.margin>
-        </Button>
-        <PlayerMenu fx:id="pmPlayer" alignment="TOP_RIGHT"
-                    GridPane.columnIndex="1" GridPane.vgrow="ALWAYS">
-            <GridPane.margin>
-                <Insets right="40.0"/>
-            </GridPane.margin>
-        </PlayerMenu>
+                GridPane.valignment="TOP" />
+        <PlayerMenu fx:id="pmPlayer" alignment="CENTER" GridPane.columnIndex="1" />
     </children>
     <rowConstraints>
         <RowConstraints percentHeight="100.0"/>
     </rowConstraints>
     <columnConstraints>
-        <ColumnConstraints percentWidth="50.0"/>
-        <ColumnConstraints percentWidth="50.0"/>
+        <ColumnConstraints percentWidth="80.0"/>
+        <ColumnConstraints percentWidth="20.0"/>
     </columnConstraints>
     <padding>
-        <Insets top="68.0"/>
+        <Insets top="68.0" right="40.0"/>
     </padding>
 </fx:root>
