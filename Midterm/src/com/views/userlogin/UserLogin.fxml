@@ -18,8 +18,8 @@
         <Label fx:id="lblPassword" text="Enter User Password: " GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
         <TextField fx:id="txtLogin" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />
         <PasswordField fx:id="txtPassword" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
-        <Label fx:id="lblLoginEmpty" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
-        <Label fx:id="lblPasswordEmpty" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="TOP" />
+        <Label fx:id="lblLoginEmpty" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="TOP" />
+        <Label fx:id="lblPasswordEmpty" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="TOP" />
         <Button fx:id="btnUserLogin" styleClass="game-button" text="Login" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="BOTTOM" />
         <Button fx:id="btnExit" styleClass="game-button" text="Exit" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="BOTTOM" />
     </children>
@@ -35,6 +35,7 @@
         <RowConstraints />
         <RowConstraints />
         <RowConstraints />
+      <RowConstraints />
     </rowConstraints>
 
     <padding>
