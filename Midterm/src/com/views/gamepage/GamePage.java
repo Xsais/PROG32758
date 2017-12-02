@@ -8,14 +8,12 @@ import com.util.info.Name;
 import com.util.info.User;
 import com.util.jdbc.ConnectToDB;
 import javafx.application.Platform;
-import javafx.beans.property.ReadOnlyIntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.stage.WindowEvent;
+import javafx.util.Duration;
 
-import javax.jws.soap.SOAPBinding.Use;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.PreparedStatement;
@@ -112,8 +110,40 @@ public class GamePage extends PageView implements Initializable {
      * @param sender The Object in which sent the request
      */
     @Override
-    public void onOpen(Object sender) {
+    public void onOpen(Object sender, String... args) {
 
+        for (String arg : args) {
+
+            String[] values = arg.split("=");
+
+            switch (values[0]) {
+
+                case "musicstate":
+
+                    if (values[1].equals("0")) {
+
+                        break;
+                    }
+                    pmPlayer.setPlayingMusic(true);
+                    break;
+                case "musicpos":
+
+                    if (values[1].equals("0.0 ms")) {
+
+                        break;
+                    }
+                    pmPlayer.setMusicPosition(Duration.valueOf(values[1].replace(" ", "")));
+                    break;
+                case "scoredisplay":
+
+                    if (values[1].equals("0")) {
+
+                        break;
+                    }
+                    pmPlayer.setScoreVisible(true);
+                    break;
+            }
+        }
         gDisplay.startGame();
     }
 
@@ -165,7 +195,8 @@ public class GamePage extends PageView implements Initializable {
 
         try {
             finalUpdate = dbConnection.getConnection()
-                    .prepareStatement("UPDATE dbprog32758.players SET `Score`=?, `Credits`=? WHERE `Last_Name`=? AND `First_Name`=?");
+                    .prepareStatement("UPDATE dbprog32758.players SET `Score`=?, `Credits`=? WHERE `Last_Name`=? AND " +
+                            "`First_Name`=?");
         } catch (SQLException e) {
             e.printStackTrace();
         }

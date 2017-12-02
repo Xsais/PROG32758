@@ -410,7 +410,7 @@ public class UserLogin extends PageView implements Initializable {
 
     @Override
 
-    public void onOpen(Object sender) {
+    public void onOpen(Object sender, String... args) {
 
         txtLogin.requestFocus();
 

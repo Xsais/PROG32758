@@ -147,7 +147,7 @@ public class GameMenu extends PageView implements Initializable {
      * @param sender The Object in which sent the request
      */
     @Override
-    public void onOpen(Object sender) {
+    public void onOpen(Object sender, String... args) {
 
     }
 
@@ -171,7 +171,14 @@ public class GameMenu extends PageView implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        btnStart.setOnAction(e -> pageController.show(gamePage));
+        btnStart.setOnAction(e -> {
+
+            pmPlayer.setPlayingMusic(false);
+
+            pageController.show(gamePage, String.format("musicpos=%s", pmPlayer.getMusicPosition())
+                    , String.format("musicstate=%d", pmPlayer.isPlayingMusic() ? 1 : 0)
+                    , String.format("scoredisplay=%d", pmPlayer.isScoreVisible() ? 1 : 0));
+        });
     }
 
     public String getUsername() {

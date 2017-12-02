@@ -37,6 +37,7 @@ package com.util;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaPlayer.Status;
+import javafx.util.Duration;
 
 import java.net.URISyntaxException;
 
@@ -45,6 +46,8 @@ import java.net.URISyntaxException;
  * from the paused state.
  */
 public class MusicPlayer {
+
+    private boolean playing;
 
     // initialize MediaPlayer Object
     public MediaPlayer mp;
@@ -70,24 +73,51 @@ public class MusicPlayer {
 
     }
 
+    private boolean loaded;
+
+    public void setPlaying(boolean playing) {
+
+        this.playing = playing;
+
+        if (!loaded) {
+
+            loaded = mp.getStatus().equals(Status.READY);
+            if (!loaded) {
+
+                return;
+            }
+        }
+
+        if (playing) {
+            mp.play();
+        } else {
+
+            mp.pause();
+        }
+    }
+
+    public boolean isPlaying() {
+
+        return mp.getStatus().equals(Status.PLAYING);
+    }
+
+    public Duration getPosition() {
+
+        return mp.getCurrentTime();
+    }
+
+    public void setPosition(Duration position) {
+
+        mp.setStartTime(position);
+    }
+
     /**
      * Method for playing and pausing mp3 file
      */
     public void play_pauseMusic() {
 
-        // check status of MediaPlayer object and play mp3 file
-        if (mp.getStatus().equals(Status.READY) || mp.getStatus().equals(Status.PAUSED)) {
-
-            mp.play();
-
-            // check status of MediaPlayer object and pause mp3 file
-        } else if (mp.getStatus().equals(Status.PLAYING)) {
-
-            mp.pause();
-        }
-
-        //TODO: mp.dispose() at end of game or in event of GameMenu exit (going back to UserLogin
-        // or anywhere else aside from closing the program)
+        // check status of MediaPlayer object and play/pause mp3 file
+        setPlaying(!playing);
     }
 
     /**
@@ -96,5 +126,10 @@ public class MusicPlayer {
     public void dispose() {
 
         mp.dispose();
+    }
+
+    public boolean isLoaded() {
+
+        return loaded;
     }
 }

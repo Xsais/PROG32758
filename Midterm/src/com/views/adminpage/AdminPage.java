@@ -108,7 +108,7 @@ public class AdminPage extends PageView implements Initializable {
      * @param sender The Object in which sent the request
      */
     @Override
-    public void onOpen(Object sender) {
+    public void onOpen(Object sender, String... args) {
 
     }
 

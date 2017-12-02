@@ -60,7 +60,7 @@ public abstract class PageView extends GridPane implements Disposable {
      *
      * @param sender The Object in which sent the request
      */
-    public abstract void onOpen(Object sender);
+    public abstract void onOpen(Object sender, String... args);
 
     @Override
     public void dispose(){ }

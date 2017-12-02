@@ -307,17 +307,17 @@ public abstract class PageController extends GridPane implements Initializable, 
      *
      * @param page The page in which to be shown
      * @throws IllegalArgumentException If the page was not registered
-     * @deprecated Replaced by {@link #show(PageView)}
+     * @deprecated Replaced by {@link #show(PageView, String...)}
      */
     @Deprecated
-    public void showPage(PageView page) throws IllegalArgumentException {
+    public void showPage(PageView page, String... args) throws IllegalArgumentException {
 
         if (page.getPageType() != PageType.PAGE) {
 
             throw new IllegalArgumentException("ERROR: The giving page is not valid");
         }
 
-        switchPages(page);
+        switchPages(page, args);
     }
 
     /**
@@ -325,7 +325,7 @@ public abstract class PageController extends GridPane implements Initializable, 
      *
      * @param page The desired registered Pae
      */
-    private void switchPages(PageView page) {
+    private void switchPages(PageView page, String... args) {
 
         // Force hides all pop ups from view
         hidePopUps(-1);
@@ -344,7 +344,7 @@ public abstract class PageController extends GridPane implements Initializable, 
         currentPopup = null;
 
         popUps.setVisible(false);
-        page.onOpen(this);
+        page.onOpen(this, args);
     }
 
     /**
@@ -353,16 +353,16 @@ public abstract class PageController extends GridPane implements Initializable, 
      * @param page The page in which to be shown
      * @throws IllegalArgumentException If the page was not registered
      */
-    public void show(PageView page) throws IllegalArgumentException {
+    public void show(PageView page, String... args) throws IllegalArgumentException {
 
         switch (page.getPageType()) {
             case PAGE:
 
-                switchPages(page);
+                switchPages(page, args);
                 break;
             case POP_UP:
 
-                switchPopUp(page);
+                switchPopUp(page, args);
                 break;
         }
     }
@@ -372,7 +372,7 @@ public abstract class PageController extends GridPane implements Initializable, 
      *
      * @param page The desired pop-out Page
      */
-    private void switchPopUp(PageView page) {
+    private void switchPopUp(PageView page, String... args) {
 
         hidePopUps(0);
 
@@ -388,7 +388,7 @@ public abstract class PageController extends GridPane implements Initializable, 
         switchablePages.setEffect(boxBlur);
 
         // Request that the page prepares for display
-        page.onOpen(this);
+        page.onOpen(this, args);
     }
 
     /**
@@ -396,10 +396,10 @@ public abstract class PageController extends GridPane implements Initializable, 
      *
      * @param page The page in which to be shown
      * @throws IllegalArgumentException If the page was not registered
-     * @deprecated Replaced by {@link #show(PageView)}
+     * @deprecated Replaced by {@link #show(PageView, String...)}
      */
     @Deprecated
-    public void showPopup(PageView page) throws IllegalArgumentException {
+    public void showPopup(PageView page, String... args) throws IllegalArgumentException {
 
         if (page.getPageType() != com.util.fxml.page.PageType.POP_UP) {
 

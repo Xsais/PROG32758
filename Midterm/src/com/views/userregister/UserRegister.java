@@ -350,7 +350,7 @@ public class UserRegister extends PageView implements Initializable {
 
     @Override
 
-    public void onOpen(Object sender) {
+    public void onOpen(Object sender, String... args) {
 
         txtLastName.requestFocus();
 

@@ -27,6 +27,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.MediaPlayer.Status;
+import javafx.util.Duration;
 
 import java.io.IOException;
 
@@ -248,5 +250,25 @@ public class PlayerMenu extends GridPane implements Initializable {
     public void setRefillAmount(double refillAmount) {
 
         this.refillAmount = refillAmount;
+    }
+
+    public void setPlayingMusic(boolean playing) {
+
+        musicPlayer.setPlaying(playing);
+    }
+
+    public boolean isPlayingMusic() {
+
+        return musicPlayer.isPlaying();
+    }
+
+    public Duration getMusicPosition() {
+
+        return musicPlayer.getPosition();
+    }
+
+    public void setMusicPosition(Duration position) {
+
+        musicPlayer.setPosition(position);
     }
 }
