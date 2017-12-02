@@ -93,7 +93,7 @@ public class GameMenu extends PageView implements Initializable {
 
             if (userInfo.first()) {
 
-                this.user = new User(userInfo.getString(1), userInfo.getString(2), userInfo.getInt
+                this.user = new User(userInfo.getString(2), userInfo.getString(1), userInfo.getInt
                         (3), username, userInfo.getString(4), userInfo.getInt(5), userInfo.getInt
                         (6), userInfo.getDouble(7));
 
@@ -115,10 +115,7 @@ public class GameMenu extends PageView implements Initializable {
      * @param statusCode The giving status code of the page closure
      */
     @Override
-    public void onClose(Object sender, int statusCode) {
-
-        pmPlayer.dispose();
-    }
+    public void onClose(Object sender, int statusCode) { }
 
     /**
      * Occurs when the application classes peacefully
@@ -127,6 +124,13 @@ public class GameMenu extends PageView implements Initializable {
      */
     @Override
     public void onCloseRequest(WindowEvent evt) {
+
+    }
+
+    @Override
+    public void dispose() {
+
+        pmPlayer.dispose();
 
         try {
 

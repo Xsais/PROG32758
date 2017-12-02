@@ -18,10 +18,11 @@
 
 package com.util.fxml.page;
 
+import com.sun.media.jfxmediaimpl.MediaDisposer.Disposable;
 import javafx.scene.layout.GridPane;
 import javafx.stage.WindowEvent;
 
-public abstract class PageView extends GridPane {
+public abstract class PageView extends GridPane implements Disposable {
 
     // Stores the current status of the page
     protected PageType pageType = PageType.PAGE;
@@ -60,6 +61,9 @@ public abstract class PageView extends GridPane {
      * @param sender The Object in which sent the request
      */
     public abstract void onOpen(Object sender);
+
+    @Override
+    public void dispose(){ }
 
     /**
      * Passes the reference of the PageController to registered PageView

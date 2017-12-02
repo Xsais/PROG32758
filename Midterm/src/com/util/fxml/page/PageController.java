@@ -19,6 +19,7 @@
 package com.util.fxml.page;
 
 import com.controls.exitbar.ExitBar;
+import com.sun.media.jfxmediaimpl.MediaDisposer.Disposable;
 import com.util.fxml.NodeConstraint;
 import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
@@ -35,7 +36,7 @@ import java.util.List;
 /**
  *
  */
-public class PageController extends GridPane implements Initializable {
+public abstract class PageController extends GridPane implements Initializable, Disposable {
 
     // Stores all of the validly registered pages
     protected final List<PageView> pages = new ArrayList<>();
@@ -441,5 +442,14 @@ public class PageController extends GridPane implements Initializable {
     public void close(WindowEvent evt) {
 
         pages.forEach(page -> page.onCloseRequest(evt));
+        pages.forEach(page -> page.dispose());
     }
+
+    /**
+     * dispose() is called when an associated object is garbage collected
+     * and no longer reachable. Note that the associated object cannot be
+     * accessed by the time this method is invoked.
+     */
+    @Override
+    public abstract void dispose();
 }

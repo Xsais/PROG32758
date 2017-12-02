@@ -4,6 +4,7 @@ import com.controls.game.Game;
 import com.controls.playermenu.PlayerMenu;
 import com.util.fxml.FXMLHelper;
 import com.util.fxml.page.PageView;
+import com.util.info.Name;
 import com.util.info.User;
 import com.util.jdbc.ConnectToDB;
 import javafx.application.Platform;
@@ -14,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.stage.WindowEvent;
 
+import javax.jws.soap.SOAPBinding.Use;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.PreparedStatement;
@@ -24,8 +26,6 @@ public class GamePage extends PageView implements Initializable {
 
     @FXML
     private Game gDisplay;
-
-    private SimpleIntegerProperty totalRuns = new SimpleIntegerProperty(this, "totalRuns");
 
     @FXML
     private PlayerMenu pmPlayer;
@@ -61,24 +61,14 @@ public class GamePage extends PageView implements Initializable {
      * @param statusCode The giving status code of the page closure
      */
     @Override
-    public void onClose(Object sender, int statusCode) {
+    public void onClose(Object sender, int statusCode) { }
 
-        if (finalUpdate == null && activeUser != null || totalRuns.get() < 1) {
-
-            return;
-        }
+    @Override
+    public void dispose() {
 
         try {
-
-            finalUpdate.setInt(1, activeUser.get().getScore());
-
-            finalUpdate.setDouble(2, activeUser.get().getCredit());
-
-            finalUpdate.setString(3, activeUser.get().getFullName().getFirstName());
-
-            finalUpdate.execute();
+            finalUpdate.close();
         } catch (SQLException e) {
-
             e.printStackTrace();
         }
     }
@@ -91,15 +81,29 @@ public class GamePage extends PageView implements Initializable {
     @Override
     public void onCloseRequest(WindowEvent evt) {
 
-        onClose(this, 1);
+        if (finalUpdate == null && activeUser == null) {
+
+            return;
+        }
 
         try {
-            finalUpdate.close();
+
+            finalUpdate.setInt(1, activeUser.get().getScore());
+
+            finalUpdate.setDouble(2, activeUser.get().getCredit());
+
+            Name playerName = activeUser.get().getFullName();
+
+            finalUpdate.setString(3, playerName.getLastName());
+
+            finalUpdate.setString(4, playerName.getFirstName());
+
+            finalUpdate.executeUpdate();
         } catch (SQLException e) {
+
             e.printStackTrace();
         }
 
-        pmPlayer = new PlayerMenu();
     }
 
     /**
@@ -124,8 +128,6 @@ public class GamePage extends PageView implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
         gDisplay.setWinningAction(i -> {
-
-            totalRuns.add(1);
 
             User activeUser = this.activeUser.get();
 
@@ -162,19 +164,9 @@ public class GamePage extends PageView implements Initializable {
 
         try {
             finalUpdate = dbConnection.getConnection()
-                    .prepareStatement("UPDATE dbprog32758.players SET `Score`=?, `Credits`=? WHERE `Login`=?");
+                    .prepareStatement("UPDATE dbprog32758.players SET `Score`=?, `Credits`=? WHERE `Last_Name`=? AND `First_Name`=?");
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-
-    public int getTotalRuns() {
-
-        return totalRuns.get();
-    }
-
-    public ReadOnlyIntegerProperty totalRunsProperty() {
-
-        return totalRuns;
     }
 }

@@ -85,14 +85,13 @@ public class PointerPage extends PageController {
     }
 
     @Override
-    public void close(WindowEvent evt) {
+    public void dispose() {
 
-        super.close(evt);
         if (dbConnection == null) {
 
             return;
         }
         dbConnection.closeConnection();
-        return;
     }
+
 }

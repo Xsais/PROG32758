@@ -100,7 +100,7 @@ public class Game extends GridPane implements Initializable {
 
                         winner = winner.substring(winner.lastIndexOf(':') + 1, winner.length() - 2);
 
-                        if (winner.trim().equals(preferredCar.get())) {
+                        if (true/*winner.trim().equals(preferredCar.get())*/) {
 
                             Platform.runLater(() -> {
 
@@ -154,14 +154,11 @@ public class Game extends GridPane implements Initializable {
 
     private boolean catchInterrupts(int ch) {
 
-
-        Platform.runLater(() -> txaDisplay.appendText(Character.toString((char) ch)));
+        Platform.runLater(() -> txaDisplay.appendText(Character.toString((char)ch)));
 
         currentString.append((char) ch);
 
-
         if (ch == 10) {
-
 
             displayStrings.add(currentString.toString());
 
@@ -170,7 +167,6 @@ public class Game extends GridPane implements Initializable {
         }
 
         return true;
-
     }
 
 

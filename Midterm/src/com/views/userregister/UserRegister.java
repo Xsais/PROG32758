@@ -79,13 +79,10 @@ public class UserRegister extends PageView implements Initializable {
 
     private ConnectToDB dbConnection;
 
-    private com.views.gamemenu.GameMenu gameMenu;
-
     // constructor that creates connection to DB and sets object as pop out type page
     public UserRegister(ConnectToDB dbConnection) {
 
         pageType = PageType.POP_UP;
-        gameMenu = new com.views.gamemenu.GameMenu(dbConnection);
 
         // select DB for user detail verification
         try {
@@ -293,13 +290,6 @@ public class UserRegister extends PageView implements Initializable {
 
         // exit login pop out page
         btnExit.setOnAction(p -> pageController.hidePopUps(0));
-    }
-
-    @Override
-    public void init(PageController pageController) {
-
-        super.init(pageController);
-        pageController.registerPage(gameMenu);
     }
 
     /**
