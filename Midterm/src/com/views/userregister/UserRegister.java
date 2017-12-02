@@ -36,7 +36,6 @@ package com.views.userregister;
 
 
 import com.util.fxml.FXMLHelper;
-import com.util.fxml.page.PageController;
 import com.util.fxml.page.PageType;
 import com.util.fxml.page.PageView;
 import com.util.jdbc.ConnectToDB;
@@ -106,26 +105,37 @@ public class UserRegister extends PageView implements Initializable {
      * @throws SQLException
      */
     public void isValid() throws HeadlessException, SQLException {
+        rs = dbConnection.executeQuerry("SELECT * FROM DBProg32758.Players WHERE Last_Name = '"
+                + txtLastName.getText().trim() + "' AND First_Name = '" + txtFirstName.getText().trim() + "' AND " +
+                "`Group` = '"
+                + Integer.valueOf(txtGroup.getText().trim()) + "' OR `Login`='" + txtLogin.getText().trim() + "'ORDER BY 'Login'");
 
-        rs = dbConnection.executeQuerry("SELECT * FROM DBProg32758.Players WHERE Last_Name = '" + txtLastName.getText()
-                + "' AND First_Name = '" + txtFirstName.getText() + "' AND `Group` = '" + txtGroup.getText() + "'");
-        if (rs.next()) {
+        rs.beforeFirst();
+        rs.last();
+        int size = rs.getRow();
+        if (size > 1) {
+
+            JOptionPane.showMessageDialog(null, "The desired Login has already been taken"
+                    , "Car Racing Game", JOptionPane.WARNING_MESSAGE);
+
+            return;
+        }
+        if (rs.last()) {
 
             String player = rs.getString(4);
             if (player != null && !player.equals("")) {
                 JOptionPane.showMessageDialog(null, "You have already registered an account.", "Car Racing Game",
-                        javax.swing.JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.WARNING_MESSAGE);
             } else {
 
                 writeToDB();
             }
+            rest();
         } else {
             JOptionPane.showMessageDialog(null, "Either you are not registered or your Last Name, First Name, Group " +
-					"are not correct.", "Car Racing Game", javax.swing.JOptionPane.WARNING_MESSAGE);
+                    "are not correct.", "Car Racing Game", javax.swing.JOptionPane.WARNING_MESSAGE);
+            rest();
         }
-
-
-        rest();
     }
 
     //Clears user's row and enters new one with all fields from user input
@@ -134,18 +144,18 @@ public class UserRegister extends PageView implements Initializable {
         try {
             dbConnection.executeUpdate(String.format("UPDATE DBProg32758.Players SET `Group`=%d, `Login`='%s'" +
                             ", `Password`='%s', `Preferred_Car_Name`='%s', `Logo`=%d, `Score`=%d, `Credits`=%4.2f " +
-                            "WHERE `Last_Name`='%s' AND `First_Name`='%s'", Integer.valueOf(txtGroup.getText()),
-					txtLogin.getText()
-                    , txtPassword.getText(), txtPreferredCarName.getText(), Integer.valueOf(txtLogo.getText())
-                    , Integer.valueOf(txtScore.getText()), Double.valueOf(txtCredit.getText())
-                    , txtLastName.getText(), txtFirstName.getText()));
+                            "WHERE `Last_Name`='%s' AND `First_Name`='%s'", Integer.valueOf(txtGroup.getText().trim()),
+                    txtLogin.getText().trim()
+                    , txtPassword.getText(), txtPreferredCarName.getText(), Integer.valueOf(txtLogo.getText().trim())
+                    , Integer.valueOf(txtScore.getText().trim()), Double.valueOf(txtCredit.getText().trim())
+                    , txtLastName.getText().trim(), txtFirstName.getText().trim()));
 
             JOptionPane.showMessageDialog(null, "You are now registered, you can login.", "Car Racing Game",
-					JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.INFORMATION_MESSAGE);
 
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage() + "SQL State: " + e.getSQLState() + " ErrorCode: " + e
-					.getErrorCode(), "Car Racing Game", javax.swing.JOptionPane.WARNING_MESSAGE);
+                    .getErrorCode(), "Car Racing Game", javax.swing.JOptionPane.WARNING_MESSAGE);
         }
     }
 
@@ -184,10 +194,10 @@ public class UserRegister extends PageView implements Initializable {
     public boolean BlankFields() {
 
         if (!txtLastName.getText().equals("") && !txtFirstName.getText().equals("") && !txtPassword.getText().equals
-				(LOCK_OUT_CODE)
+                (LOCK_OUT_CODE)
                 && !txtPassword.getText().equals("") && !txtGroup.getText().equals("") && !txtLogin.getText().equals("")
                 && !txtPreferredCarName.getText().equals("") && !txtCredit.getText().equals("") && !txtScore.getText
-				().equals("")
+                ().equals("")
                 && !txtLogo.getText().equals("")) {
             lblEmpty.setVisible(false);
             return true;
