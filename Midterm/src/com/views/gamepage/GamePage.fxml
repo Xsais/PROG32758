@@ -10,9 +10,9 @@
 <fx:root hgap="20.0" styleClass="lightBlue" type="GridPane" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <Game fx:id="gDisplay" alignment="CENTER">
-            <padding>
+            <GridPane.margin>
                 <Insets bottom="40.0" />
-            </padding>
+            </GridPane.margin>
         </Game>
         <PlayerMenu fx:id="pmPlayer" alignment="CENTER"
                     GridPane.columnIndex="1" GridPane.vgrow="ALWAYS" />

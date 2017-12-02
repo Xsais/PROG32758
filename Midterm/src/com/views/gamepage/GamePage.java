@@ -123,18 +123,15 @@ public class GamePage extends PageView implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        gDisplay.gameWinnerProperty().addListener(i -> {
+        gDisplay.setWinningAction(i -> {
 
             totalRuns.add(1);
 
             User activeUser = this.activeUser.get();
 
-            if (!activeUser.getPreferredCar().equalsIgnoreCase(gDisplay.getGameWinner())) {
-
-                    return;
-                }
-
             Platform.runLater(() -> activeUser.setScore(activeUser.getScore() + 50));
+
+            return 0;
         });
     }
 

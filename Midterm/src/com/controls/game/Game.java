@@ -1,52 +1,28 @@
 package com.controls.game;
 
 
-
 import com.util.MusicPlayer;
 import com.util.fxml.FXMLHelper;
-
 import com.util.game.UseMyCar;
-
-import com.util.info.User;
-
 import com.util.stream.InterruptStream;
-
 import javafx.application.Platform;
-
 import javafx.beans.property.ReadOnlyStringProperty;
-
 import javafx.beans.property.SimpleStringProperty;
-
-import javafx.collections.ObservableList;
-
-import javafx.concurrent.Service;
-
 import javafx.fxml.FXML;
-
 import javafx.fxml.Initializable;
-
 import javafx.scene.control.TextArea;
-
 import javafx.scene.layout.GridPane;
 
-
-
 import java.io.IOException;
-
 import java.io.PrintStream;
-
 import java.net.URL;
-
 import java.util.ArrayList;
-
 import java.util.List;
-
 import java.util.ResourceBundle;
-
+import java.util.function.Function;
 
 
 public class Game extends GridPane implements Initializable {
-
 
 
     @FXML
@@ -54,37 +30,30 @@ public class Game extends GridPane implements Initializable {
     private TextArea txaDisplay;
 
 
-
     private List<String> displayStrings = new ArrayList<>();
-
 
 
     private StringBuilder currentString = new StringBuilder();
 
 
-
     private String[] startUpArgs = new String[0];
 
 
+    private SimpleStringProperty preferredCar = new SimpleStringProperty(this, "preferredCar", "YourPreferedCar");
 
-    private SimpleStringProperty gameWinner = new SimpleStringProperty(this, "gameWinner");
-
+    private Function<Object, Integer> winningAction;
 
 
     private boolean gameRunning;
 
 
-
     private Thread gameThread;
-
 
 
     public Game() {
 
 
-
         try {
-
 
 
             FXMLHelper.loadControl(this).load();
@@ -92,64 +61,70 @@ public class Game extends GridPane implements Initializable {
         } catch (IOException e) {
 
 
-
             e.printStackTrace();
 
         }
 
 
-
         gameThread = new Thread(() -> {
 
-        	MusicPlayer mp = new MusicPlayer();
+            MusicPlayer mp = new MusicPlayer();
 
             try {
 
                 System.setOut(new PrintStream(new InterruptStream(i -> catchInterrupts(i))));
 
+                String[] startArgs = new String[startUpArgs.length + 1];
 
+                startArgs[startUpArgs.length] = getPreferredCar();
 
-                UseMyCar.main(startUpArgs);
+                if (startUpArgs.length != 0) {
+
+                    System.arraycopy(startUpArgs, 0, startArgs, 0, startUpArgs.length);
+                }
+
+                UseMyCar.main(startArgs);
 
             } finally {
 
 
-
-                String winner = null;
-
+                String winner;
 
 
                 while (displayStrings.size() != 0) {
 
-                    if (winner != null) {
+                    winner = displayStrings.get(0);
 
+                    if (winner.contains("winner")) {
+
+
+                        winner = winner.substring(winner.lastIndexOf(':') + 1, winner.length() - 2);
+
+                        if (winner.trim().equals(preferredCar.get())) {
+
+                            Platform.runLater(() -> {
+
+                                if (winningAction == null) {
+
+                                    return;
+                                }
+                                winningAction.apply(this);
+                            });
+                        }
+
+                        gameRunning = false;
+                        return;
+
+                    }
+
+                    if (winner != null) {
 
 
                         displayStrings.remove(0);
 
-                        continue;
-
                     }
-
-                    String temp = displayStrings.get(0);
-
-                    if (temp.contains("winner")) {
-
-
-
-                        winner = temp.substring(temp.lastIndexOf(':') + 1, temp.length() - 2);
-
-                    }
-
-                    displayStrings.remove(0);
 
                 }
-
-                String finalWinner = winner;
-
-                Platform.runLater(() -> gameWinner.set(finalWinner.trim()));
-
-                gameRunning = false;
 
             }
 
@@ -158,13 +133,10 @@ public class Game extends GridPane implements Initializable {
     }
 
 
-
     public void startGame() {
 
 
-
         if (gameRunning) {
-
 
 
             return;
@@ -172,9 +144,7 @@ public class Game extends GridPane implements Initializable {
         }
 
 
-
         gameThread.start();
-
 
 
         gameRunning = true;
@@ -182,9 +152,7 @@ public class Game extends GridPane implements Initializable {
     }
 
 
-
     private boolean catchInterrupts(int ch) {
-
 
 
         Platform.runLater(() -> txaDisplay.appendText(Character.toString((char) ch)));
@@ -192,9 +160,7 @@ public class Game extends GridPane implements Initializable {
         currentString.append((char) ch);
 
 
-
         if (ch == 10) {
-
 
 
             displayStrings.add(currentString.toString());
@@ -208,19 +174,13 @@ public class Game extends GridPane implements Initializable {
     }
 
 
-
     /**
-
      * Called to initialize a controller after its root element has been completely processed.
-
      *
-
      * @param location  The location used to resolve relative paths for the root object, or <tt>null</tt> if the
-
+     *                  <p>
      *                  location is not known.
-
      * @param resources The resources used to localize the root object, or <tt>null</tt> if
-
      */
 
     @Override
@@ -230,9 +190,7 @@ public class Game extends GridPane implements Initializable {
     }
 
 
-
     public String[] getStartUpArgs() {
-
 
 
         return startUpArgs;
@@ -240,9 +198,7 @@ public class Game extends GridPane implements Initializable {
     }
 
 
-
     public void setStartUpArgs(String[] startUpArgs) {
-
 
 
         this.startUpArgs = startUpArgs;
@@ -250,23 +206,28 @@ public class Game extends GridPane implements Initializable {
     }
 
 
-
-    public String getGameWinner() {
-
+    public String getPreferredCar() {
 
 
-        return gameWinner.get();
+        return preferredCar.get();
 
     }
 
 
-
-    public ReadOnlyStringProperty gameWinnerProperty() {
-
+    public ReadOnlyStringProperty gamePreferredCar() {
 
 
-        return gameWinner;
+        return preferredCar;
 
     }
 
+    public Function<Object, Integer> getWinningAction() {
+
+        return winningAction;
+    }
+
+    public void setWinningAction(Function<Object, Integer> winningAction) {
+
+        this.winningAction = winningAction;
+    }
 }
