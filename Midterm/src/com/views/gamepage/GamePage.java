@@ -98,6 +98,8 @@ public class GamePage extends PageView implements Initializable {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        pmPlayer = new PlayerMenu();
     }
 
     /**
@@ -144,9 +146,7 @@ public class GamePage extends PageView implements Initializable {
     public void setActiveUser(User activeUser) {
 
         this.activeUser.set(activeUser);
-
-        pmPlayer.scoreProperty().bind(activeUser.scoreProperty());
-        pmPlayer.creditProperty().bind(activeUser.creditProperty());
+        this.pmPlayer.setUsedPlayer(activeUser);
     }
 
     public SimpleObjectProperty<User> activeUserProperty() {

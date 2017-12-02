@@ -71,6 +71,7 @@ public class GameMenu extends PageView implements Initializable {
         }
 
         username.addListener(evt -> setUser());
+        pmPlayer = new PlayerMenu();
 
         try {
 
@@ -96,10 +97,8 @@ public class GameMenu extends PageView implements Initializable {
                         (3), username, userInfo.getString(4), userInfo.getInt(5), userInfo.getInt
                         (6), userInfo.getDouble(7));
 
+                pmPlayer.setUsedPlayer(user);
                 gamePage.setActiveUser(user);
-
-                pmPlayer.scoreProperty().bind(this.user.scoreProperty());
-                pmPlayer.creditProperty().bind(this.user.creditProperty());
             }
 
             userInfo.close();

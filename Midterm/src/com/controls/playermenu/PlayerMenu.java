@@ -20,6 +20,7 @@ package com.controls.playermenu;
 
 import com.util.MusicPlayer;
 import com.util.fxml.FXMLHelper;
+import com.util.info.User;
 import javafx.beans.property.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -32,15 +33,12 @@ import java.io.IOException;
 
 public class PlayerMenu extends GridPane implements Initializable {
 
-    // Stores the current score to be visually displayed
-    public IntegerProperty score = new SimpleIntegerProperty(this, "score", 0);
-
-
-    // STores the current credit to be visually displayed
-    public DoubleProperty credit = new SimpleDoubleProperty(this, "credit", 0);
-
     // instantiate MusicPlayer Object for use in vbMusic action event
     MusicPlayer musicPlayer = new MusicPlayer();
+
+    public double refillAmount = 5;
+
+    private User usedPlayer;
 
     @FXML
     private VBox vbMusic;
@@ -72,10 +70,6 @@ public class PlayerMenu extends GridPane implements Initializable {
     // Determines weather the score is visible to the user
     private BooleanProperty scoreVisible = new SimpleBooleanProperty(this, "scoreVisible", false);
 
-    // Determines weather the credit is visible to the user
-    private BooleanProperty creditVisible = new SimpleBooleanProperty(this, "creditVisible",
-            false);
-
 
     /**
      * Initializes the control and load the look and feel.
@@ -94,6 +88,17 @@ public class PlayerMenu extends GridPane implements Initializable {
 
     }
 
+    /**
+     * Initializes the control and load the look and feel.
+     */
+    public PlayerMenu(User usedPlayer) {
+
+        this();
+
+        setUsedPlayer(usedPlayer);
+
+    }
+
 
     /**
      * Retrieves the current displayed score.
@@ -102,7 +107,11 @@ public class PlayerMenu extends GridPane implements Initializable {
      */
     public int getScore() {
 
-        return score.get();
+        if (this.usedPlayer == null) {
+
+            return 0;
+        }
+        return this.usedPlayer.getScore();
 
     }
 
@@ -114,19 +123,11 @@ public class PlayerMenu extends GridPane implements Initializable {
      */
     public void setScore(int score) {
 
-        this.score.set(score);
+        if (this.usedPlayer == null) {
 
-    }
-
-
-    /**
-     * Retrieves the property that represents the displayed score.
-     *
-     * @return The property that represents the displayed score.
-     */
-    public IntegerProperty scoreProperty() {
-
-        return score;
+            return;
+        }
+        this.usedPlayer.setScore(score);
 
     }
 
@@ -137,7 +138,11 @@ public class PlayerMenu extends GridPane implements Initializable {
      */
     public double getCredit() {
 
-        return credit.get();
+        if (this.usedPlayer == null) {
+
+            return 0;
+        }
+        return this.usedPlayer.getCredit();
 
     }
 
@@ -149,19 +154,11 @@ public class PlayerMenu extends GridPane implements Initializable {
      */
     public void setCredit(double credit) {
 
-        this.credit.set(credit);
+        if (this.usedPlayer == null) {
 
-    }
-
-    /**
-     * Retrieves the property that represents the displayed credit.
-     *
-     * @return The property that represents the displayed credit.
-     */
-    public DoubleProperty creditProperty() {
-
-
-        return credit;
+            return;
+        }
+        this.usedPlayer.setCredit(credit);
 
     }
 
@@ -178,22 +175,21 @@ public class PlayerMenu extends GridPane implements Initializable {
 
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
 
-
-        // Binds the credit to be displayed with the desired format
-        lblCredit.textProperty().bind(credit.asString("$%.2f"));
-
-
-        lblScore.textProperty().bind(score.asString());
-
         vbScore.setOnMouseClicked(evt -> scoreVisible.set(!scoreVisible.get()));
 
-        vbCredit.setOnMouseClicked(evt -> creditVisible.set(!creditVisible.get()));
+        vbCredit.setOnMouseClicked(evt -> {
+
+            if (this.usedPlayer == null) {
+
+                return;
+            }
+
+            this.usedPlayer.setCredit(this.usedPlayer.getCredit() + this.refillAmount);
+        });
 
         vbMusic.setOnMouseClicked(evt -> musicPlayer.play_pauseMusic());
 
         vbScoreContainer.visibleProperty().bind(scoreVisible);
-
-        vbCreditContainer.visibleProperty().bind(creditVisible);
     }
 
     /**
@@ -228,40 +224,6 @@ public class PlayerMenu extends GridPane implements Initializable {
     }
 
     /**
-     * Retrieves a value that determines the visibility of the Credit.
-     *
-     * @return The current visibility of the displayed Credit.
-     */
-    public boolean isCreditVisible() {
-
-        return creditVisible.get();
-    }
-
-    /**
-     * Assigns the visibility of the displayed Credit.
-     *
-     * @param creditVisible The desired visibility of the displayed Credit.
-     */
-    public void setCreditVisible(boolean creditVisible) {
-
-
-        this.scoreVisible.set(creditVisible);
-
-    }
-
-    /**
-     * Retrieves the property in which defines the visibility of the Credit.
-     *
-     * @return The property that determines the visibility of the Credit.
-     */
-    public BooleanProperty creditVisibleProperty() {
-
-
-        return creditVisible;
-
-    }
-
-    /**
      * Disposes the Object and releases all resources used
      */
     public void dispose() {
@@ -269,4 +231,27 @@ public class PlayerMenu extends GridPane implements Initializable {
         musicPlayer.dispose();
     }
 
+    public User getUsedPlayer() {
+
+        return usedPlayer;
+    }
+
+    public void setUsedPlayer(User usedPlayer) {
+
+        this.usedPlayer = usedPlayer;
+
+        lblCredit.textProperty().bind(usedPlayer.creditProperty().asString("$%.2f"));
+
+        lblScore.textProperty().bind(usedPlayer.scoreProperty().asString());
+    }
+
+    public double getRefillAmount() {
+
+        return this.refillAmount;
+    }
+
+    public void setRefillAmount(double refillAmount) {
+
+        this.refillAmount = refillAmount;
+    }
 }
