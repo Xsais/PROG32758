@@ -4,6 +4,7 @@ package com.controls.game;
 import com.util.MusicPlayer;
 import com.util.fxml.FXMLHelper;
 import com.util.game.UseMyCar;
+import com.util.info.User;
 import com.util.stream.InterruptStream;
 import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyStringProperty;
@@ -40,6 +41,8 @@ public class Game extends GridPane implements Initializable {
 
 
     private SimpleStringProperty preferredCar = new SimpleStringProperty(this, "preferredCar", "YourPreferedCar");
+
+    private User playingUser;
 
     private Function<Object, Integer> winningAction;
 
@@ -225,5 +228,16 @@ public class Game extends GridPane implements Initializable {
     public void setWinningAction(Function<Object, Integer> winningAction) {
 
         this.winningAction = winningAction;
+    }
+
+    public User getPlayingUser() {
+
+        return playingUser;
+    }
+
+    public void setPlayingUser(User playingUser) {
+
+        this.playingUser = playingUser;
+        preferredCar.set(playingUser.getPreferredCar());
     }
 }

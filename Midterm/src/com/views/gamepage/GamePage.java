@@ -146,6 +146,7 @@ public class GamePage extends PageView implements Initializable {
 
         this.activeUser.set(activeUser);
         this.pmPlayer.setUsedPlayer(activeUser);
+        this.gDisplay.setPlayingUser(activeUser);
     }
 
     public SimpleObjectProperty<User> activeUserProperty() {
