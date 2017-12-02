@@ -179,12 +179,7 @@ public class PlayerMenu extends GridPane implements Initializable {
 
         vbCredit.setOnMouseClicked(evt -> {
 
-            if (this.usedPlayer == null) {
-
-                return;
-            }
-
-            this.usedPlayer.setCredit(this.usedPlayer.getCredit() + this.refillAmount);
+            // TODO: Credit add
         });
 
         vbMusic.setOnMouseClicked(evt -> musicPlayer.play_pauseMusic());
