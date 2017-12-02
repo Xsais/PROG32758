@@ -2,13 +2,18 @@
 
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.*?>
-<fx:root type="GridPane" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
-    <TextArea fx:id="txaDisplay" editable="false" styleClass="printarea" GridPane.hgrow="ALWAYS"
-              GridPane.vgrow="ALWAYS"/>
+<fx:root type="GridPane" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER"
+         styleClass="printarea">
+    <TextArea fx:id="txaDisplay" styleClass="blend" GridPane.columnIndex="2" GridPane.columnSpan="3" editable="false"
+              GridPane.vgrow="ALWAYS" GridPane.hgrow="ALWAYS" />
     <columnConstraints>
-        <ColumnConstraints/>
+        <ColumnConstraints percentWidth="16.66665"/>
+        <ColumnConstraints percentWidth="8.333325"/>
+        <ColumnConstraints percentWidth="8.333325"/>
+        <ColumnConstraints percentWidth="33.3333"/>
+        <ColumnConstraints percentWidth="33.3333"/>
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints/>
+        <RowConstraints percentHeight="100.0"/>
     </rowConstraints>
 </fx:root>

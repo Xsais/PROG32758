@@ -81,3 +81,14 @@
     -fx-border-color: #003366;
     -fx-border-width: 1px;
 }
+
+.blend {
+    -fx-background-insets: 0;
+    -fx-background-color: inherit;
+}
+
+.blend .content {
+    -fx-background-color: #FFFFFF;
+    -fx-padding: 10px;
+    -fx-highlight-fill: inherit;
+}
