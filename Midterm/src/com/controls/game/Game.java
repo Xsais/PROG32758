@@ -76,7 +76,7 @@ public class Game extends GridPane implements Initializable {
 
                 String[] startArgs = new String[startUpArgs.length + 1];
 
-                startArgs[startUpArgs.length] = getPreferredCar();
+                startArgs[startUpArgs.length] = String.format("--carname=%s", getPreferredCar());
 
                 if (startUpArgs.length != 0) {
 
