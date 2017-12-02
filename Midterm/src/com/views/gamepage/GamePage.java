@@ -81,12 +81,12 @@ public class GamePage extends PageView implements Initializable {
     @Override
     public void onCloseRequest(WindowEvent evt) {
 
-        if (finalUpdate == null && activeUser == null) {
-
-            return;
-        }
-
         try {
+
+            if (finalUpdate == null && activeUser.get() == null && finalUpdate.isClosed()) {
+
+                return;
+            }
 
             finalUpdate.setInt(1, activeUser.get().getScore());
 
