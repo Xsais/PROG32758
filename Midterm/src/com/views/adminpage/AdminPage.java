@@ -24,6 +24,8 @@ import com.util.fxml.page.PageView;
 import com.util.jdbc.ConnectToDB;
 import com.util.jdbc.CreateDataBase;
 import com.util.jdbc.InitializeDatabase;
+import com.views.displaydatabase.DisplayDataBase;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -45,12 +47,16 @@ public class AdminPage extends PageView implements Initializable {
 
     @FXML
     private Button btnDisplay;
+    
+    public static DisplayDataBase data;
 
     private ConnectToDB dbConnection;
+    
 
     public AdminPage(ConnectToDB dbConnection) {
-
         this.dbConnection = dbConnection;
+        
+        data = new DisplayDataBase(dbConnection);
 
         try {
             FXMLHelper.loadControl(this).load();
@@ -74,10 +80,8 @@ public class AdminPage extends PageView implements Initializable {
         btnCreate.setOnAction(p -> new CreateDataBase(dbConnection));
 
         btnInit.setOnAction(p -> new InitializeDatabase(dbConnection));
-
-        /* TODO : Debase Display to be implemented
-            btnDisplay.setOnAction();
-         */
+        
+        btnDisplay.setOnAction(p -> new DisplayDataBase(dbConnection));
 
     }
 
@@ -108,7 +112,7 @@ public class AdminPage extends PageView implements Initializable {
      * @param sender The Object in which sent the request
      */
     @Override
-    public void onOpen(Object sender, String... args) {
+    public void onOpen(Object sender) {
 
     }
 
@@ -119,8 +123,8 @@ public class AdminPage extends PageView implements Initializable {
      */
     @Override
     public void init(PageController pageController) {
-
         super.init(pageController);
+        pageController.registerPage(data);
 
     }
 }
