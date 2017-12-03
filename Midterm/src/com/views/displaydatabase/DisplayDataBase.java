@@ -12,16 +12,20 @@
  * Creation Date: 10, 2017 16
  * Last Modified: 11, 2017 26
  * Java Version: 1.8.1_141
- * Description: Initializes the DBProg32758 database and prepares it for data entry
+ * Description: setializes the DBProg32758 database and prepares it for data entry
  * ----------------------------------------------------------------------------+
  */
 
 package com.views.displaydatabase;
 
 import com.util.fxml.FXMLHelper;
+import com.util.fxml.page.PageType;
 import com.util.fxml.page.PageView;
+import com.util.info.User;
 import com.util.jdbc.ConnectToDB;
-import com.views.adminpage.AdminPage;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -30,7 +34,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.WindowEvent;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -44,68 +47,51 @@ public class DisplayDataBase extends PageView implements Initializable {
     @FXML
     private Button btnAdmin;
 
-    private List<Person> personList = new ArrayList<>();
+    @FXML
+    private TableView<Person> tbUsers;
 
-    private AdminPage adminPage;
+    @FXML
+    private TableColumn<Person, String> tdName;
 
-    private TableView<Person> tableView;
+    @FXML
+    private TableColumn<Person, Integer> tdGroup;
 
-    private TableColumn<Person, String> Name;
+    @FXML
+    private TableColumn<Person, String> tdLogin;
 
-    private TableColumn<Person, String> Group;
+    @FXML
+    private TableColumn<Person, String> tdPassword;
 
-    private TableColumn<Person, String> Login;
+    @FXML
+    private TableColumn<Person, String> tdCarName;
 
-    private TableColumn<Person, String> Password;
+    @FXML
+    private TableColumn<Person, Integer> tdLogo;
 
-    private TableColumn<Person, String> Logo;
+    @FXML
+    private TableColumn<Person, Integer> tdScore;
 
-    private TableColumn<Person, String> Score;
+    @FXML
+    private TableColumn<Person, Double> tdCredit;
+
+    private ConnectToDB dbConnection;
 
     /**
      * Displays database in 'page' format
      */
-    public DisplayDataBase(ConnectToDB dbConnection) {
+    public DisplayDataBase(ConnectToDB dbConnection, List<User> pulledUsers) {
+
+        pageType = PageType.POP_UP;
+
+        this.dbConnection = dbConnection;
 
         try {
             // Uses DisplayDataBase.fxml to display database
             FXMLHelper.loadControl(this).load();
-
-            String query = "SELECT CONCAT(`First_Name`, ' ', `Last_Name`) AS `Name`, `Group`, `Login`, `Password`, " +
-                    "`Preferred_Car_Name`" +
-                    "`Logo`, `Score`, `Credits` FROM DBProg32758.Players";
-
-            // Run Query
-            ResultSet res = dbConnection.executeQuerry(query);
-
-            while (res.next()) {
-
-                personList.add(new Person(res.getString(1), res.getInt(2)
-                        , res.getString(3), res.getString(4), res.getString(5)
-                        , res.getInt(6), res.getInt(7), res.getDouble(8)));
-            }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,
-                    ex.getMessage() + "SQL State: " + ex.getSQLState() + " ErrorCode: " + ex.getErrorCode(),
-                    "Car Racing Game", javax.swing.JOptionPane.WARNING_MESSAGE);
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
+            e.printStackTrace();
         }
 
-    }
-
-    @Override
-    public void initialize(URL arg0, ResourceBundle arg1) {
-
-        btnAdmin.setOnAction(evt -> pageController.show(adminPage));
-		Name.setCellValueFactory(new PropertyValueFactory("name"));
-        Group.setCellValueFactory(new PropertyValueFactory("group"));
-        Login.setCellValueFactory(new PropertyValueFactory("login"));
-        Password.setCellValueFactory(new PropertyValueFactory("password"));
-        Logo.setCellValueFactory(new PropertyValueFactory("Logo"));
-        Score.setCellValueFactory(new PropertyValueFactory("score"));
-        
-        tableView.getItems().setAll(personList);
     }
 
     @Override
@@ -120,118 +106,163 @@ public class DisplayDataBase extends PageView implements Initializable {
 
     @Override
     public void onOpen(Object sender, String... args) {
-        // empty
+
+            String query = "SELECT CONCAT(`First_Name`, ' ', `Last_Name`) AS `Name`, `Group`, `Login`, `Password`, " +
+                    "`Preferred_Car_Name`," +
+                    "`Logo`, `Score`, `Credits` FROM DBProg32758.Players";
+            // Run Query
+            ResultSet res;
+
+            List<Person> displayedUser = new ArrayList<>();
+            try {
+                res = dbConnection.executeQuerry(query);
+                while (res.next()) {
+
+                    displayedUser.add(new Person(res.getString(1), res.getInt(2)
+                            , res.getString(3), res.getString(4), res.getString(5)
+                            , res.getInt(6), res.getInt(7), res.getDouble(8)));
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+
+        tbUsers.getItems().setAll(displayedUser);
     }
 
-    private class Person {
+    /**
+     * Called to initialize a controller after its root element has been
+     * completely processed.
+     *
+     * @param location  The location used to resolve relative paths for the root object, or
+     *                  <tt>null</tt> if the location is not known.
+     * @param resources The resources used to localize the root object, or <tt>null</tt> if
+     */
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
 
-        private String name;
+        btnAdmin.setOnAction(evt -> pageController.showPrevious());
 
-        private int group;
+        tdName.setCellValueFactory(new PropertyValueFactory("name"));
+        tdGroup.setCellValueFactory(new PropertyValueFactory("group"));
+        tdLogin.setCellValueFactory(new PropertyValueFactory("login"));
+        tdPassword.setCellValueFactory(new PropertyValueFactory("password"));
+        tdCarName.setCellValueFactory(new PropertyValueFactory("carname"));
+        tdLogo.setCellValueFactory(new PropertyValueFactory("logo"));
+        tdScore.setCellValueFactory(new PropertyValueFactory("score"));
+        tdScore.setCellValueFactory(new PropertyValueFactory("credits"));
+    }
 
-        private String login;
+    public class Person {
 
-        private String password;
+        private SimpleStringProperty name = new SimpleStringProperty(this, "name");
 
-        private String carname;
+        private SimpleIntegerProperty group = new SimpleIntegerProperty(this, "group");
 
-        private int logo;
+        private SimpleStringProperty login = new SimpleStringProperty(this, "login");
 
-        private int score;
+        private SimpleStringProperty password = new SimpleStringProperty(this, "password");
 
-        private double credits;
+        private SimpleStringProperty carname = new SimpleStringProperty(this, "carname");
+
+        private SimpleIntegerProperty logo = new SimpleIntegerProperty(this, "logo");
+
+        private SimpleIntegerProperty score = new SimpleIntegerProperty(this, "score");
+
+        private SimpleDoubleProperty credits = new SimpleDoubleProperty(this, "credits");
 
         public Person(String name, int group, String login, String password, String carname, int logo, int score
                 , double credits) {
 
-            initName(name);
-            initGroup(group);
-            initLogin(login);
-            initPassword(password);
-            initCarname(carname);
-            initLogo(logo);
-            initScore(score);
-            initCredits(credits);
+            setName(name);
+            setGroup(group);
+            setLogin(login);
+            setPassword(password);
+            setCarname(carname);
+            setLogo(logo);
+            setScore(score);
+            setCredits(credits);
         }
 
         public String getName() {
 
-            return name;
+            return name.get();
         }
 
-        private void initName(String name) {
+        public void setName(String name) {
 
-            this.name = name;
+            this.name.set(name);
         }
 
         public int getGroup() {
 
-            return group;
+            return group.get();
         }
 
-        private void initGroup(int group) {
+        public void setGroup(int group) {
 
-            this.group = group;
+            this.group.set(group);
         }
 
         public String getLogin() {
 
-            return login;
+            return login.get();
         }
 
-        private void initLogin(String login) {
+        public void setLogin(String login) {
 
-            this.login = login;
+            this.login.set(login);
         }
 
         public String getPassword() {
 
-            return password;
+            return password.get();
         }
 
-        private void initPassword(String password) {
+        public void setPassword(String password) {
 
-            this.password = password;
+            this.password.set(password);
         }
 
         public int getLogo() {
 
-            return logo;
+            return logo.get();
         }
 
-        private void initLogo(int logo) {
+        public void setLogo(int logo) {
 
-            this.logo = logo;
+            this.logo.set(logo);
         }
 
         public int getScore() {
 
-            return score;
+            return score.get();
         }
 
-        private void initScore(int score) {
+        public void setScore(int score) {
 
-            this.score = score;
+            this.score.set(score);
         }
 
         public String getCarname() {
 
-            return carname;
+            return carname.get();
         }
 
-        private void initCarname(String carname) {
+        public void setCarname(String carname) {
 
-            this.carname = carname;
+            this.carname.set(carname);
         }
 
         public double getCredits() {
 
-            return credits;
+            return credits.get();
         }
 
-        private void initCredits(double credits) {
+        public void setCredits(double credits) {
 
-            this.credits = credits;
+            this.credits.set(credits);
         }
     }
 
