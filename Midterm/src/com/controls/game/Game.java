@@ -1,243 +1,270 @@
 package com.controls.game;
 
-
 import com.util.MusicPlayer;
+
 import com.util.fxml.FXMLHelper;
+
 import com.util.game.UseMyCar;
+
 import com.util.info.User;
+
 import com.util.stream.InterruptStream;
 import javafx.application.Platform;
+
 import javafx.beans.property.ReadOnlyStringProperty;
+
 import javafx.beans.property.SimpleStringProperty;
+
 import javafx.fxml.FXML;
+
 import javafx.fxml.Initializable;
+
 import javafx.scene.control.TextArea;
+
 import javafx.scene.layout.GridPane;
 
 import java.io.IOException;
+
 import java.io.PrintStream;
+
 import java.net.URL;
+
 import java.util.ArrayList;
+
 import java.util.List;
+
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.function.Function;
 
+import javax.swing.JOptionPane;
 
 public class Game extends GridPane implements Initializable {
 
+	@FXML
 
-    @FXML
+	private TextArea txaDisplay;
 
-    private TextArea txaDisplay;
+	private List<String> displayStrings = new ArrayList<>();
 
+	private StringBuilder currentString = new StringBuilder();
 
-    private List<String> displayStrings = new ArrayList<>();
+	private String[] startUpArgs = new String[0];
 
+	private SimpleStringProperty preferredCar = new SimpleStringProperty(this, "preferredCar", "YourPreferedCar");
 
-    private StringBuilder currentString = new StringBuilder();
+	private User playingUser;
 
+	private Function<Object, Integer> winningAction;
 
-    private String[] startUpArgs = new String[0];
+	private boolean gameRunning;
 
+	private Thread gameThread;
 
-    private SimpleStringProperty preferredCar = new SimpleStringProperty(this, "preferredCar", "YourPreferedCar");
+	private TimerTask minusCredit = new TimerTask() {
+		@Override
+		public void run() {
+			Platform.runLater(() -> {
+				double tempCredit = playingUser.getCredit();
+				tempCredit -= 0.5;
+				playingUser.setCredit(tempCredit);
 
-    private User playingUser;
+			});
+		}
+	};
 
-    private Function<Object, Integer> winningAction;
+	private Timer creditCountdown = new Timer();
 
+	public Game() {
 
-    private boolean gameRunning;
+		try {
 
+			FXMLHelper.loadControl(this).load();
 
-    private Thread gameThread;
+		} catch (IOException e) {
 
+			e.printStackTrace();
 
-    public Game() {
+		}
 
+		gameThread = new Thread(() -> {
 
-        try {
+			MusicPlayer mp = new MusicPlayer();
 
+			try {
 
-            FXMLHelper.loadControl(this).load();
+				System.setOut(new PrintStream(new InterruptStream(i -> catchInterrupts(i))));
 
-        } catch (IOException e) {
+				String[] startArgs = new String[startUpArgs.length + 1];
 
+				startArgs[startUpArgs.length] = String.format("--carname=%s", getPreferredCar());
 
-            e.printStackTrace();
+				if (startUpArgs.length != 0) {
 
-        }
+					System.arraycopy(startUpArgs, 0, startArgs, 0, startUpArgs.length);
 
+				}
 
-        gameThread = new Thread(() -> {
+				UseMyCar.main(startArgs);
 
-            MusicPlayer mp = new MusicPlayer();
+			} finally {
 
-            try {
+				String winner;
 
-                System.setOut(new PrintStream(new InterruptStream(i -> catchInterrupts(i))));
+				while (displayStrings.size() != 0) {
 
-                String[] startArgs = new String[startUpArgs.length + 1];
+					winner = displayStrings.get(0);
 
-                startArgs[startUpArgs.length] = String.format("--carname=%s", getPreferredCar());
+					if (winner.contains("winner")) {
 
-                if (startUpArgs.length != 0) {
+						winner = winner.substring(winner.lastIndexOf(':') + 1, winner.length() - 2);
 
-                    System.arraycopy(startUpArgs, 0, startArgs, 0, startUpArgs.length);
-                }
+						if (winner.trim().equals(preferredCar.get())) {
 
-                UseMyCar.main(startArgs);
+							Platform.runLater(() -> {
 
-            } finally {
+								if (winningAction == null) {
 
+									return;
+								}
+								winningAction.apply(this);
+							});
+						}
 
-                String winner;
+						gameRunning = false;
+						return;
 
+					}
 
-                while (displayStrings.size() != 0) {
+					if (winner != null) {
 
-                    winner = displayStrings.get(0);
+						displayStrings.remove(0);
 
-                    if (winner.contains("winner")) {
+					}
 
+				}
 
-                        winner = winner.substring(winner.lastIndexOf(':') + 1, winner.length() - 2);
+			}
 
-                        if (true/*winner.trim().equals(preferredCar.get())*/) {
+		});
 
-                            Platform.runLater(() -> {
+	}
 
-                                if (winningAction == null) {
+	public void startGame() {
 
-                                    return;
-                                }
-                                winningAction.apply(this);
-                            });
-                        }
+		if (playingUser.getCredit() <= 0) {
+			JOptionPane.showMessageDialog(null,
+					"You are out of credits, please add more by clicking the credits refill button.", "Car Racing Game",
+					JOptionPane.INFORMATION_MESSAGE);
+			return;
+		} else {
+			if (gameRunning) {
 
-                        gameRunning = false;
-                        return;
+				return;
 
-                    }
+			}
 
-                    if (winner != null) {
+			gameThread.start();
+			creditCountdown.schedule(minusCredit, 1000, 1000);
+			gameRunning = true;
+		}
 
+	}
 
-                        displayStrings.remove(0);
+	private boolean catchInterrupts(int ch) {
 
-                    }
+		Platform.runLater(() -> txaDisplay.appendText(Character.toString((char) ch)));
 
-                }
+		currentString.append((char) ch);
 
-            }
+		if (ch == 10) {
 
-        });
+			displayStrings.add(currentString.toString());
 
-    }
+			currentString = new StringBuilder();
 
+		}
 
-    public void startGame() {
+		return true;
 
+	}
 
-        if (gameRunning) {
+	/**
+	 * 
+	 * Called to initialize a controller after its root element has been completely
+	 * processed.
+	 *
+	 * 
+	 * 
+	 * @param location
+	 *            The location used to resolve relative paths for the root object,
+	 *            or <tt>null</tt> if the
+	 * 
+	 *            <p>
+	 * 
+	 *            location is not known.
+	 * 
+	 * @param resources
+	 *            The resources used to localize the root object, or <tt>null</tt>
+	 *            if
+	 * 
+	 */
 
+	@Override
 
-            return;
+	public void initialize(URL location, ResourceBundle resources) {
 
-        }
+	}
 
+	public String[] getStartUpArgs() {
 
-        gameThread.start();
+		return startUpArgs;
 
+	}
 
-        gameRunning = true;
+	public void setStartUpArgs(String[] startUpArgs) {
 
-    }
+		this.startUpArgs = startUpArgs;
 
+	}
 
-    private boolean catchInterrupts(int ch) {
+	public String getPreferredCar() {
 
-        Platform.runLater(() -> txaDisplay.appendText(Character.toString((char)ch)));
+		return preferredCar.get();
 
-        currentString.append((char) ch);
+	}
 
-        if (ch == 10) {
+	public ReadOnlyStringProperty gamePreferredCar() {
 
-            displayStrings.add(currentString.toString());
+		return preferredCar;
 
-            currentString = new StringBuilder();
+	}
 
-        }
+	public Function<Object, Integer> getWinningAction() {
 
-        return true;
-    }
+		return winningAction;
 
+	}
 
-    /**
-     * Called to initialize a controller after its root element has been completely processed.
-     *
-     * @param location  The location used to resolve relative paths for the root object, or <tt>null</tt> if the
-     *                  <p>
-     *                  location is not known.
-     * @param resources The resources used to localize the root object, or <tt>null</tt> if
-     */
+	public void setWinningAction(Function<Object, Integer> winningAction) {
 
-    @Override
+		this.winningAction = winningAction;
 
-    public void initialize(URL location, ResourceBundle resources) {
+	}
 
-    }
+	public User getPlayingUser() {
 
+		return playingUser;
 
-    public String[] getStartUpArgs() {
+	}
 
+	public void setPlayingUser(User playingUser) {
 
-        return startUpArgs;
+		this.playingUser = playingUser;
 
-    }
+		preferredCar.set(playingUser.getPreferredCar());
 
+	}
 
-    public void setStartUpArgs(String[] startUpArgs) {
-
-
-        this.startUpArgs = startUpArgs;
-
-    }
-
-
-    public String getPreferredCar() {
-
-
-        return preferredCar.get();
-
-    }
-
-
-    public ReadOnlyStringProperty gamePreferredCar() {
-
-
-        return preferredCar;
-
-    }
-
-    public Function<Object, Integer> getWinningAction() {
-
-        return winningAction;
-    }
-
-    public void setWinningAction(Function<Object, Integer> winningAction) {
-
-        this.winningAction = winningAction;
-    }
-
-    public User getPlayingUser() {
-
-        return playingUser;
-    }
-
-    public void setPlayingUser(User playingUser) {
-
-        this.playingUser = playingUser;
-        preferredCar.set(playingUser.getPreferredCar());
-    }
 }
