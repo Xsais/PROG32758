@@ -21,14 +21,14 @@
     </rowConstraints>
 
     <children>
-	    <TableView fx:id="tableView" layoutX="35.0" layoutY="28.0" prefHeight="200.0" prefWidth="227.0">
+	    <TableView fx:id="person" layoutX="35.0" layoutY="28.0" prefHeight="200.0" prefWidth="227.0">
 	    <columns>
-	        <TableColumn prefWidth="75.0" text="Name" fx:id="Name" />
-	        <TableColumn prefWidth="75.0" text="Group" fx:id="Group" />
-	        <TableColumn prefWidth="75.0" text="Login" fx:id="Login" />
-	        <TableColumn prefWidth="75.0" text="Password" fx:id="Password" />
-	        <TableColumn prefWidth="75.0" text="Logo" fx:id="Logo" />
-	        <TableColumn prefWidth="75.0" text="Score" fx:id="Score" />
+	        <TableColumn prefWidth="75.0" text="name" fx:id="Name" />
+	        <TableColumn prefWidth="75.0" text="group" fx:id="Group" />
+	        <TableColumn prefWidth="75.0" text="login" fx:id="Login" />
+	        <TableColumn prefWidth="75.0" text="password" fx:id="Password" />
+	        <TableColumn prefWidth="75.0" text="logo" fx:id="Logo" />
+	        <TableColumn prefWidth="75.0" text="score" fx:id="Score" />
 	    </columns>
 	    </TableView>
         <Button alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="25.0" text="Return to Admin Page" translateX="-10.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
