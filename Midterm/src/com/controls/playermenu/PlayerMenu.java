@@ -21,16 +21,18 @@ package com.controls.playermenu;
 import com.util.MusicPlayer;
 import com.util.fxml.FXMLHelper;
 import com.util.info.User;
+import javafx.application.Platform;
 import javafx.beans.property.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.media.MediaPlayer.Status;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.util.function.Function;
 
 
 public class PlayerMenu extends GridPane implements Initializable {
@@ -69,15 +71,26 @@ public class PlayerMenu extends GridPane implements Initializable {
     @FXML
     private Label lblCredit;
 
+    private SimpleStringProperty infoMessage = new SimpleStringProperty(this, "infoMessage");
+
+    private SimpleStringProperty buttonText = new SimpleStringProperty(this, "buttonText");
+
+    @FXML
+    private Label lblInfo;
+
+    @FXML
+    private Button btnToggleGame;
+
     // Determines weather the score is visible to the user
     private BooleanProperty scoreVisible = new SimpleBooleanProperty(this, "scoreVisible", false);
+
+    private Function<Object, String> toggleFunction;
 
 
     /**
      * Initializes the control and load the look and feel.
      */
     public PlayerMenu() {
-
         try {
 
             // Loads the given control and links it to the desired FXML file
@@ -87,17 +100,6 @@ public class PlayerMenu extends GridPane implements Initializable {
             e.printStackTrace();
 
         }
-
-    }
-
-    /**
-     * Initializes the control and load the look and feel.
-     */
-    public PlayerMenu(User usedPlayer) {
-
-        this();
-
-        setUsedPlayer(usedPlayer);
 
     }
 
@@ -176,6 +178,31 @@ public class PlayerMenu extends GridPane implements Initializable {
     @Override
 
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
+
+        btnToggleGame.visibleProperty().bind(btnToggleGame.textProperty().isNotEmpty());
+
+        lblInfo.visibleProperty().bind(lblInfo.textProperty().isNotEmpty());
+
+        btnToggleGame.textProperty().bind(buttonText);
+
+        btnToggleGame.setOnMouseClicked(e -> {
+
+            if (toggleFunction == null) {
+
+                return;
+            }
+
+            String message = toggleFunction.apply(this);
+
+            if (message == null) {
+
+                return;
+            }
+
+            infoMessage.set(message);
+        });
+
+        lblInfo.textProperty().bind(infoMessage);
 
         vbScore.setOnMouseClicked(evt -> scoreVisible.set(!scoreVisible.get()));
 
@@ -276,5 +303,45 @@ public class PlayerMenu extends GridPane implements Initializable {
     public void setMusicPosition(Duration position) {
 
         musicPlayer.setPosition(position);
+    }
+
+    public String getInfoMessage() {
+
+        return infoMessage.get();
+    }
+
+    public SimpleStringProperty infoMessageProperty() {
+
+        return infoMessage;
+    }
+
+    public void setInfoMessage(String infoMessage) {
+
+        this.infoMessage.set(infoMessage);
+    }
+
+    public Function<Object, String> getToggleFunction() {
+
+        return toggleFunction;
+    }
+
+    public void setToggleFunction(Function<Object, String> toggleFunction) {
+
+        this.toggleFunction = toggleFunction;
+    }
+
+    public String getButtonText() {
+
+        return buttonText.get();
+    }
+
+    public SimpleStringProperty buttonTextProperty() {
+
+        return buttonText;
+    }
+
+    public void setButtonText(String buttonText) {
+
+        this.buttonText.set(buttonText);
     }
 }

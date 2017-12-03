@@ -298,7 +298,7 @@ public class UseMyCar {
 
             try {
 
-                //Thread.sleep(1000);
+                Thread.sleep(125);
 
             } catch (Exception e) {
 

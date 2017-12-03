@@ -52,4 +52,10 @@ public class InterruptStream extends OutputStream {
 
         return log.toArray();
     }
+
+    @Override
+    public void flush () {
+
+        log.clear();
+    }
 }

@@ -4,12 +4,13 @@
 <?import javafx.scene.layout.*?>
 <fx:root type="GridPane" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER"
          styleClass="printarea">
-    <TextArea fx:id="txaDisplay" styleClass="blend" GridPane.columnIndex="2" GridPane.columnSpan="3" editable="false"
+    <TextArea fx:id="txaDisplay" styleClass="blend" GridPane.columnIndex="3" GridPane.columnSpan="3" editable="false"
               GridPane.vgrow="ALWAYS" GridPane.hgrow="ALWAYS" />
     <columnConstraints>
         <ColumnConstraints percentWidth="16.66665"/>
         <ColumnConstraints percentWidth="8.333325"/>
-        <ColumnConstraints percentWidth="8.333325"/>
+        <ColumnConstraints percentWidth="4.1666625"/>
+        <ColumnConstraints percentWidth="4.1666625"/>
         <ColumnConstraints percentWidth="33.3333"/>
         <ColumnConstraints percentWidth="33.3333"/>
     </columnConstraints>

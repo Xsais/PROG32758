@@ -4,6 +4,7 @@ import com.controls.game.Game;
 import com.controls.playermenu.PlayerMenu;
 import com.util.fxml.FXMLHelper;
 import com.util.fxml.page.PageView;
+import com.util.game.state.GameState;
 import com.util.info.Name;
 import com.util.info.User;
 import com.util.jdbc.ConnectToDB;
@@ -144,7 +145,6 @@ public class GamePage extends PageView implements Initializable {
                     break;
             }
         }
-        gDisplay.startGame();
     }
 
     /**
@@ -157,11 +157,56 @@ public class GamePage extends PageView implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+        pmPlayer.setButtonText("Play");
+
+        pmPlayer.setToggleFunction(s -> {
+
+            switch (gDisplay.getGameState()) {
+
+                case Running:
+
+                    gDisplay.setGameState(GameState.Paused);
+                    break;
+                case Paused:
+                case Stopped:
+
+                    gDisplay.setGameState(GameState.Running);
+                    break;
+            }
+
+            return null;
+        });
+
+        gDisplay.gameStateProperty().addListener((s, old, newV) -> {
+
+            switch (newV) {
+
+                case Running:
+
+                    Platform.runLater(() -> pmPlayer.setButtonText("Pause"));
+                    break;
+                case Stopped:
+                case Paused:
+
+                    Platform.runLater(() -> pmPlayer.setButtonText("Play"));
+                    break;
+            }
+        });
+
         gDisplay.setWinningAction(i -> {
+
+            Platform.runLater(() -> pmPlayer.setInfoMessage("Congratulations, yon won"));
 
             User activeUser = this.activeUser.get();
 
             Platform.runLater(() -> activeUser.setScore(activeUser.getScore() + 50));
+
+            return 0;
+        });
+
+        gDisplay.setLosingAction(i -> {
+
+            Platform.runLater(() -> pmPlayer.setInfoMessage("You lose, try again"));
 
             return 0;
         });

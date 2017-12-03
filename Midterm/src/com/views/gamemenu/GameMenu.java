@@ -71,7 +71,6 @@ public class GameMenu extends PageView implements Initializable {
         }
 
         username.addListener(evt -> setUser());
-        pmPlayer = new PlayerMenu();
 
         try {
 
@@ -173,11 +172,11 @@ public class GameMenu extends PageView implements Initializable {
 
         btnStart.setOnAction(e -> {
 
-            pmPlayer.setPlayingMusic(false);
-
             pageController.show(gamePage, String.format("musicpos=%s", pmPlayer.getMusicPosition())
                     , String.format("musicstate=%d", pmPlayer.isPlayingMusic() ? 1 : 0)
                     , String.format("scoredisplay=%d", pmPlayer.isScoreVisible() ? 1 : 0));
+
+            pmPlayer.setPlayingMusic(false);
         });
     }
 

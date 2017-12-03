@@ -92,3 +92,9 @@
     -fx-padding: 10px;
     -fx-highlight-fill: inherit;
 }
+
+.infomation {
+
+    -fx-font-size: 1.5em;
+    -fx-font-weight: 700;
+}
