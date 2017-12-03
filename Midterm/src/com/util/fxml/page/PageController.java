@@ -19,7 +19,6 @@
 package com.util.fxml.page;
 
 import com.controls.exitbar.ExitBar;
-import com.sun.media.jfxmediaimpl.MediaDisposer.Disposable;
 import com.util.fxml.NodeConstraint;
 import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
@@ -36,7 +35,7 @@ import java.util.List;
 /**
  *
  */
-public abstract class PageController extends GridPane implements Initializable, Disposable {
+public abstract class PageController extends GridPane implements Initializable {
 
     // Stores all of the validly registered pages
     protected final List<PageView> pages = new ArrayList<>();
@@ -450,6 +449,5 @@ public abstract class PageController extends GridPane implements Initializable, 
      * and no longer reachable. Note that the associated object cannot be
      * accessed by the time this method is invoked.
      */
-    @Override
     public abstract void dispose();
 }
