@@ -12,158 +12,258 @@
  * Creation Date: 10, 2017 16
  * Last Modified: 11, 2017 26
  * Java Version: 1.8.1_141
- * Description: Initializes the DBProg32758 database and prepares it for data entry
+ * Description: setializes the DBProg32758 database and prepares it for data entry
  * ----------------------------------------------------------------------------+
  */
 
 package com.views.displaydatabase;
 
-import javax.swing.JOptionPane;
+import com.util.fxml.FXMLHelper;
+import com.util.fxml.page.PageType;
+import com.util.fxml.page.PageView;
+import com.util.info.User;
+import com.util.jdbc.ConnectToDB;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import java.sql.*;
-import com.util.fxml.FXMLHelper;
-import com.util.fxml.page.PageView;
-import com.util.jdbc.ConnectToDB;
-import javafx.fxml.Initializable;
 import javafx.stage.WindowEvent;
+
 import java.io.IOException;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class DisplayDataBase extends PageView implements Initializable {
-	
-	@FXML
-	private Button btnAdmin;
-    private TableView<Person> person;
-    private TableColumn<Person, String> name;
-    private TableColumn<Person, String> group;
-    private TableColumn<Person, String> login;
-    private TableColumn<Person, String> password;
-    private TableColumn<Person, String> logo;
-    private TableColumn<Person, String> score;
-    private ResultSet res;
 
-	/**
-	 * Displays database in 'page' format
-	 *
-	 */
-	public DisplayDataBase(ConnectToDB dbConnection) {
+    @FXML
+    private Button btnAdmin;
 
-		try {
-			// Runs query and stores in result set
-			runQuery(dbConnection);
-			// Acts as a controller, also calling initialize(URL, ResourceBundle)
-			FXMLHelper.loadControl(this).load();
-		} 
-		catch (SQLException ex) {
-			JOptionPane.showMessageDialog(null,
-					ex.getMessage() + "SQL State: " + ex.getSQLState() + " ErrorCode: " + ex.getErrorCode(),
-					"Car Racing Game", javax.swing.JOptionPane.WARNING_MESSAGE);
-		} 
-		catch (Exception e) {
-			JOptionPane.showMessageDialog(null, e.getMessage());
-		}
+    @FXML
+    private TableView<Person> tbUsers;
 
-	}
+    @FXML
+    private TableColumn<Person, String> tdName;
 
-	private void runQuery(ConnectToDB dbConnection) throws SQLException {
+    @FXML
+    private TableColumn<Person, Integer> tdGroup;
 
-		try {
-			String query = "SELECT CONCAT(First_Name, ' ', Last_Name) AS 'Name', 'Group', 'Login', 'Password', 'Logo', 'Score' FROM DBProg32758.Players;";
+    @FXML
+    private TableColumn<Person, String> tdLogin;
 
-			// Runs query above
-			res = dbConnection.executeQuerry(query);
-		} 
-		catch (SQLException ex) {
-			JOptionPane.showMessageDialog(null, ex.getMessage());
-		}
+    @FXML
+    private TableColumn<Person, String> tdPassword;
 
-	}
+    @FXML
+    private TableColumn<Person, String> tdCarName;
 
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-		
-		// Return to 'adminPage' button
-		btnAdmin.setOnAction(evt -> pageController.hidePopUps(0));
-				
+    @FXML
+    private TableColumn<Person, Integer> tdLogo;
+
+    @FXML
+    private TableColumn<Person, Integer> tdScore;
+
+    @FXML
+    private TableColumn<Person, Double> tdCredit;
+
+    private ConnectToDB dbConnection;
+
+    /**
+     * Displays database in 'page' format
+     */
+    public DisplayDataBase(ConnectToDB dbConnection, List<User> pulledUsers) {
+
+        pageType = PageType.POP_UP;
+
+        this.dbConnection = dbConnection;
+
         try {
-        	// Adds all data (by row) to person class
-			while (res.next()) {
-				person.getItems().add(new Person(res.getString(1), res.getString(2), res.getString(3), res.getString(4), res.getString(5), res.getString(6)));
-			}
-		} 
-        catch (Exception e) {
-			JOptionPane.showMessageDialog(null, e.getMessage());
-		}	
-		// Table is filled (by column) with data from person class
-		name.setCellValueFactory(new PropertyValueFactory<>("name"));
-		group.setCellValueFactory(new PropertyValueFactory<>("group"));
-		login.setCellValueFactory(new PropertyValueFactory<>("login"));
-		password.setCellValueFactory(new PropertyValueFactory<>("password"));
-		logo.setCellValueFactory(new PropertyValueFactory<>("logo"));
-		score.setCellValueFactory(new PropertyValueFactory<>("score"));
-	}
-	
-	/*
-	 * In charge of capturing and storing the information of people
-	 * Should only be used by DisplayDataBase class (private)
-	 */
-	private class Person {
-		private String name;
-		private String group;
-		private String login;
-		private String password;
-		private String logo;
-		private String score;
-		
-		public Person(String name, String group, String login, String password, String logo, String score) {
-			this.name = name;
-			this.group = group;
-			this.login = login;
-			this.password = password;
-			this.logo = logo;
-			this.score = score;
-		}
-		
-		// Getters added for future expansion
-		public String getName() {
-			return name;
-		}
-		public String getGroup() {
-			return group;
-		}
-		public String getLogin() {
-			return login;
-		}
-		public String getPassword() {
-			return password;
-		}
-		public String getLogo() {
-			return logo;
-		}
-		public String getScore() {
-			return score;
-		}
-		
-	}
+            // Uses DisplayDataBase.fxml to display database
+            FXMLHelper.loadControl(this).load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-	@Override
-	public void onClose(Object sender, int statusCode) {
-		// do nothing
-	}
+    }
 
-	@Override
-	public void onCloseRequest(WindowEvent evt) {
-		// do nothing
-	}
+    @Override
+    public void onClose(Object sender, int statusCode) {
+        // empty
+    }
 
-	@Override
-	public void onOpen(Object sender) {
-		// do nothing
-	}
+    @Override
+    public void onCloseRequest(WindowEvent evt) {
+        // empty
+    }
+
+    @Override
+    public void onOpen(Object sender, String... args) {
+
+        String query = "SELECT CONCAT(`First_Name`, ' ', `Last_Name`) AS `Name`, `Group`, `Login`, `Password`, " +
+                "`Preferred_Car_Name`," +
+                "`Logo`, `Score`, `Credits` FROM DBProg32758.Players";
+        // Run Query
+        ResultSet res;
+
+        List<Person> displayedUser = new ArrayList<>();
+        try {
+            res = dbConnection.executeQuerry(query);
+            while (res.next()) {
+
+                displayedUser.add(new Person(res.getString(1), res.getInt(2)
+                        , res.getString(3), res.getString(4), res.getString(5)
+                        , res.getInt(6), res.getInt(7), res.getDouble(8)));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+        tbUsers.getItems().setAll(displayedUser);
+    }
+
+    /**
+     * Called to initialize a controller after its root element has been
+     * completely processed.
+     *
+     * @param location  The location used to resolve relative paths for the root object, or
+     *                  <tt>null</tt> if the location is not known.
+     * @param resources The resources used to localize the root object, or <tt>null</tt> if
+     */
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+        btnAdmin.setOnAction(evt -> pageController.showPrevious());
+
+        tdName.setCellValueFactory(new PropertyValueFactory("name"));
+        tdGroup.setCellValueFactory(new PropertyValueFactory("group"));
+        tdLogin.setCellValueFactory(new PropertyValueFactory("login"));
+        tdPassword.setCellValueFactory(new PropertyValueFactory("password"));
+        tdCarName.setCellValueFactory(new PropertyValueFactory("carname"));
+        tdLogo.setCellValueFactory(new PropertyValueFactory("logo"));
+        tdScore.setCellValueFactory(new PropertyValueFactory("score"));
+        tdScore.setCellValueFactory(new PropertyValueFactory("credits"));
+    }
+
+    public class Person {
+
+        private SimpleStringProperty name = new SimpleStringProperty(this, "name");
+
+        private SimpleIntegerProperty group = new SimpleIntegerProperty(this, "group");
+
+        private SimpleStringProperty login = new SimpleStringProperty(this, "login");
+
+        private SimpleStringProperty password = new SimpleStringProperty(this, "password");
+
+        private SimpleStringProperty carname = new SimpleStringProperty(this, "carname");
+
+        private SimpleIntegerProperty logo = new SimpleIntegerProperty(this, "logo");
+
+        private SimpleIntegerProperty score = new SimpleIntegerProperty(this, "score");
+
+        private SimpleDoubleProperty credits = new SimpleDoubleProperty(this, "credits");
+
+        public Person(String name, int group, String login, String password, String carname, int logo, int score
+                , double credits) {
+
+            setName(name);
+            setGroup(group);
+            setLogin(login);
+            setPassword(password);
+            setCarname(carname);
+            setLogo(logo);
+            setScore(score);
+            setCredits(credits);
+        }
+
+        public String getName() {
+
+            return name.get();
+        }
+
+        public void setName(String name) {
+
+            this.name.set(name);
+        }
+
+        public int getGroup() {
+
+            return group.get();
+        }
+
+        public void setGroup(int group) {
+
+            this.group.set(group);
+        }
+
+        public String getLogin() {
+
+            return login.get();
+        }
+
+        public void setLogin(String login) {
+
+            this.login.set(login);
+        }
+
+        public String getPassword() {
+
+            return password.get();
+        }
+
+        public void setPassword(String password) {
+
+            this.password.set(password);
+        }
+
+        public int getLogo() {
+
+            return logo.get();
+        }
+
+        public void setLogo(int logo) {
+
+            this.logo.set(logo);
+        }
+
+        public int getScore() {
+
+            return score.get();
+        }
+
+        public void setScore(int score) {
+
+            this.score.set(score);
+        }
+
+        public String getCarname() {
+
+            return carname.get();
+        }
+
+        public void setCarname(String carname) {
+
+            this.carname.set(carname);
+        }
+
+        public double getCredits() {
+
+            return credits.get();
+        }
+
+        public void setCredits(double credits) {
+
+            this.credits.set(credits);
+        }
+    }
 
 }
