@@ -82,7 +82,7 @@ public class GamePage extends PageView implements Initializable {
 
         try {
 
-            if (finalUpdate == null && activeUser.get() == null && finalUpdate.isClosed()) {
+            if (finalUpdate == null || activeUser.get() == null || finalUpdate.isClosed()) {
 
                 return;
             }
@@ -170,6 +170,7 @@ public class GamePage extends PageView implements Initializable {
                 case Paused:
                 case Stopped:
 
+                    pmPlayer.setInfoMessage("");
                     gDisplay.setGameState(GameState.Running);
                     break;
             }
@@ -195,7 +196,7 @@ public class GamePage extends PageView implements Initializable {
 
         gDisplay.setWinningAction(i -> {
 
-            Platform.runLater(() -> pmPlayer.setInfoMessage("Congratulations, yon won"));
+            pmPlayer.setInfoMessage("Congratulations, yon won");
 
             User activeUser = this.activeUser.get();
 
@@ -206,7 +207,7 @@ public class GamePage extends PageView implements Initializable {
 
         gDisplay.setLosingAction(i -> {
 
-            Platform.runLater(() -> pmPlayer.setInfoMessage("You lose, try again"));
+            pmPlayer.setInfoMessage("You lose, try again");
 
             return 0;
         });

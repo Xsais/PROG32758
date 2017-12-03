@@ -85,57 +85,56 @@ public class Game extends GridPane implements Initializable {
     private Timer creditCountdown = new Timer(1000, evt -> Platform.runLater(() -> {
 
         double tempCredit = playingUser.getCredit();
-        tempCredit -= 0.5;
-        playingUser.setCredit(tempCredit);
+
+        playingUser.setCredit(Math.max(0, tempCredit - 0.5));
+
+        if (playingUser.getCredit() <= 0) {
+
+
+            gameState.set(GameState.Paused);
+            JOptionPane.showMessageDialog(null
+                    , "You are out of credits, please add more by clicking the credits refill button."
+                    , "Car Racing Game", JOptionPane.INFORMATION_MESSAGE);
+        }
 
     }));
 
 
     private void startGame() {
 
-        if (playingUser.getCredit() <= 0) {
-            JOptionPane.showMessageDialog(null,
-                    "You are out of credits, please add more by clicking the credits refill button.", "Car Racing" +
-                            " Game",
-                    JOptionPane.INFORMATION_MESSAGE);
-            return;
-        } else {
+        gameThread = new Thread(() -> {
 
-            creditCountdown.start();
+            MusicPlayer mp = new MusicPlayer();
 
-            gameThread = new Thread(() -> {
+            try {
 
-                MusicPlayer mp = new MusicPlayer();
+                System.setOut(new PrintStream(new InterruptStream(i -> catchInterrupts(i))));
 
-                try {
+                String[] startArgs = new String[startUpArgs.length + 1];
 
-                    System.setOut(new PrintStream(new InterruptStream(i -> catchInterrupts(i))));
+                startArgs[startUpArgs.length] = String.format("--carname=%s", getPreferredCar());
 
-                    String[] startArgs = new String[startUpArgs.length + 1];
+                if (startUpArgs.length != 0) {
 
-                    startArgs[startUpArgs.length] = String.format("--carname=%s", getPreferredCar());
+                    System.arraycopy(startUpArgs, 0, startArgs, 0, startUpArgs.length);
+                }
 
-                    if (startUpArgs.length != 0) {
+                UseMyCar.main(startArgs);
 
-                        System.arraycopy(startUpArgs, 0, startArgs, 0, startUpArgs.length);
-                    }
-
-                    UseMyCar.main(startArgs);
-
-                } finally {
+            } finally {
 
 
-                    String winner;
+                String winner;
 
 
-                    while (displayStrings.size() != 0) {
+                while (displayStrings.size() != 0) {
 
-                        winner = displayStrings.get(0);
+                    winner = displayStrings.get(0);
 
-                        if (winner.contains("winner")) {
+                    if (winner.contains("winner")) {
 
 
-                            winner = winner.substring(winner.lastIndexOf(':') + 1, winner.length() - 2);
+                        winner = winner.substring(winner.lastIndexOf(':') + 1, winner.length() - 2);
 
                             if (winner.trim().equals(preferredCar.get())) {
 
@@ -145,37 +144,38 @@ public class Game extends GridPane implements Initializable {
 
                                         return;
                                     }
-                                    winningAction.apply(this);
+                                    Platform.runLater(() -> winningAction.apply(this));
                                 });
-                            } else {
+                        } else {
 
-                                if (losingAction == null) {
+                            if (losingAction == null) {
 
-                                    return;
-                                }
-                                losingAction.apply(this);
+                                return;
                             }
-
-                            setGameState(GameState.Stopped);
-                            return;
-
+                            Platform.runLater(() -> losingAction.apply(this));
                         }
 
-                        if (winner != null) {
+                        displayStrings.clear();
+
+                        setGameState(GameState.Stopped);
+                        return;
+
+                    }
+
+                    if (winner != null) {
 
 
-                            displayStrings.remove(0);
-
-                        }
+                        displayStrings.remove(0);
 
                     }
 
                 }
 
-            });
+            }
 
-            gameThread.start();
-        }
+        });
+
+        gameThread.start();
     }
 
 
@@ -184,10 +184,10 @@ public class Game extends GridPane implements Initializable {
         try {
             if (gameState.get() == GameState.Paused) {
 
-                    while (gameState.get() != GameState.Running) {
+                while (gameState.get() != GameState.Running) {
 
-                        Thread.sleep(1);
-                    }
+                    Thread.sleep(1);
+                }
             }
         } catch (InterruptedException e) {
 
@@ -232,7 +232,7 @@ public class Game extends GridPane implements Initializable {
             switch (newV) {
 
                 case Running:
-
+                    creditCountdown.start();
                     if (old == GameState.Paused) {
 
                         return;
@@ -317,6 +317,13 @@ public class Game extends GridPane implements Initializable {
 
     public void setGameState(GameState gameState) {
 
+        if (gameState == GameState.Running && playingUser.getCredit() <= 0) {
+
+            JOptionPane.showMessageDialog(null
+                    , "You are out of credits, please add more by clicking the credits refill button."
+                    , "Car Racing Game", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
         this.gameState.set(gameState);
     }
 

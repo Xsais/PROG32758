@@ -25,7 +25,6 @@ import com.util.fxml.page.PageController;
 import com.util.jdbc.ConnectToDB;
 import com.views.startpage.StartPage;
 import javafx.fxml.FXMLLoader;
-import javafx.stage.WindowEvent;
 
 import javax.swing.*;
 import java.net.URL;
@@ -66,6 +65,8 @@ public class PointerPage extends PageController {
 
             // Create Connection to DataBase
             dbConnection = new ConnectToDB("localhost", "root", "");
+
+            startPage = new StartPage(dbConnection);
         } catch (SQLException e) {
 
             // Warn User of error
@@ -76,8 +77,6 @@ public class PointerPage extends PageController {
             System.exit(-1);
             close(null);
         }
-
-        startPage = new StartPage(dbConnection);
 
         // Assigns the `main` page to the Page Controller
         initMainPage(startPage);
