@@ -54,6 +54,8 @@ public class GameMenu extends PageView implements Initializable {
 
     private PreparedStatement pullInfo;
 
+    private GamePage gamePage;
+
     public GameMenu(ConnectToDB dbConnection) {
 
         this.dbConnection = dbConnection;
@@ -126,6 +128,16 @@ public class GameMenu extends PageView implements Initializable {
 
     }
 
+    /**
+     * Occurs when the PageView has been requested to open
+     *
+     * @param sender The Object in which sent the request
+     */
+    @Override
+    public void onOpen(Object sender, String... args) {
+
+    }
+
     @Override
     public void dispose() {
 
@@ -139,18 +151,6 @@ public class GameMenu extends PageView implements Initializable {
             e.printStackTrace();
         }
     }
-
-    /**
-     * Occurs when the PageView has been requested to open
-     *
-     * @param sender The Object in which sent the request
-     */
-    @Override
-    public void onOpen(Object sender, String... args) {
-
-    }
-
-    private GamePage gamePage;
 
     @Override
     public void init(PageController pageController) {

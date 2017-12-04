@@ -97,158 +97,6 @@ public class UserRegister extends PageView implements Initializable {
         }
     }
 
-    /**
-     * Query DB for lastname, firstname & group and check against user input for validity Makes sure user does not
-     * already have an account registered
-     *
-     * @throws HeadlessException
-     * @throws SQLException
-     */
-    public void isValid() throws HeadlessException, SQLException {
-
-        try {
-            rs = dbConnection.executeQuerry("SELECT * FROM DBProg32758.Players WHERE Last_Name = '"
-                    + txtLastName.getText().trim() + "' AND First_Name = '" + txtFirstName.getText().trim() + "' AND " +
-                    "`Group` = '"
-                    + Integer.valueOf(txtGroup.getText().trim()) + "' OR `Login`='" + txtLogin.getText().trim() + "'ORDER BY 'Login'");
-        } catch (SQLException ex){
-
-            JOptionPane.showMessageDialog(null, "Database does not exist. Please select 'Create the Database' first.", "Car Racing Game", javax.swing.JOptionPane.WARNING_MESSAGE);
-
-            pageController.hidePopUps(0);
-            return;
-        }
-
-        rs.beforeFirst();
-        rs.last();
-        int size = rs.getRow();
-        if (size > 1) {
-
-            JOptionPane.showMessageDialog(null, "The desired Login has already been taken"
-                    , "Car Racing Game", JOptionPane.WARNING_MESSAGE);
-
-            return;
-        }
-        if (rs.last()) {
-
-            String player = rs.getString(4);
-            if (player != null && !player.equals("")) {
-                JOptionPane.showMessageDialog(null, "You have already registered an account.", "Car Racing Game",
-                        JOptionPane.WARNING_MESSAGE);
-            } else {
-
-                writeToDB();
-
-                pageController.hidePopUps(0);
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Either you are not registered or your Last Name, First Name, Group " +
-                    "are not correct.", "Car Racing Game", javax.swing.JOptionPane.WARNING_MESSAGE);
-            rest();
-        }
-    }
-
-    //Clears user's row and enters new one with all fields from user input
-    public void writeToDB() {
-
-        try {
-            dbConnection.executeUpdate(String.format("UPDATE DBProg32758.Players SET `Group`=%d, `Login`='%s'" +
-                            ", `Password`='%s', `Preferred_Car_Name`='%s', `Logo`=%d, `Score`=%d, `Credits`=%4.2f " +
-                            "WHERE `Last_Name`='%s' AND `First_Name`='%s'", Integer.valueOf(txtGroup.getText().trim()),
-                    txtLogin.getText().trim()
-                    , txtPassword.getText(), txtPreferredCarName.getText(), Integer.valueOf(txtLogo.getText().trim())
-                    , Integer.valueOf(txtScore.getText().trim()), Double.valueOf(txtCredit.getText().trim())
-                    , txtLastName.getText().trim(), txtFirstName.getText().trim()));
-
-            JOptionPane.showMessageDialog(null, "You are now registered, you can login.", "Car Racing Game",
-                    JOptionPane.INFORMATION_MESSAGE);
-
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage() + "SQL State: " + e.getSQLState() + " ErrorCode: " + e
-                    .getErrorCode(), "Car Racing Game", javax.swing.JOptionPane.WARNING_MESSAGE);
-        }
-    }
-
-    /**
-     * Method for text field listener to prevent user from clicking OK button with empty or incorrect fields
-     */
-    public void ValidateInput() {
-
-        ValidIntegers();
-        CheckLockout();
-        BlankFields();
-        ValidCredits(txtCredit.getText());
-        if (ValidIntegers() && CheckLockout() && BlankFields() && ValidCredits(txtCredit.getText())) {
-            btnOK.setDisable(false);
-        } else {
-            btnOK.setDisable(true);
-        }
-    }
-
-    public boolean ValidCredits(String str) {
-
-        try {
-            Float i = Float.parseFloat(str);
-            if (i > 99.99) {
-                lblValidInput.setVisible(true);
-                return false;
-            }
-        } catch (NumberFormatException nfe) {
-            lblValidInput.setVisible(true);
-            return false;
-        }
-        lblValidInput.setVisible(false);
-        return true;
-    }
-
-    public boolean BlankFields() {
-
-        if (!txtLastName.getText().equals("") && !txtFirstName.getText().equals("") && !txtPassword.getText().equals
-                (LOCK_OUT_CODE)
-                && !txtPassword.getText().equals("") && !txtGroup.getText().equals("") && !txtLogin.getText().equals("")
-                && !txtPreferredCarName.getText().equals("") && !txtCredit.getText().equals("") && !txtScore.getText
-                ().equals("")
-                && !txtLogo.getText().equals("")) {
-            lblEmpty.setVisible(false);
-            return true;
-        } else {
-            lblEmpty.setVisible(true);
-            return false;
-        }
-    }
-
-    public boolean CheckLockout() {
-
-        if (!txtPassword.getText().equals(LOCK_OUT_CODE)) {
-            lblLockout.setVisible(false);
-            return true;
-        } else {
-            lblLockout.setVisible(true);
-            return false;
-        }
-    }
-
-    public boolean ValidIntegers() {
-
-        if (isInt(txtGroup.getText()) && isInt(txtScore.getText())) {
-            lblValidInput.setVisible(false);
-            return true;
-        } else {
-            lblValidInput.setVisible(true);
-            return false;
-        }
-    }
-
-    public boolean isInt(String str) {
-
-        try {
-            Integer i = Integer.parseInt(str);
-        } catch (NumberFormatException nfe) {
-            return false;
-        }
-        return true;
-    }
-
     @Override
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
 
@@ -313,6 +161,150 @@ public class UserRegister extends PageView implements Initializable {
     }
 
     /**
+     * Method for text field listener to prevent user from clicking OK button with empty or incorrect fields
+     */
+    public void ValidateInput() {
+
+        ValidIntegers();
+        CheckLockout();
+        BlankFields();
+        ValidCredits(txtCredit.getText());
+        if (ValidIntegers() && CheckLockout() && BlankFields() && ValidCredits(txtCredit.getText())) {
+            btnOK.setDisable(false);
+        } else {
+            btnOK.setDisable(true);
+        }
+    }
+
+    /**
+     * Query DB for lastname, firstname & group and check against user input for validity Makes sure user does not
+     * already have an account registered
+     *
+     * @throws HeadlessException
+     * @throws SQLException
+     */
+    public void isValid() throws HeadlessException, SQLException {
+
+        try {
+            rs = dbConnection.executeQuerry("SELECT * FROM DBProg32758.Players WHERE Last_Name = '"
+                    + txtLastName.getText().trim() + "' AND First_Name = '" + txtFirstName.getText().trim() + "' AND " +
+                    "`Group` = '"
+                    + Integer.valueOf(txtGroup.getText().trim()) + "' OR `Login`='" + txtLogin.getText().trim() +
+                    "'ORDER BY 'Login'");
+        } catch (SQLException ex) {
+
+            JOptionPane.showMessageDialog(null, "Database does not exist. Please select 'Create the Database' first" +
+                    ".", "Car Racing Game", javax.swing.JOptionPane.WARNING_MESSAGE);
+
+            pageController.hidePopUps(0);
+            return;
+        }
+
+        rs.beforeFirst();
+        rs.last();
+        int size = rs.getRow();
+        if (size > 1) {
+
+            JOptionPane.showMessageDialog(null, "The desired Login has already been taken"
+                    , "Car Racing Game", JOptionPane.WARNING_MESSAGE);
+
+            return;
+        }
+        if (rs.last()) {
+
+            String player = rs.getString(4);
+            if (player != null && !player.equals("")) {
+                JOptionPane.showMessageDialog(null, "You have already registered an account.", "Car Racing Game",
+                        JOptionPane.WARNING_MESSAGE);
+            } else {
+
+                writeToDB();
+
+                pageController.hidePopUps(0);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Either you are not registered or your Last Name, First Name, Group " +
+                    "are not correct.", "Car Racing Game", javax.swing.JOptionPane.WARNING_MESSAGE);
+            rest();
+        }
+    }
+
+    public boolean ValidIntegers() {
+
+        if (isInt(txtGroup.getText()) && isInt(txtScore.getText())) {
+            lblValidInput.setVisible(false);
+            return true;
+        } else {
+            lblValidInput.setVisible(true);
+            return false;
+        }
+    }
+
+    public boolean CheckLockout() {
+
+        if (!txtPassword.getText().equals(LOCK_OUT_CODE)) {
+            lblLockout.setVisible(false);
+            return true;
+        } else {
+            lblLockout.setVisible(true);
+            return false;
+        }
+    }
+
+    public boolean BlankFields() {
+
+        if (!txtLastName.getText().equals("") && !txtFirstName.getText().equals("") && !txtPassword.getText().equals
+                (LOCK_OUT_CODE)
+                && !txtPassword.getText().equals("") && !txtGroup.getText().equals("") && !txtLogin.getText().equals("")
+                && !txtPreferredCarName.getText().equals("") && !txtCredit.getText().equals("") && !txtScore.getText
+                ().equals("")
+                && !txtLogo.getText().equals("")) {
+            lblEmpty.setVisible(false);
+            return true;
+        } else {
+            lblEmpty.setVisible(true);
+            return false;
+        }
+    }
+
+    public boolean ValidCredits(String str) {
+
+        try {
+            Float i = Float.parseFloat(str);
+            if (i > 99.99) {
+                lblValidInput.setVisible(true);
+                return false;
+            }
+        } catch (NumberFormatException nfe) {
+            lblValidInput.setVisible(true);
+            return false;
+        }
+        lblValidInput.setVisible(false);
+        return true;
+    }
+
+    //Clears user's row and enters new one with all fields from user input
+    public void writeToDB() {
+
+        try {
+            dbConnection.executeUpdate(String.format("UPDATE DBProg32758.Players SET `Group`=%d, `Login`='%s'" +
+                            ", `Password`='%s', `Preferred_Car_Name`='%s', `Logo`=%d, `Score`=%d, `Credits`=%4.2f " +
+                            "WHERE `Last_Name`='%s' AND `First_Name`='%s'", Integer.valueOf(txtGroup.getText().trim()),
+                    txtLogin.getText().trim()
+                    , txtPassword.getText(), txtPreferredCarName.getText(), Integer.valueOf(txtLogo.getText().trim())
+                    , Integer.valueOf(txtScore.getText().trim()), Double.valueOf(txtCredit.getText().trim())
+                    , txtLastName.getText().trim(), txtFirstName.getText().trim()));
+
+            JOptionPane.showMessageDialog(null, "You are now registered, you can login.", "Car Racing Game",
+                    JOptionPane.INFORMATION_MESSAGE);
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage() + "SQL State: " + e.getSQLState() + " ErrorCode: " + e
+                    .getErrorCode(), "Car Racing Game", javax.swing.JOptionPane.WARNING_MESSAGE);
+        }
+    }
+
+    /**
      * reset fields for next user registration
      */
     public void rest() {
@@ -326,6 +318,16 @@ public class UserRegister extends PageView implements Initializable {
         txtCredit.clear();
         txtLogo.clear();
         txtScore.clear();
+    }
+
+    public boolean isInt(String str) {
+
+        try {
+            Integer i = Integer.parseInt(str);
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+        return true;
     }
 
     /**

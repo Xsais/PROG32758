@@ -48,14 +48,14 @@ public class InterruptStream extends OutputStream {
         log.add(b);
     }
 
+    @Override
+    public void flush() {
+
+        log.clear();
+    }
+
     public Object[] getLog() {
 
         return log.toArray();
-    }
-
-    @Override
-    public void flush () {
-
-        log.clear();
     }
 }

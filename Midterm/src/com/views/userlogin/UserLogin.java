@@ -277,7 +277,8 @@ public class UserLogin extends PageView implements Initializable {
 
             } catch (SQLException e) {
 
-                JOptionPane.showMessageDialog(null, "Database does not exist. Please select 'Create the Database' first.", "Car Racing Game", javax.swing.JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Database does not exist. Please select 'Create the Database' " +
+                        "first.", "Car Racing Game", javax.swing.JOptionPane.WARNING_MESSAGE);
 
                 pageController.hidePopUps(0);
 
@@ -347,7 +348,8 @@ public class UserLogin extends PageView implements Initializable {
         // set user password to all x's in DB
         dbConnection.executeUpdate(
 
-                String.format("UPDATE DBProg32758.Players SET Password = 'xxxxxx' WHERE Login = '%s'", txtLogin.getText()));
+                String.format("UPDATE DBProg32758.Players SET Password = 'xxxxxx' WHERE Login = '%s'", txtLogin
+                        .getText()));
 
         // exit login screen
         btnExit.fire();

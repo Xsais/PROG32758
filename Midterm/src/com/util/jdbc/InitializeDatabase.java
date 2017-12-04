@@ -34,13 +34,12 @@
 
 package com.util.jdbc;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
-
-import javax.swing.JOptionPane;
 
 /**
  * The InitializeDatabase class clears the Player table to ensure data
@@ -49,45 +48,46 @@ import javax.swing.JOptionPane;
  */
 public class InitializeDatabase {
 
-	public InitializeDatabase(ConnectToDB dbConnection) {
+    public InitializeDatabase(ConnectToDB dbConnection) {
 
-		ResultSet rs;
-		try {
-			rs = dbConnection.executeQuerry("SELECT * FROM DBProg32758.Players");
-			if(rs.next()) {
-				JOptionPane.showMessageDialog(null, "Database already exists. No action taken.", "Car Racing Game", javax.swing.JOptionPane.INFORMATION_MESSAGE);
-			}
-			else {
-				try {
-					dbConnection.executeUpdate("DELETE FROM DBProg32758.Players");
+        ResultSet rs;
+        try {
+            rs = dbConnection.executeQuerry("SELECT * FROM DBProg32758.Players");
+            if (rs.next()) {
+                JOptionPane.showMessageDialog(null, "Database already exists. No action taken.", "Car Racing Game",
+						javax.swing.JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                try {
+                    dbConnection.executeUpdate("DELETE FROM DBProg32758.Players");
 
-					for(Scanner sc = new Scanner(new File("src\\com\\res\\data\\Prog32758Students.txt")); sc.hasNextLine(); ) {
+                    for (Scanner sc = new Scanner(new File("src\\com\\res\\data\\Prog32758Students.txt")); sc
+							.hasNextLine(); ) {
 
-						String line = sc.nextLine();
-						if (line.length() == 0) {
-							continue;
-						}
-						String[] tokens = line.split(",");
+                        String line = sc.nextLine();
+                        if (line.length() == 0) {
+                            continue;
+                        }
+                        String[] tokens = line.split(",");
 
-						dbConnection.executeUpdate("INSERT INTO DBProg32758.Players (Last_Name, First_Name, `Group`) " + "VALUES ('" + tokens[0] + "', '" + tokens[1] + "', " + Integer.parseInt(tokens[2]) +")");
-						}
-					JOptionPane.showMessageDialog(null, "Database initialization successfully completed.\n Click OK to continue.", "Car Racing Game", JOptionPane.INFORMATION_MESSAGE);
-				}
-				catch (FileNotFoundException FileEx) {
-					JOptionPane.showMessageDialog(null, FileEx.getMessage() + " Error: File not found.", "Car Racing Game", javax.swing.JOptionPane.WARNING_MESSAGE);
-				}
-				catch (SQLException SQLEx) {
-					JOptionPane.showMessageDialog(null, SQLEx.getMessage() + "SQL State: " + SQLEx.getSQLState() + " ErrorCode: " + SQLEx.getErrorCode(), "Car Racing Game", javax.swing.JOptionPane.WARNING_MESSAGE);
-				}
-			}
-		} catch (SQLException SQLEx) {
-			JOptionPane.showMessageDialog(null, "Database does not exist. Please select 'Create the Database' first.", "Car Racing Game", javax.swing.JOptionPane.WARNING_MESSAGE);
-		}
+                        dbConnection.executeUpdate("INSERT INTO DBProg32758.Players (Last_Name, First_Name, `Group`) " +
+								"" + "VALUES ('" + tokens[0] + "', '" + tokens[1] + "', " + Integer.parseInt
+								(tokens[2]) + ")");
+                    }
+                    JOptionPane.showMessageDialog(null, "Database initialization successfully completed.\n Click OK " +
+							"to continue.", "Car Racing Game", JOptionPane.INFORMATION_MESSAGE);
+                } catch (FileNotFoundException FileEx) {
+                    JOptionPane.showMessageDialog(null, FileEx.getMessage() + " Error: File not found.", "Car Racing " +
+							"Game", javax.swing.JOptionPane.WARNING_MESSAGE);
+                } catch (SQLException SQLEx) {
+                    JOptionPane.showMessageDialog(null, SQLEx.getMessage() + "SQL State: " + SQLEx.getSQLState() + " " +
+							"ErrorCode: " + SQLEx.getErrorCode(), "Car Racing Game", javax.swing.JOptionPane.WARNING_MESSAGE);
+                }
+            }
+        } catch (SQLException SQLEx) {
+            JOptionPane.showMessageDialog(null, "Database does not exist. Please select 'Create the Database' first.", "Car Racing Game", javax.swing.JOptionPane.WARNING_MESSAGE);
+        }
 
 
-
-
-
-	}
+    }
 
 }

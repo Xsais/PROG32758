@@ -2,10 +2,10 @@
 
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.*?>
-<fx:root type="GridPane" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER"
+<fx:root xmlns:fx="http://javafx.com/fxml/1" type="GridPane" xmlns="http://javafx.com/javafx/8.0.121" alignment="CENTER"
          styleClass="printarea">
     <TextArea fx:id="txaDisplay" styleClass="blend" GridPane.columnIndex="3" GridPane.columnSpan="3" editable="false"
-              GridPane.vgrow="ALWAYS" GridPane.hgrow="ALWAYS" />
+              GridPane.vgrow="ALWAYS" GridPane.hgrow="ALWAYS"/>
     <columnConstraints>
         <ColumnConstraints percentWidth="16.66665"/>
         <ColumnConstraints percentWidth="8.333325"/>

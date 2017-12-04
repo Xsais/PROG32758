@@ -53,6 +53,22 @@ public class Game extends GridPane implements Initializable {
 
     private Thread gameThread;
 
+    private Timer creditCountdown = new Timer(1000, evt -> Platform.runLater(() -> {
+
+        double tempCredit = playingUser.getCredit();
+
+        playingUser.setCredit(Math.max(0, tempCredit - 0.5));
+
+        if (playingUser.getCredit() <= 0) {
+
+
+            gameState.set(GameState.Paused);
+            JOptionPane.showMessageDialog(null
+                    , "You are out of credits, please add more by clicking the credits refill button."
+                    , "Car Racing Game", JOptionPane.INFORMATION_MESSAGE);
+        }
+
+    }));
 
     public Game() {
 
@@ -76,23 +92,47 @@ public class Game extends GridPane implements Initializable {
         Platform.runLater(() -> txaDisplay.clear());
     }
 
-    private Timer creditCountdown = new Timer(1000, evt -> Platform.runLater(() -> {
+    public void getPausedElapsed() {
 
-        double tempCredit = playingUser.getCredit();
+    }
 
-        playingUser.setCredit(Math.max(0, tempCredit - 0.5));
+    /**
+     * Called to initialize a controller after its root element has been completely processed.
+     *
+     * @param location  The location used to resolve relative paths for the root object, or <tt>null</tt> if the
+     *                  <p>
+     *                  location is not known.
+     * @param resources The resources used to localize the root object, or <tt>null</tt> if
+     */
 
-        if (playingUser.getCredit() <= 0) {
+    @Override
 
+    public void initialize(URL location, ResourceBundle resources) {
 
-            gameState.set(GameState.Paused);
-            JOptionPane.showMessageDialog(null
-                    , "You are out of credits, please add more by clicking the credits refill button."
-                    , "Car Racing Game", JOptionPane.INFORMATION_MESSAGE);
-        }
+        gameState.addListener((observable, old, newV) -> {
 
-    }));
+            switch (newV) {
 
+                case Running:
+                    creditCountdown.start();
+                    if (old == GameState.Paused) {
+
+                        return;
+                    }
+
+                    txaDisplay.clear();
+                    startGame();
+                    break;
+                case Stopped:
+
+                    creditCountdown.stop();
+                    break;
+                case Paused:
+                    creditCountdown.stop();
+                    break;
+            }
+        });
+    }
 
     private void startGame() {
 
@@ -200,49 +240,12 @@ public class Game extends GridPane implements Initializable {
         return true;
     }
 
-    public void getPausedElapsed() {
+    public String getPreferredCar() {
+
+
+        return playingUser.getPreferredCar();
 
     }
-
-
-    /**
-     * Called to initialize a controller after its root element has been completely processed.
-     *
-     * @param location  The location used to resolve relative paths for the root object, or <tt>null</tt> if the
-     *                  <p>
-     *                  location is not known.
-     * @param resources The resources used to localize the root object, or <tt>null</tt> if
-     */
-
-    @Override
-
-    public void initialize(URL location, ResourceBundle resources) {
-
-        gameState.addListener((observable, old, newV) -> {
-
-            switch (newV) {
-
-                case Running:
-                    creditCountdown.start();
-                    if (old == GameState.Paused) {
-
-                        return;
-                    }
-
-                    txaDisplay.clear();
-                    startGame();
-                    break;
-                case Stopped:
-
-                    creditCountdown.stop();
-                    break;
-                case Paused:
-                    creditCountdown.stop();
-                    break;
-            }
-        });
-    }
-
 
     public String[] getStartUpArgs() {
 
@@ -251,19 +254,10 @@ public class Game extends GridPane implements Initializable {
 
     }
 
-
     public void setStartUpArgs(String[] startUpArgs) {
 
 
         this.startUpArgs = startUpArgs;
-
-    }
-
-
-    public String getPreferredCar() {
-
-
-        return playingUser.getPreferredCar();
 
     }
 
@@ -293,11 +287,6 @@ public class Game extends GridPane implements Initializable {
         return gameState.get();
     }
 
-    public ReadOnlyObjectProperty<GameState> gameStateProperty() {
-
-        return gameState;
-    }
-
     public void setGameState(GameState gameState) {
 
         if (gameState == GameState.Running && playingUser.getCredit() <= 0) {
@@ -308,6 +297,11 @@ public class Game extends GridPane implements Initializable {
             return;
         }
         this.gameState.set(gameState);
+    }
+
+    public ReadOnlyObjectProperty<GameState> gameStateProperty() {
+
+        return gameState;
     }
 
     public Function<Object, Integer> getLosingAction() {

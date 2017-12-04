@@ -10,8 +10,8 @@
     <children>
         <Button fx:id="btnStart" styleClass="game-button" text="Start the Game"
                 GridPane.halignment="CENTER"
-                GridPane.valignment="TOP" />
-        <PlayerMenu fx:id="pmPlayer" alignment="CENTER" GridPane.columnIndex="1" />
+                GridPane.valignment="TOP"/>
+        <PlayerMenu fx:id="pmPlayer" alignment="CENTER" GridPane.columnIndex="1"/>
     </children>
     <rowConstraints>
         <RowConstraints percentHeight="100.0"/>

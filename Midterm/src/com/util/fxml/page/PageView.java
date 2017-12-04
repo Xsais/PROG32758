@@ -61,7 +61,7 @@ public abstract class PageView extends GridPane {
      */
     public abstract void onOpen(Object sender, String... args);
 
-    public void dispose(){ }
+    public void dispose() { }
 
     /**
      * Passes the reference of the PageController to registered PageView

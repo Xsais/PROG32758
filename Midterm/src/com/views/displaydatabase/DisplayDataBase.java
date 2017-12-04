@@ -21,7 +21,6 @@ package com.views.displaydatabase;
 import com.util.fxml.FXMLHelper;
 import com.util.fxml.page.PageType;
 import com.util.fxml.page.PageView;
-import com.util.info.User;
 import com.util.jdbc.ConnectToDB;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -73,6 +72,7 @@ public class DisplayDataBase extends PageView implements Initializable {
 
     @FXML
     private TableColumn<Person, Double> tdCredit;
+
     private ConnectToDB dbConnection;
 
     /**
@@ -110,23 +110,23 @@ public class DisplayDataBase extends PageView implements Initializable {
     @Override
     public void onOpen(Object sender, String... args) {
 
-            String query = "SELECT CONCAT(`First_Name`, ' ', `Last_Name`) AS `Name`, `Group`, `Login`, `Password`, " +
-                    "`Preferred_Car_Name`," +
-                    "`Logo`, `Score`, `Credits` FROM DBProg32758.Players";
+        String query = "SELECT CONCAT(`First_Name`, ' ', `Last_Name`) AS `Name`, `Group`, `Login`, `Password`, " +
+                "`Preferred_Car_Name`," +
+                "`Logo`, `Score`, `Credits` FROM DBProg32758.Players";
 
-            List<Person> displayedUser = new ArrayList<>();
-            try {
-                ResultSet res = dbConnection.executeQuerry(query);
-                while (res.next()) {
+        List<Person> displayedUser = new ArrayList<>();
+        try {
+            ResultSet res = dbConnection.executeQuerry(query);
+            while (res.next()) {
 
-                    displayedUser.add(new Person(res.getString(1), res.getInt(2)
-                            , res.getString(3), res.getString(4), res.getString(5)
-                            , res.getInt(6), res.getInt(7), res.getDouble(8)));
-                }
-
-            } catch (SQLException e) {
-                e.printStackTrace();
+                displayedUser.add(new Person(res.getString(1), res.getInt(2)
+                        , res.getString(3), res.getString(4), res.getString(5)
+                        , res.getInt(6), res.getInt(7), res.getDouble(8)));
             }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         tbUsers.getItems().setAll(displayedUser);
     }

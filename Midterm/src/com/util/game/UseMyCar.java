@@ -33,13 +33,10 @@
  */
 
 
-
 package com.util.game;
 
 
-
 public class UseMyCar {
-
 
 
     //final static Random gasInject = new Random();
@@ -47,25 +44,21 @@ public class UseMyCar {
     static int gas = 0;
 
 
-
     static int moreGas = 0;
-
 
 
     public static void main(String[] args) {
 
-    	// takes preferredCar (user defined car name) from Game class and trims off "--carname=" 
-    	// to display only the user defined part
-    	String [] carName = args[0].split("=");
-    	
-        boolean wasCrash = false;
+        // takes preferredCar (user defined car name) from Game class and trims off "--carname="
+        // to display only the user defined part
+        String[] carName = args[0].split("=");
 
+        boolean wasCrash = false;
 
 
         //Create a car named specified just by its name : �Toyota�.
 
         Car myFirstCar = new Car(carName[1]);
-
 
 
         //Create a car with a specified name: �Mazda� to be driven by a
@@ -81,11 +74,9 @@ public class UseMyCar {
         Car mySecondCar = new Car("ComputerCar");
 
 
-
         //Create the first Driver that will drive the first car
 
         Driver firstDriver = new Driver();
-
 
 
         //Create the second Driver that will drive the second car
@@ -93,9 +84,7 @@ public class UseMyCar {
         Driver secondDriver = new Driver();
 
 
-
         String theWinner = "";
-
 
 
         System.out.println();
@@ -109,13 +98,11 @@ public class UseMyCar {
         System.out.println();
 
 
-
         //Cars start
 
         myFirstCar.start(1, 0);
 
         mySecondCar.start(1, 0);
-
 
 
         //Cars start running. From here they all get the current speed
@@ -125,11 +112,9 @@ public class UseMyCar {
         myFirstCar.setSpeedIncreaseStep(myFirstCar.getCurrentSpeed());
 
 
-
         mySecondCar.StartRunning();
 
         mySecondCar.setSpeedIncreaseStep(mySecondCar.getCurrentSpeed());
-
 
 
         //Let's race for 30 seconds
@@ -287,7 +272,6 @@ public class UseMyCar {
             }
 
 
-
             //Keep running both the cars
 
             myFirstCar.run(2, -1);
@@ -315,7 +299,6 @@ public class UseMyCar {
         System.out.println();
 
 
-
         if (myFirstCar.getCurrentSpeed() == mySecondCar.getCurrentSpeed()) {
 
             System.out.println("\t\t" + "There is no winner for this Race ");
@@ -335,7 +318,6 @@ public class UseMyCar {
         }
 
 
-
         System.out.println();
 
         System.out.println();
@@ -343,13 +325,11 @@ public class UseMyCar {
     }
 
 
-
     //Method that generates a random amount of gas to be used for acceleration
 
     // (between minx10 and maxx10)
 
     static int createInjection(int min, int max) {
-
 
 
         int myInjection = (int) (Math.random() * 10 * (Math.random() > 0.5 ? max : min));

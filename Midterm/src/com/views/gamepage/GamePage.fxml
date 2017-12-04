@@ -3,19 +3,17 @@
 <?import com.controls.game.Game?>
 <?import com.controls.playermenu.PlayerMenu?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
-
-<fx:root hgap="20.0" styleClass="lightBlue" type="GridPane" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+<?import javafx.scene.layout.*?>
+<fx:root xmlns:fx="http://javafx.com/fxml/1" hgap="20.0" styleClass="lightBlue" type="GridPane"
+         xmlns="http://javafx.com/javafx/8.0.121">
     <children>
         <Game fx:id="gDisplay" alignment="CENTER">
             <GridPane.margin>
-                <Insets bottom="40.0" />
+                <Insets bottom="40.0"/>
             </GridPane.margin>
         </Game>
         <PlayerMenu fx:id="pmPlayer" alignment="CENTER"
-                    GridPane.columnIndex="1" GridPane.vgrow="ALWAYS" />
+                    GridPane.columnIndex="1" GridPane.vgrow="ALWAYS"/>
     </children>
     <rowConstraints>
         <RowConstraints percentHeight="100.0"/>

@@ -21,8 +21,9 @@ package com.controls.playermenu;
 import com.util.MusicPlayer;
 import com.util.fxml.FXMLHelper;
 import com.util.info.User;
-import javafx.application.Platform;
-import javafx.beans.property.*;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -37,10 +38,10 @@ import java.util.function.Function;
 
 public class PlayerMenu extends GridPane implements Initializable {
 
+    public double refillAmount = 5;
+
     // instantiate MusicPlayer Object for use in vbMusic action event
     MusicPlayer musicPlayer = new MusicPlayer();
-
-    public double refillAmount = 5;
 
     private User usedPlayer;
 
@@ -91,6 +92,7 @@ public class PlayerMenu extends GridPane implements Initializable {
      * Initializes the control and load the look and feel.
      */
     public PlayerMenu() {
+
         try {
 
             // Loads the given control and links it to the desired FXML file
@@ -136,38 +138,6 @@ public class PlayerMenu extends GridPane implements Initializable {
     }
 
     /**
-     * Retrieves the current displayed credit.
-     *
-     * @return The currently displayed Credit.
-     */
-    public double getCredit() {
-
-        if (this.usedPlayer == null) {
-
-            return 0;
-        }
-        return this.usedPlayer.getCredit();
-
-    }
-
-
-    /**
-     * Assigns the currently displayed credit
-     *
-     * @param credit
-     */
-    public void setCredit(double credit) {
-
-        if (this.usedPlayer == null) {
-
-            return;
-        }
-        this.usedPlayer.setCredit(credit);
-
-    }
-
-
-    /**
      * Called to initialize a controller after its root element has been completely processed.
      *
      * @param location  The location used to resolve relative paths for the root object, or <tt>null</tt> if the
@@ -208,18 +178,48 @@ public class PlayerMenu extends GridPane implements Initializable {
 
         vbCredit.setOnMouseClicked(evt -> {
             // set initial credit
-        	double tempGetCredit = getCredit();
-        	
-        	// increment credit by $5 for each button click
-        	tempGetCredit += refillAmount;
-        	
-        	// display incremented credit to user
-        	setCredit(tempGetCredit);
+            double tempGetCredit = getCredit();
+
+            // increment credit by $5 for each button click
+            tempGetCredit += refillAmount;
+
+            // display incremented credit to user
+            setCredit(tempGetCredit);
         });
 
         vbMusic.setOnMouseClicked(evt -> musicPlayer.play_pauseMusic());
 
         vbScoreContainer.visibleProperty().bind(scoreVisible);
+    }
+
+    /**
+     * Retrieves the current displayed credit.
+     *
+     * @return The currently displayed Credit.
+     */
+    public double getCredit() {
+
+        if (this.usedPlayer == null) {
+
+            return 0;
+        }
+        return this.usedPlayer.getCredit();
+
+    }
+
+    /**
+     * Assigns the currently displayed credit
+     *
+     * @param credit
+     */
+    public void setCredit(double credit) {
+
+        if (this.usedPlayer == null) {
+
+            return;
+        }
+        this.usedPlayer.setCredit(credit);
+
     }
 
     /**
@@ -285,14 +285,14 @@ public class PlayerMenu extends GridPane implements Initializable {
         this.refillAmount = refillAmount;
     }
 
-    public void setPlayingMusic(boolean playing) {
-
-        musicPlayer.setPlaying(playing);
-    }
-
     public boolean isPlayingMusic() {
 
         return musicPlayer.isPlaying();
+    }
+
+    public void setPlayingMusic(boolean playing) {
+
+        musicPlayer.setPlaying(playing);
     }
 
     public Duration getMusicPosition() {
@@ -310,14 +310,14 @@ public class PlayerMenu extends GridPane implements Initializable {
         return infoMessage.get();
     }
 
-    public SimpleStringProperty infoMessageProperty() {
-
-        return infoMessage;
-    }
-
     public void setInfoMessage(String infoMessage) {
 
         this.infoMessage.set(infoMessage);
+    }
+
+    public SimpleStringProperty infoMessageProperty() {
+
+        return infoMessage;
     }
 
     public Function<Object, String> getToggleFunction() {
@@ -335,13 +335,13 @@ public class PlayerMenu extends GridPane implements Initializable {
         return buttonText.get();
     }
 
-    public SimpleStringProperty buttonTextProperty() {
-
-        return buttonText;
-    }
-
     public void setButtonText(String buttonText) {
 
         this.buttonText.set(buttonText);
+    }
+
+    public SimpleStringProperty buttonTextProperty() {
+
+        return buttonText;
     }
 }

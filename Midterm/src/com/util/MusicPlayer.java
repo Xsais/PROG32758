@@ -47,10 +47,12 @@ import java.net.URISyntaxException;
  */
 public class MusicPlayer {
 
-    private boolean playing;
-
     // initialize MediaPlayer Object
     public MediaPlayer mp;
+
+    private boolean playing;
+
+    private boolean loaded;
 
     // constructor for MusicPlayer
     public MusicPlayer() {
@@ -73,7 +75,10 @@ public class MusicPlayer {
 
     }
 
-    private boolean loaded;
+    public boolean isPlaying() {
+
+        return mp.getStatus().equals(Status.PLAYING);
+    }
 
     public void setPlaying(boolean playing) {
 
@@ -94,11 +99,6 @@ public class MusicPlayer {
 
             mp.pause();
         }
-    }
-
-    public boolean isPlaying() {
-
-        return mp.getStatus().equals(Status.PLAYING);
     }
 
     public Duration getPosition() {

@@ -62,16 +62,6 @@ public class GamePage extends PageView implements Initializable {
     @Override
     public void onClose(Object sender, int statusCode) { }
 
-    @Override
-    public void dispose() {
-
-        try {
-            finalUpdate.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
     /**
      * Occurs when the application closes peacefully
      *
@@ -146,6 +136,16 @@ public class GamePage extends PageView implements Initializable {
                     pmPlayer.setScoreVisible(true);
                     break;
             }
+        }
+    }
+
+    @Override
+    public void dispose() {
+
+        try {
+            finalUpdate.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 

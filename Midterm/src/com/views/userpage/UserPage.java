@@ -44,8 +44,9 @@ public class UserPage extends PageView implements Initializable {
     private ConnectToDB dbConnection;
 
     private UserLogin userLogin;
-    
+
     private UserRegister userRegister;
+
     /**
      * Initalizes the UserPage
      *
@@ -84,7 +85,7 @@ public class UserPage extends PageView implements Initializable {
         btnLogin.setOnAction(p -> pageController.show(userLogin));
 
         userRegister = new UserRegister(dbConnection);
-	    btnCreate.setOnAction(p -> pageController.show(userRegister));
+        btnCreate.setOnAction(p -> pageController.show(userRegister));
     }
 
     /**
