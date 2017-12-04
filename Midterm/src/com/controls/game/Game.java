@@ -185,6 +185,7 @@ public class Game extends GridPane implements Initializable {
 
                 if (this.gameState.get() == GameState.Stopped) {
 
+                    gameThread.stop();
                     return false;
                 }
             }
