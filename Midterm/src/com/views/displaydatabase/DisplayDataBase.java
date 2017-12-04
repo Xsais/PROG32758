@@ -79,7 +79,7 @@ public class DisplayDataBase extends PageView implements Initializable {
     /**
      * Displays database in 'page' format
      */
-    public DisplayDataBase(ConnectToDB dbConnection, List<User> pulledUsers) {
+    public DisplayDataBase(ConnectToDB dbConnection) {
 
         pageType = PageType.POP_UP;
 
@@ -110,12 +110,10 @@ public class DisplayDataBase extends PageView implements Initializable {
             String query = "SELECT CONCAT(`First_Name`, ' ', `Last_Name`) AS `Name`, `Group`, `Login`, `Password`, " +
                     "`Preferred_Car_Name`," +
                     "`Logo`, `Score`, `Credits` FROM DBProg32758.Players";
-            // Run Query
-            ResultSet res;
 
             List<Person> displayedUser = new ArrayList<>();
             try {
-                res = dbConnection.executeQuerry(query);
+                ResultSet res = dbConnection.executeQuerry(query);
                 while (res.next()) {
 
                     displayedUser.add(new Person(res.getString(1), res.getInt(2)
@@ -142,7 +140,7 @@ public class DisplayDataBase extends PageView implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        btnAdmin.setOnAction(evt -> pageController.showPrevious());
+        btnAdmin.setOnAction(evt -> pageController.hidePopUps(0));
 
         tdName.setCellValueFactory(new PropertyValueFactory("name"));
         tdGroup.setCellValueFactory(new PropertyValueFactory("group"));

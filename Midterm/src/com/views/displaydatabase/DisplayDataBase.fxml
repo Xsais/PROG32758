@@ -1,38 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TreeTableColumn?>
-<?import javafx.scene.control.TreeTableView?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
-
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TableColumn?>
-<fx:root minHeight="360.0" minWidth="640.0" prefWidth="640.0" styleClass="lightBlue" type="GridPane"
-         xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
-
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<fx:root styleClass="lightBlue" type="GridPane" xmlns="http://javafx.com/javafx/8.0.121"
+         xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <TableView fx:id="tbUsers">
+            <columns>
+                <TableColumn fx:id="tdName" text="Name"/>
+                <TableColumn fx:id="tdGroup" text="Group"/>
+                <TableColumn fx:id="tdLogin" text="Login"/>
+                <TableColumn fx:id="tdPassword" text="Password"/>
+                <TableColumn fx:id="tdCarName" text="Preferred Car"/>
+                <TableColumn fx:id="tdLogo" text="Logo"/>
+                <TableColumn fx:id="tdScore" text="Score"/>
+                <TableColumn fx:id="tdCredit" text="Credit"/>
+            </columns>
+        </TableView>
+        <Button fx:id="btnAdmin" text="Return to Admin Page" styleClass="game-button" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+            <GridPane.margin>
+                <Insets top="50.0" />
+            </GridPane.margin>
+        </Button>
+    </children>
     <columnConstraints>
-        <ColumnConstraints />
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="600.0" minWidth="0.0" prefWidth="229.0" />
+        <ColumnConstraints/>
     </columnConstraints>
 
     <rowConstraints>
-        <RowConstraints maxHeight="384.0" minHeight="10.0" prefHeight="360.0" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="195.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+        <RowConstraints/>
+        <RowConstraints/>
     </rowConstraints>
 
-    <children>
-	    <TableView fx:id="tbUsers" layoutX="35.0" layoutY="28.0" prefHeight="200.0" prefWidth="227.0">
-	    <columns>
-	        <TableColumn prefWidth="75.0" text="tdName" fx:id="Name" />
-	        <TableColumn prefWidth="75.0" text="tdGroup" fx:id="Group" />
-	        <TableColumn prefWidth="75.0" text="tdLogin" fx:id="Login" />
-	        <TableColumn prefWidth="75.0" text="tdPassword" fx:id="Password" />
-	        <TableColumn prefWidth="75.0" text="tdLogo" fx:id="Logo" />
-	        <TableColumn prefWidth="75.0" text="tdScore" fx:id="Score" />
-	    </columns>
-	    </TableView>
-        <Button alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="25.0" text="Return to Admin Page" translateX="-10.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
-    </children>
+    <padding>
+        <Insets bottom="25.0" left="25.0" right="25.0"/>
+    </padding>
 </fx:root>
