@@ -73,13 +73,16 @@ public class DisplayDataBase extends PageView implements Initializable {
 
     @FXML
     private TableColumn<Person, Double> tdCredit;
-
     private ConnectToDB dbConnection;
 
     /**
      * Displays database in 'page' format
      */
-    public DisplayDataBase(ConnectToDB dbConnection) {
+    public DisplayDataBase(ConnectToDB dbConnection, List<User> pulledUsers) {
+
+        pageType = PageType.POP_UP;
+
+        this.dbConnection = dbConnection;
 
         pageType = PageType.POP_UP;
 
@@ -124,7 +127,6 @@ public class DisplayDataBase extends PageView implements Initializable {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-
 
         tbUsers.getItems().setAll(displayedUser);
     }
