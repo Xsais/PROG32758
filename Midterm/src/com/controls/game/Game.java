@@ -116,13 +116,7 @@ public class Game extends GridPane implements Initializable {
                 UseMyCar.main(startArgs);
 
             } finally {
-
-                if (gameState.get() == GameState.Stopped) {
-
-                    return;
-                }
-
-
+                
                 String winner;
 
 
