@@ -61,7 +61,6 @@ public class Game extends GridPane implements Initializable {
 
         if (playingUser.getCredit() <= 0) {
 
-
             gameState.set(GameState.Paused);
             JOptionPane.showMessageDialog(null
                     , "You are out of credits, please add more by clicking the credits refill button."
@@ -120,6 +119,14 @@ public class Game extends GridPane implements Initializable {
                         return;
                     }
 
+                    if (playingUser.getCredit() <= 0) {
+
+                        gameState.set(old);
+                        JOptionPane.showMessageDialog(null
+                                , "You are out of credits, please add more by clicking the credits refill button."
+                                , "Car Racing Game", JOptionPane.INFORMATION_MESSAGE);
+                        return;
+                    }
                     txaDisplay.clear();
                     startGame();
                     break;
@@ -289,13 +296,6 @@ public class Game extends GridPane implements Initializable {
 
     public void setGameState(GameState gameState) {
 
-        if (gameState == GameState.Running && playingUser.getCredit() <= 0) {
-
-            JOptionPane.showMessageDialog(null
-                    , "You are out of credits, please add more by clicking the credits refill button."
-                    , "Car Racing Game", JOptionPane.INFORMATION_MESSAGE);
-            return;
-        }
         this.gameState.set(gameState);
     }
 

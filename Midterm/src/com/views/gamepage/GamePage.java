@@ -60,15 +60,7 @@ public class GamePage extends PageView implements Initializable {
      * @param statusCode The giving status code of the page closure
      */
     @Override
-    public void onClose(Object sender, int statusCode) { }
-
-    /**
-     * Occurs when the application closes peacefully
-     *
-     * @param evt The WindowEvent associated with the closure
-     */
-    @Override
-    public void onCloseRequest(WindowEvent evt) {
+    public void onClose(Object sender, int statusCode) {
 
         gDisplay.setGameState(GameState.Stopped);
 
@@ -94,7 +86,17 @@ public class GamePage extends PageView implements Initializable {
 
             e.printStackTrace();
         }
+    }
 
+    /**
+     * Occurs when the application closes peacefully
+     *
+     * @param evt The WindowEvent associated with the closure
+     */
+    @Override
+    public void onCloseRequest(WindowEvent evt) {
+
+        onClose(this, 1);
     }
 
     /**
