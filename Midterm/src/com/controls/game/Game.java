@@ -9,9 +9,7 @@ import com.util.info.User;
 import com.util.stream.InterruptStream;
 import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyObjectProperty;
-import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
@@ -42,10 +40,6 @@ public class Game extends GridPane implements Initializable {
 
 
     private String[] startUpArgs = new String[0];
-
-
-    private SimpleStringProperty preferredCar = new SimpleStringProperty(this, "preferredCar"
-            , "YourPreferedCar");
 
     private User playingUser;
 
@@ -123,6 +117,11 @@ public class Game extends GridPane implements Initializable {
 
             } finally {
 
+                if (gameState.get() == GameState.Stopped) {
+
+                    return;
+                }
+
 
                 String winner;
 
@@ -136,7 +135,7 @@ public class Game extends GridPane implements Initializable {
 
                         winner = winner.substring(winner.lastIndexOf(':') + 1, winner.length() - 2);
 
-                        if (winner.trim().equals(preferredCar.get())) {
+                        if (winner.trim().equals(getPreferredCar())) {
 
                             Platform.runLater(() -> {
 
@@ -178,12 +177,17 @@ public class Game extends GridPane implements Initializable {
         gameThread.start();
     }
 
-
     private boolean catchInterrupts(int ch) {
 
-        if (gameState.get() == GameState.Paused) {
+        if (this.gameState.get() == GameState.Paused) {
 
-            while (gameState.get() != GameState.Running) ;
+            while (this.gameState.get() != GameState.Running) {
+
+                if (this.gameState.get() == GameState.Stopped) {
+
+                    return false;
+                }
+            }
         }
 
         Platform.runLater(() -> txaDisplay.appendText(Character.toString((char) ch)));
@@ -264,15 +268,7 @@ public class Game extends GridPane implements Initializable {
     public String getPreferredCar() {
 
 
-        return preferredCar.get();
-
-    }
-
-
-    public ReadOnlyStringProperty gamePreferredCar() {
-
-
-        return preferredCar;
+        return playingUser.getPreferredCar();
 
     }
 
@@ -294,7 +290,7 @@ public class Game extends GridPane implements Initializable {
     public void setPlayingUser(User playingUser) {
 
         this.playingUser = playingUser;
-        preferredCar.set(playingUser.getPreferredCar());
+        playingUser.setPreferredCar(playingUser.getPreferredCar());
     }
 
     public GameState getGameState() {

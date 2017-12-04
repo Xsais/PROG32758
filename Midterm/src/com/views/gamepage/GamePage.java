@@ -80,6 +80,8 @@ public class GamePage extends PageView implements Initializable {
     @Override
     public void onCloseRequest(WindowEvent evt) {
 
+        gDisplay.setGameState(GameState.Stopped);
+
         try {
 
             if (finalUpdate == null || activeUser.get() == null || finalUpdate.isClosed()) {
