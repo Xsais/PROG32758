@@ -136,16 +136,16 @@ public class Game extends GridPane implements Initializable {
 
                         winner = winner.substring(winner.lastIndexOf(':') + 1, winner.length() - 2);
 
-                            if (winner.trim().equals(preferredCar.get())) {
+                        if (winner.trim().equals(preferredCar.get())) {
 
-                                Platform.runLater(() -> {
+                            Platform.runLater(() -> {
 
-                                    if (winningAction == null) {
+                                if (winningAction == null) {
 
-                                        return;
-                                    }
-                                    Platform.runLater(() -> winningAction.apply(this));
-                                });
+                                    return;
+                                }
+                                Platform.runLater(() -> winningAction.apply(this));
+                            });
                         } else {
 
                             if (losingAction == null) {
@@ -181,17 +181,9 @@ public class Game extends GridPane implements Initializable {
 
     private boolean catchInterrupts(int ch) {
 
-        try {
-            if (gameState.get() == GameState.Paused) {
+        if (gameState.get() == GameState.Paused) {
 
-                while (gameState.get() != GameState.Running) {
-
-                    Thread.sleep(1);
-                }
-            }
-        } catch (InterruptedException e) {
-
-            e.printStackTrace();
+            while (gameState.get() != GameState.Running) ;
         }
 
         Platform.runLater(() -> txaDisplay.appendText(Character.toString((char) ch)));
