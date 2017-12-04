@@ -265,20 +265,23 @@ public class UserLogin extends PageView implements Initializable {
      */
     public void isValidLogin() throws HeadlessException, SQLException {
 
+
         if (failCount < 3) {
 
             // check existence of user login
             try {
 
                 // check DB for user defined login
-                rs = dbConnection
-
-                        .executeQuerry(String.format("SELECT * FROM DBProg32758.Players WHERE Login = '%s'", txtLogin.getText()));
+                rs = dbConnection.executeQuerry(String.format("SELECT * FROM DBProg32758.Players WHERE Login = '%s'"
+                        , txtLogin.getText()));
 
             } catch (SQLException e) {
 
-                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Database does not exist. Please select 'Create the Database' first.", "Car Racing Game", javax.swing.JOptionPane.WARNING_MESSAGE);
 
+                pageController.hidePopUps(0);
+
+                return;
             }
 
             if (rs.next()) {
@@ -379,13 +382,11 @@ public class UserLogin extends PageView implements Initializable {
 
     public void onClose(Object sender, int statusCode) {
 
-        // reset fail counter, login and password text fields for next user login
         failCount = 0;
 
         txtLogin.clear();
 
         txtPassword.clear();
-
     }
 
     /**

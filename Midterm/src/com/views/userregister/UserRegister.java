@@ -105,10 +105,19 @@ public class UserRegister extends PageView implements Initializable {
      * @throws SQLException
      */
     public void isValid() throws HeadlessException, SQLException {
-        rs = dbConnection.executeQuerry("SELECT * FROM DBProg32758.Players WHERE Last_Name = '"
-                + txtLastName.getText().trim() + "' AND First_Name = '" + txtFirstName.getText().trim() + "' AND " +
-                "`Group` = '"
-                + Integer.valueOf(txtGroup.getText().trim()) + "' OR `Login`='" + txtLogin.getText().trim() + "'ORDER BY 'Login'");
+
+        try {
+            rs = dbConnection.executeQuerry("SELECT * FROM DBProg32758.Players WHERE Last_Name = '"
+                    + txtLastName.getText().trim() + "' AND First_Name = '" + txtFirstName.getText().trim() + "' AND " +
+                    "`Group` = '"
+                    + Integer.valueOf(txtGroup.getText().trim()) + "' OR `Login`='" + txtLogin.getText().trim() + "'ORDER BY 'Login'");
+        } catch (SQLException ex){
+
+            JOptionPane.showMessageDialog(null, "Database does not exist. Please select 'Create the Database' first.", "Car Racing Game", javax.swing.JOptionPane.WARNING_MESSAGE);
+
+            pageController.hidePopUps(0);
+            return;
+        }
 
         rs.beforeFirst();
         rs.last();
@@ -129,8 +138,9 @@ public class UserRegister extends PageView implements Initializable {
             } else {
 
                 writeToDB();
+
+                pageController.hidePopUps(0);
             }
-            rest();
         } else {
             JOptionPane.showMessageDialog(null, "Either you are not registered or your Last Name, First Name, Group " +
                     "are not correct.", "Car Racing Game", javax.swing.JOptionPane.WARNING_MESSAGE);
