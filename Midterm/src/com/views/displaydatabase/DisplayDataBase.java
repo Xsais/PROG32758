@@ -78,7 +78,7 @@ public class DisplayDataBase extends PageView implements Initializable {
     /**
      * Displays database in 'page' format
      */
-    public DisplayDataBase(ConnectToDB dbConnection, List<User> pulledUsers) {
+    public DisplayDataBase(ConnectToDB dbConnection) {
 
         pageType = PageType.POP_UP;
 
