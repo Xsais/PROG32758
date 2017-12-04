@@ -101,8 +101,6 @@ public class UserLogin extends PageView implements Initializable {
 
             this.dbConnection = dbConnection;
 
-            dbConnection.executeQuerry("USE DBProg32758;");
-
             // catch any exception and print stack trace
         } catch (Exception e) {
 
@@ -275,7 +273,7 @@ public class UserLogin extends PageView implements Initializable {
                 // check DB for user defined login
                 rs = dbConnection
 
-                        .executeQuerry(String.format("SELECT * FROM Players WHERE Login = '%s'", txtLogin.getText()));
+                        .executeQuerry(String.format("SELECT * FROM DBProg32758.Players WHERE Login = '%s'", txtLogin.getText()));
 
             } catch (SQLException e) {
 
@@ -346,7 +344,7 @@ public class UserLogin extends PageView implements Initializable {
         // set user password to all x's in DB
         dbConnection.executeUpdate(
 
-                String.format("UPDATE Players SET Password = 'xxxxxx' WHERE Login = '%s'", txtLogin.getText()));
+                String.format("UPDATE DBProg32758.Players SET Password = 'xxxxxx' WHERE Login = '%s'", txtLogin.getText()));
 
         // exit login screen
         btnExit.fire();

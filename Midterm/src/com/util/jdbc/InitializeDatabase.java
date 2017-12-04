@@ -50,7 +50,7 @@ import javax.swing.JOptionPane;
 public class InitializeDatabase {
 	
 	public InitializeDatabase(ConnectToDB dbConnection) {
-		
+
 		ResultSet rs;
 		try {
 			rs = dbConnection.executeQuerry("SELECT * FROM Players");

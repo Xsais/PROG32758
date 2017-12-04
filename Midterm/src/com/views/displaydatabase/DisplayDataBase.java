@@ -151,7 +151,7 @@ public class DisplayDataBase extends PageView implements Initializable {
         tdCarName.setCellValueFactory(new PropertyValueFactory("carname"));
         tdLogo.setCellValueFactory(new PropertyValueFactory("logo"));
         tdScore.setCellValueFactory(new PropertyValueFactory("score"));
-        tdScore.setCellValueFactory(new PropertyValueFactory("credits"));
+        tdCredit.setCellValueFactory(new PropertyValueFactory("credits"));
     }
 
     public class Person {
