@@ -13,7 +13,7 @@
 	
 	<body>
 		<div class="app-pane top">
-			<img src="../res/img/png-sheridan.jpg">
+			<img src="../../res/img/png-sheridan.jpg">
 			<div class="app-title">CAR RACING GAME</div>
 			<div class="dynamic-box top">
 				<p>Game designed by Group 1</p>
