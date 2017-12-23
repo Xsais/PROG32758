@@ -27,22 +27,22 @@
 		</div>
 		
 		<div class="app-pane bottom">
-		
+
 			<!-- Connect to Database -->
 			<sql:setDataSource
 	        	var="myDS"
 	        	driver="com.mysql.jdbc.Driver"
 	        	url="jdbc:mysql://localhost:3306/dbprog32758"
-	        	user="root" password="Polska615"
+	        	user="root" password=""
 	    	/>
-	    	
+
 	    	<!-- Run Query -->
-	    	<sql:query var="listUsers"   dataSource="${myDS}">
+	    	<sql:query var="listUsers" dataSource="${myDS}">
 	        	SELECT * FROM players;
 	    	</sql:query>
-	    	
+
 	    	<!-- Database Table -->
-	    	<div align="center">
+	    	<div align="center" style="margin: 0 0 10rem 0">
 	        	<table border="1" cellpadding="5">
 	        		<!-- Column Titles -->
 	            	<caption><h2>List of players:</h2></caption>
