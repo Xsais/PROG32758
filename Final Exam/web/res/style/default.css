@@ -1,233 +1,227 @@
 html,  body {
-
     height: 100%;
-	background-color: #CCECFF;
     margin: 0;
-	
 }
-
-
 
 .app-title {
 
-
-
     width: 47rem;
-
     height: 4.5rem;
-
     border: 1px solid #D9D9D9;
-
     color: #7F7F7F;
-
     font-size: 1.5rem;
-
     display: flex;
-
     justify-content: center;
-
     align-items: center;
-
 }
-
-
 
 .app-pane.top {
 
-
-
     height: 11%;
-
     align-items: center;
-
     justify-content: space-evenly;
-
 }
-
-
 
 .app-pane.top img {
 
-
-
     height: 5rem;
-
     width: 12rem;
-
 }
-
-
 
 .app-pane.bottom {
 
-
-
     min-height: 87%;
-
     position: relative;
-
     margin-top: 1%;
-
     align-items: flex-start;
-
     justify-content: space-around;
-
 }
-
-
 
 .app-button:active {
 
-
-
     transform: scale(0.99);
-
 }
-
-
 
 .app-button {
 
-
-
     cursor: pointer;
-
     width: 20rem;
-
     height: 6rem;
-
     margin-top: 5%;
-
     background-color: #B8D5E6;
-
     border-color: #434E54;
-
     font-weight: 700;
-
     font-size: 1.1rem;
-
 }
-
-
 
 .app-button.exit {
 
-
-
     margin-top: -5%;
-
     margin-left: -10%;
-
     position: absolute;
-
     top: 100%;
-
     left: 100%;
-
     transform: translate(-100%, -100%);
-
     width: 8rem;
-
     height: 3rem;
-
 }
-
-
 
 .app-pane {
 
-
-
     background: #CCECFF;
-
     display: flex;
-
     flex-flow: row;
-
 }
-
-
 
 .dynamic-box.top {
 
-
-
     font-size: 0.85rem;
-
     background-color: #003366;
-
     color: #FFFFFF;
-
     height: 4.5rem;
-
     width: 12rem;
-
     padding: 0.5rem;
-
     display: flex;
-
     flex-flow: column;
-
     align-items: flex-end;
-
 }
-
-
 
 .dynamic-box.top p {
 
-
-
     align-self: center;
-
     margin: 0;
-
     padding: 0;
-
 }
-
-
 
 .mini-text {
 
-
-
     font-size: 0.7rem;
-
 }
 
-.loginButtons {
-	cursor: pointer;
+.app-pane.loginForm {
 
-    width: 7rem;
+    margin-top: 10%;
+    height: 9rem;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+}
 
+.app-pane.loginForm button {
+
+    width: 5rem;
     height: 2rem;
+}html,  body {
+     height: 100%;
+     margin: 0;
+ }
 
+.app-title {
+
+    width: 47rem;
+    height: 4.5rem;
+    border: 1px solid #D9D9D9;
+    color: #7F7F7F;
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.app-pane.top {
+
+    height: 11%;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.app-pane.top img {
+
+    height: 5rem;
+    width: 12rem;
+}
+
+.app-pane.bottom {
+
+    min-height: 87%;
+    position: relative;
+    margin-top: 1%;
+    align-items: flex-start;
+    justify-content: space-around;
+}
+
+.app-button:active {
+
+    transform: scale(0.99);
+}
+
+.app-button {
+
+    cursor: pointer;
+    width: 20rem;
+    height: 6rem;
     margin-top: 5%;
-
     background-color: #B8D5E6;
-
     border-color: #434E54;
-
     font-weight: 700;
-
     font-size: 1.1rem;
 }
 
-.loginFieldSet {
-	
-	display: flex;
-	flex-direction: column;
-	border: 1px solid black;
-	padding: 5px;
-	align-items: center;
-	
+.app-button.exit {
+
+    margin-top: -5%;
+    margin-left: -10%;
+    position: absolute;
+    top: 100%;
+    left: 100%;
+    transform: translate(-100%, -100%);
+    width: 8rem;
+    height: 3rem;
 }
 
-.loginForm {
-	
-	display: flex;
-	justify-content: center;
-	
-	padding: 100px;
+.app-pane {
+
+    background: #CCECFF;
+    display: flex;
+    flex-flow: row;
+}
+
+.dynamic-box.top {
+
+    font-size: 0.85rem;
+    background-color: #003366;
+    color: #FFFFFF;
+    height: 4.5rem;
+    width: 12rem;
+    padding: 0.5rem;
+    display: flex;
+    flex-flow: column;
+    align-items: flex-end;
+}
+
+.dynamic-box.top p {
+
+    align-self: center;
+    margin: 0;
+    padding: 0;
+}
+
+.mini-text {
+
+    font-size: 0.7rem;
+}
+
+.app-pane.loginForm {
+
+    margin-top: 10%;
+    height: 9rem;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+}
+
+.app-pane.loginForm button {
+
+    width: 5rem;
+    height: 2rem;
 }
