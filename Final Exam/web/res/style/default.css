@@ -31,6 +31,7 @@ html,  body {
 .app-pane.bottom {
 
     min-height: 87%;
+    height: 87%;
     position: relative;
     margin-top: 1%;
     align-items: flex-start;
@@ -141,15 +142,6 @@ html,  body {
     width: 12rem;
 }
 
-.app-pane.bottom {
-
-    min-height: 87%;
-    position: relative;
-    margin-top: 1%;
-    align-items: flex-start;
-    justify-content: space-around;
-}
-
 .app-button:active {
 
     transform: scale(0.99);
@@ -209,6 +201,72 @@ html,  body {
 .mini-text {
 
     font-size: 0.7rem;
+}
+
+.app-pane.display {
+
+    border: 1px solid #000000;
+    margin-top: 2%;
+    background-color: #FFFFFF;
+    width: 65%;
+    height: 92%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+#visual-display {
+
+    width: 70%;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+.app-pane.info {
+
+    margin-top: 1%;
+    display: flex;
+    height: 95%;
+    flex-flow: column;
+    user-select: none;
+}
+
+.app-pane.info.section {
+
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+}
+
+.app-pane.info.section .app-button {
+
+    width: 10rem;
+    height: 3rem;
+}
+
+.game.icon {
+
+    border: 1px solid #000000;
+    cursor: pointer;
+    padding: 0.25rem;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    height: 3.5rem;
+}
+
+.app-pane.display.stats {
+
+     background-color: inherit;
+     display: flex;
+     flex-flow: column;
+     align-items: center;
+     align-self: flex-end;
+     height: 3rem;
+ }
+
+.app-pane.display.stats.score {
+
+    visibility: hidden;
 }
 
 .app-pane.loginForm {
