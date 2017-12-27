@@ -1,3 +1,20 @@
+/*
+ * ----------------------------------------------------------------------------------------------+
+ *   * Group Leader: Daniel Hope
+ *   * Member(s):
+ *   *     - Georgina Luce
+ *   *     - Nathaniel Primo
+ *   *     - Michael Marc
+ *   * Group #: 1
+ *   * Filename: com.utils.listener.ConnectionListener.java
+ *   * Assignment: Final Exam
+ *   * Creation Date:
+ *   * Last Modified: 2017/12/27
+ *   * Java Version: 1.8.0_141
+ *   * Description: Creates and stores a connection object to a MYSQL DB in the servlet context
+ * ----------------------------------------------------------------------------------------------+
+ */
+
 package com.utils.listener;
 
 import com.utils.helperclasses.ConnectToDB;

@@ -21,7 +21,7 @@
     </div>
 </div>
 <div class="app-pane bottom">
-    <form method="get" class='app-pane loginForm' action='/userLogin/login'>
+    <form method="get" class='app-pane loginForm' action='./login'>
         <label>Enter User Login: <input name='userLogin' autofocus id='userLogin' type='text'
                                         title='Login can be any combination of letters and numbers, maximum of 10'
                                         maxlength='10' size="14" required>
@@ -32,7 +32,7 @@
         </label>
         <button class="app-button" type='submit'>Sign In</button>
     </form>
-    <button class="app-button exit" onclick="window.location = '../index.html'">Exit User</button>
+    <button class="app-button exit" onclick="window.location = '../user.html'">Exit User</button>
 </div>
 
 <%! String[] error = new String[] {"The Login and Password are not correct\\nPlease try again if you are already "
