@@ -4,14 +4,6 @@
   <welcome-file-list>
     <welcome-file>Form.html</welcome-file>
   </welcome-file-list>
-  <servlet>
-  	<servlet-name>LorentzServlet</servlet-name>
-  	<servlet-class>servlet.LorentzServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-  <servlet-name>LorentzServlet</servlet-name>
-  <url-pattern>/LorentzServlet</url-pattern>
-  </servlet-mapping>
   <error-page>
   	<location>/NotFound.html</location>
   </error-page>
