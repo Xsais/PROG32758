@@ -17,8 +17,6 @@ public class LorentzServlet extends HttpServlet {
 	
 	public void doPost(HttpServletRequest request, HttpServletResponse response) 
 	throws ServletException, IOException {
-		//If server is unable to process request, redirects user to a website which serves a similar purpose
-		//response.sendRedirect("http://www.healthynutritionguide.info/nutrition-tools-calculators/ideal-body-weight-calculator");
 		
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
