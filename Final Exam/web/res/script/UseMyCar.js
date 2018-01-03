@@ -1,5 +1,21 @@
-function CarTest() {
+/*
+ *  ----------------------------------------------------------------------------------------------+
+ *    * Group Leader: Daniel Hope
+ *    * Member(s):
+ *    *     - Georgina Luce
+ *    *     - Nathaniel Primo
+ *    *     - Michael Marc
+ *    * Group #: 1
+ *    * Filename: /web/res/script/UseMyCar.js
+ *    * Assignment: Final Exam
+ *    * Creation Date: 12/30/17 1:20 PM
+ *    * Last Modified: 12/30/17 3:14 PM
+ *    * Java Version: 1.8.0_141
+ *    * Description: A simple javascript port of UseMyCar.java
+ * ----------------------------------------------------------------------------------------------+
+ */
 
+function CarTest() {
 
     this.theWinner = undefined;
 
@@ -269,7 +285,7 @@ function CarTest() {
 
         } else if (myFirstCar.getCurrentSpeed() > mySecondCar.getCurrentSpeed()) {
 
-            if (this.theWinner != undefined) {
+            if (this.theWinner) {
 
                 this.theWinner(myFirstCar.getCarName());
             }
@@ -279,7 +295,7 @@ function CarTest() {
 
         } else {
 
-            if (this.theWinner != undefined) {
+            if (this.theWinner) {
 
                 this.theWinner(mySecondCar.getCarName());
             }

@@ -1,4 +1,4 @@
-html,  body {
+html, body {
     height: 100%;
     margin: 0;
 }
@@ -112,10 +112,12 @@ html,  body {
 
     width: 5rem;
     height: 2rem;
-}html,  body {
-     height: 100%;
-     margin: 0;
- }
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
 
 .app-title {
 
@@ -214,6 +216,16 @@ html,  body {
     justify-content: flex-end;
 }
 
+.app-pane.display.none {
+
+    border: none;
+    position: relative;
+    background-color: inherit;
+    justify-content: center;
+    flex-flow: column;
+    align-items: center;
+}
+
 #visual-display {
 
     width: 70%;
@@ -237,6 +249,12 @@ html,  body {
     justify-content: center;
 }
 
+.app-pane.info.section.game-info {
+
+    flex-flow: column;
+    align-items: center;
+}
+
 .app-pane.info.section .app-button {
 
     width: 10rem;
@@ -256,13 +274,13 @@ html,  body {
 
 .app-pane.display.stats {
 
-     background-color: inherit;
-     display: flex;
-     flex-flow: column;
-     align-items: center;
-     align-self: flex-end;
-     height: 3rem;
- }
+    background-color: inherit;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    align-self: flex-end;
+    height: 3rem;
+}
 
 .app-pane.display.stats.score {
 
@@ -278,8 +296,119 @@ html,  body {
     justify-content: space-between;
 }
 
-.app-pane.loginForm button {
+.app-button.play {
 
     width: 5rem;
     height: 2rem;
+}
+
+.app-button.start {
+
+    margin-top: -18%;
+    width: 9rem;
+    height: 3rem;
+}
+
+#game-select {
+
+    margin-top: 2%;
+    width: 7rem;
+    height: 2rem;
+    border: 2px solid #434E54;
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+.app-pane.display {
+
+    font-family: Arial, sans-serif;
+    font-size: 14pt;
+}
+
+.info.section .gameTicker {
+
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+
+.info.section .gameTicker span {
+
+    margin-top: 15%;
+    font-weight: bold;
+    font-size: 2rem;
+}
+
+.app-pane.display table, tr {
+
+    margin: auto;
+    text-align: center;
+    border-collapse: collapse;
+    padding: 0;
+}
+
+.app-pane.display td {
+
+    width: 100px;
+    height: 72px;
+    padding: 0 3px;
+}
+
+.app-pane.display h1 {
+
+    color: #00b2ce;
+    font-size: 3rem;
+    margin-bottom: 3rem;
+    text-align: center;
+    text-shadow: 1px 1px 1px #eee, 2px 2px 6px #999;
+}
+
+.app-pane.display img {
+
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    border: 1px solid orange;
+    box-shadow: 1px 1px 2px white, 2px 2px 5px black;
+    background-color: white;
+}
+
+/* the message box that appears with game results, hidden by default */
+#message {
+
+    background-color: #f9ecf2;
+    padding: 2%;
+    border: 2px solid #434E54;
+    visibility: hidden;
+    text-align: center;
+    font-weight: bold;
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%);
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: space-around;
+    height: 25%;
+}
+
+#again {
+
+    margin-top: 5%;
+    width: 8rem;
+    height: 3rem;
+}
+
+/* covers the entire page in a semi-transparent grey, hidden by default */
+#overlay {
+
+    background-color: rgba(20, 20, 20, 0.4);
+    display: none;
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
 }

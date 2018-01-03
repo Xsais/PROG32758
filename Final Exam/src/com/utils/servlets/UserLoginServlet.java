@@ -75,7 +75,7 @@ public class UserLoginServlet extends HttpServlet {
 
             if (UserLoginVerification.isValidLogin(login, password, dbConnection)) {
 
-                response.sendRedirect(String.format("../../game/cargame.jsp?login=%s", login));
+                response.sendRedirect(String.format("../../game/gamemenu.jsp?login=%s", login));
 
             } else {
                 int tempAttempt = 0;

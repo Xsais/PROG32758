@@ -1,3 +1,20 @@
+/*
+ *  ----------------------------------------------------------------------------------------------+
+ *    * Group Leader: Daniel Hope
+ *    * Member(s):
+ *    *     - Georgina Luce
+ *    *     - Nathaniel Primo
+ *    *     - Michael Marc
+ *    * Group #: 1
+ *    * Filename: /web/res/script/Car.js
+ *    * Assignment: Final Exam
+ *    * Creation Date: 12/30/17 1:20 PM
+ *    * Last Modified: 12/30/17 3:14 PM
+ *    * Java Version: 1.8.0_141
+ *    * Description: A simple javascript port of the Car.java
+ * ----------------------------------------------------------------------------------------------+
+ */
+
 //Second Constructor that constructs a Car to be driven by a
 // non-experienced person.
 //This Car is created with a specified name, and starts the race with an
@@ -9,7 +26,7 @@ function Car(name, is) {
     //Encapsulation Principle: All the attributes are by default private
     var carName = name;
 
-    var initialSpeed = is == undefined ? 0 : is; //startSpeed speed of a car to be driven by a
+    var initialSpeed = is ? 0 : is; //startSpeed speed of a car to be driven by a
 
     var startSpeed = 0; //first speed of the car when it is started
 

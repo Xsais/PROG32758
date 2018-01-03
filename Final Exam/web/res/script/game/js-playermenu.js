@@ -1,32 +1,75 @@
 /*
- * ----------------------------------------------------------------------------------------------+
- *   * Group Leader: Daniel Hope
- *   * Member(s):
- *   *     - Georgina Luce
- *   *     - Nathaniel Primo
- *   *     - Michael Marc
- *   * Group #: 1
- *   * Filename: web.res.script.game.js-playermenu.js
- *   * Assignment: Final Exam
- *   * Creation Date:
- *   * Last Modified: 2017/12/27
- *   * Java Version: 1.8.0_141
- *   * Description: The standard functionality for the game
+ *  ----------------------------------------------------------------------------------------------+
+ *    * Group Leader: Daniel Hope
+ *    * Member(s):
+ *    *     - Georgina Luce
+ *    *     - Nathaniel Primo
+ *    *     - Michael Marc
+ *    * Group #: 1
+ *    * Filename: /web/res/script/game/js-playermenu.js
+ *    * Assignment: Final Exam
+ *    * Creation Date: 12/30/17 3:14 PM
+ *    * Last Modified: 12/30/17 3:14 PM
+ *    * Java Version: 1.8.0_141
+ *    * Description: Handles the functionality of the game
  * ----------------------------------------------------------------------------------------------+
  */
 
 this.user = {
 
-    username: "",
+    user: "",
+    name: "",
     score: 0,
-    credit: 0
+    credit: 0,
+    mode: undefined,
+    music: {
+
+        isPlaying: false,
+        position: 0
+    },
+    scoreVisible: false
 }
 
-function init(user, score, credit) {
+function initUser(jsonString) {
 
-    this.user.username = user;
-    this.user.score = score;
-    this.user.credit = credit;
+    this.user = JSON.parse(jsonString);
+}
+
+function refreshUser(name, user, score, credit) {
+
+    this.user.user = user ? user : this.user.user;
+    this.user.name = name ? name : this.user.name;
+    this.user.score = score ? score : this.user.score;
+    this.user.credit = credit ? credit : this.user.credit;
+
+    this.user.mode = document.getElementById("game-select").value;
+    this.user.music.position = audio.currentTime;
+
+    if (this.user.mode == 0) {
+
+        sendRedirect("./cargame/cargame.jsp", JSON.stringify(this.user));
+    } else if (this.user.mode == 1) {
+
+        sendRedirect("./cardgame/cardgame.jsp", JSON.stringify(this.user));
+    }
+}
+
+function sendRedirect(url, args) {
+
+    let form = document.createElement("form");
+    form.setAttribute("method", "POST");
+    form.style.display = "none";
+
+    let attributes = document.createElement("input");
+    attributes.setAttribute("name", "env_att");
+    attributes.setAttribute("value", args);
+
+    form.appendChild(attributes);
+
+    form.setAttribute("action", url);
+
+    document.lastChild.appendChild(form);
+    form.submit();
 }
 
 window.addEventListener("load", function () {
@@ -41,14 +84,61 @@ window.addEventListener("load", function () {
 
     this.visualDisplay = document.getElementById("visual-display");
 
-    this.credits.innerText = this.user.credit.toFixed(2);;
-    this.score.innerText = this.user.score.toFixed(2);;
+    if (this.user.music.isPlaying) {
 
-    this.carGame = new CarGame();
+        audio.play();
+        audio.currentTime = this.user.music.position;
+    } else {
+
+        audio.pause();
+    }
+    scoreContainer.style['visibility'] = user.scoreVisible ? "visible" : "hidden";
+    this.credits.innerText = this.user.credit.toFixed(2);
+    this.score.innerText = this.user.score.toFixed(2);
+
+    if (this.user.mode) {
+
+        if (this.user.mode == 0) {
+
+            new CarGame();
+        } else if (this.user.mode == 1) {
+
+            new CardGame(function () {
+
+                user.score += 50;
+                score.innerText = user.score;
+
+                let xhr = new XMLHttpRequest();
+
+                xhr.open("GET", "../write?login='" + user.name + "'&score=" + user.score + "&credit=" + user.credit);
+                xhr.send();
+            });
+        }
+
+        document.getElementById("game-select").addEventListener("change", function () {
+
+            this.user.mode = document.getElementById("game-select").value;
+            this.user.music.position = audio.currentTime;
+
+            if (this.user.mode == 0) {
+
+                sendRedirect("../cargame/cargame.jsp", JSON.stringify(this.user));
+            } else if (this.user.mode == 1) {
+
+                sendRedirect("../cardgame/cardgame.jsp", JSON.stringify(this.user));
+            }
+        });
+
+        document.getElementById("game-select").selectedIndex = this.user.mode;
+    } else {
+
+        console.log("ERROR: The Game Mode Must Be Defined");
+    }
 
     document.getElementById("music-control").addEventListener("click", function () {
 
-        if (audio.paused) {
+        user.music.isPlaying = !user.music.isPlaying;
+        if (user.music.isPlaying) {
 
             audio.play();
             return;
@@ -58,9 +148,9 @@ window.addEventListener("load", function () {
 
     document.getElementById("view-score").addEventListener("click", function () {
 
-        let isHidden = scoreContainer.style.visibility == "hidden" || scoreContainer.style.visibility == "";
+        user.scoreVisible = !user.scoreVisible;
 
-        scoreContainer.style.visibility = isHidden ? "visible" : "hidden";
+        scoreContainer.style['visibility'] = user.scoreVisible ? "visible" : "hidden";
     });
 
     document.getElementById("credit-refill").addEventListener("click", function () {
@@ -101,7 +191,7 @@ function CarGame() {
 
         let xhr = new XMLHttpRequest();
 
-        xhr.open("GET", "./write?login='" + user.username + "'&score=" + user.score + "&credit=" + user.credit);
+        xhr.open("GET", "../write?login='" + user.name + "'&score=" + user.score + "&credit=" + user.credit);
         xhr.send();
 
         playButton.innerText = "Play Again";
@@ -142,7 +232,7 @@ function CarGame() {
 
                 carGame.UseMyCar(driverName, function (msg) {
 
-                    if (msg == undefined) {
+                    if (msg) {
 
                         visualDisplay.innerText += "\r\n";
                         return;
