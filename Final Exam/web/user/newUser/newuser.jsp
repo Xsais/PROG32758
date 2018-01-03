@@ -71,6 +71,18 @@
     <button class="app-button exit" onclick="window.location = '../user.html'">Exit User</button>
 </div>
 
+ <%! String[] error = new String[] {"Error. You are already registered, please sign in."
+        , "SQL Error. Please contact administrator."};%>
+
+<% String err = request.getParameter("err");
+
+    if (err != null) { %>
+
+        <script>window.addEventListener("load", function () {
+
+            alert('<%= error[Integer.valueOf(err)] %>');
+        })</script>
+    <% } %>           
 
 </body>
 </html>
