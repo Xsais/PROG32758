@@ -117,19 +117,19 @@ window.addEventListener("load", function () {
 
         document.getElementById("game-select").addEventListener("change", function () {
 
-            this.user.mode = document.getElementById("game-select").value;
-            this.user.music.position = audio.currentTime;
+            user.mode = document.getElementById("game-select").value;
+            user.music.position = audio.currentTime;
 
-            if (this.user.mode == 0) {
+            if (user.mode == 0) {
 
-                sendRedirect("../cargame/cargame.jsp", JSON.stringify(this.user));
-            } else if (this.user.mode == 1) {
+                sendRedirect("../cargame/cargame.jsp", JSON.stringify(user));
+            } else if (user.mode == 1) {
 
-                sendRedirect("../cardgame/cardgame.jsp", JSON.stringify(this.user));
+                sendRedirect("../cardgame/cardgame.jsp", JSON.stringify(user));
             }
         });
 
-        document.getElementById("game-select").selectedIndex = this.user.mode;
+        document.getElementById("game-select").selectedIndex = user.mode;
     } else {
 
         console.log("ERROR: The Game Mode Must Be Defined");
@@ -167,6 +167,11 @@ window.addEventListener("load", function () {
 function CarGame() {
 
     driverName = "YourPrefferedCar";
+
+    if (user.user) {
+
+        driverName = user.user;
+    }
 
     var gameStarted = false;
 
@@ -234,10 +239,10 @@ function CarGame() {
 
                     if (msg) {
 
-                        visualDisplay.innerText += "\r\n";
+                        visualDisplay.innerHTML += msg;
                         return;
                     }
-                    visualDisplay.innerHTML += msg;
+                    visualDisplay.innerText += "\r\n";
                 });
 
                 gameOver = false;
