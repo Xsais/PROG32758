@@ -10,9 +10,8 @@
 </head>
 <body>
 
-<% String login = request.getParameter("login");
-
-    ConnectToDB dbConnection = (ConnectToDB) request.getServletContext().getAttribute("db_conection");
+<%
+    String login = request.getParameter("login");
 
     if (login == null) {
 
@@ -20,11 +19,19 @@
         return;
     }
 
+    ConnectToDB dbConnection = (ConnectToDB) request.getServletContext().getAttribute("db_conection");
+
     ResultSet carName = dbConnection.executeQuerry(String.format("SELECT `Preferred_Car_Name`, `Score`, `Credits` from players WHERE `Login`='%s'", login));
 
     if (!carName.next()) { %>
 
-        response.sendRedirect("../user/userLogin/userlogin.jsp");
+response.sendRedirect("../user/userLogin/userlogin.jsp");
+<% } else { %>
+
+<script>
+    refreshUser('<%= carName.getString(1) %>', '<%= login %>', <%= carName.getDouble(2) %>
+        , <%= carName.getDouble(3) %>);
+</script>
 <% } %>
 <div class="app-pane top">
     <img src="../res/img/png-sheridan.jpg">
@@ -42,8 +49,7 @@
 <div class="app-pane bottom">
     <div class="app-pane display none">
         <button id="app-play" class="app-button start"
-                onclick="refreshUser('<%= carName.getString(1) %>', '<%= login %>', <%= carName.getDouble(2) %>
-                        , <%= carName.getDouble(3) %>)">
+                onclick="refreshUser(undefined, undefined, undefined, undefined, true)">
             Start game
         </button>
         <select id="game-select">

@@ -28,16 +28,18 @@ import java.sql.SQLException;
 
 public class UserLoginVerification {
 
-    private static final String LOCK_OUT_CODE = "xxxxxx";
+    private static String lockCode = null;
 
     private static int failCount = 0;
 
     private static ResultSet rs = null;
 
-    public static boolean isValidLogin(String login, String password, Object dbconnection) throws SQLException {
+    public static int isValidLogin(String login, String password, ConnectToDB dbConnection) throws SQLException {
 
-        // make connection to DBProg32758 in order to check and update login credentials
-        ConnectToDB dbConnection = (ConnectToDB) dbconnection;
+        if (password.equals(lockCode)) {
+
+            return 2;
+        }
 
         try {
 
@@ -69,18 +71,18 @@ public class UserLoginVerification {
                 failCount = UserLoginServlet.attemptsTracker.get(UserLoginServlet.loginTracker.indexOf(login));
             }
             // if login is valid, check if user account is already locked
-            if (rs.getString("Password").equals(LOCK_OUT_CODE)) {
+            if (rs.getString("Password").equals(lockCode)) {
 
                 UserLoginServlet.attemptsTracker.set(UserLoginServlet.loginTracker.indexOf(login), 3);
 
-                return false;
+                return 2;
 
                 // if login is valid, check password validity associated with login
             } else if (rs.getString("Password").equals(password)) {
 
                 UserLoginServlet.attemptsTracker.set(UserLoginServlet.loginTracker.indexOf(login), 0);
 
-                return true;
+                return 0;
                 // add to attemptTracker and if 3 failed attempts in a row, update DB to lock user out
             } else {
 
@@ -95,13 +97,23 @@ public class UserLoginVerification {
                                     login));
 
                 }
-                return false;
+                return 1;
 
             }
 
         } else {
 
-            return false;
+            return 1;
         }
+    }
+
+    public static String getLockCode() {
+
+        return lockCode;
+    }
+
+    public static void setLockCode(String lockCode) {
+
+        UserLoginVerification.lockCode = lockCode;
     }
 }

@@ -27,7 +27,7 @@
                                         maxlength='10' size="14" required>
         </label>
         <label>Enter User Password:<input name='userPassword' type='password'
-                                          title='Password must contain at least 1 letter and 1 number, maximum of 10'
+                                          title="Password must not be 6 x's"
                                           maxlength='10' size="14" required/>
         </label>
         <button class="app-button" type='submit'>Sign In</button>
@@ -37,16 +37,16 @@
 
 <%! String[] error = new String[] {"The Login and Password are not correct\\nPlease try again if you are already "
         + "registered, or complete your registration if you are not"
-        , "Your account has been locked\\nPlease contact your Database Administrator"};%>
+        , "Your account has been locked\\nPlease contact your Database Administrator", "Invalid password, 6 x's are not allowed"};%>
 
 <% String err = request.getParameter("err");
 
     if (err != null) { %>
 
-        <script>window.addEventListener("load", function () {
+<script>window.addEventListener("load", function () {
 
-            alert('<%= error[Integer.valueOf(err)] %>');
-        })</script>
-    <% } %>
+    alert("<%= error[Integer.valueOf(err)] %>");
+})</script>
+<% } %>
 </body>
 </html>

@@ -1,4 +1,5 @@
 html, body {
+
     height: 100%;
     margin: 0;
 }
@@ -36,6 +37,11 @@ html, body {
     margin-top: 1%;
     align-items: flex-start;
     justify-content: space-around;
+}
+
+.app-pane.bottom.stretch {
+
+    height: auto;
 }
 
 .app-button:active {
@@ -97,21 +103,6 @@ html, body {
 .mini-text {
 
     font-size: 0.7rem;
-}
-
-.app-pane.loginForm {
-
-    margin-top: 10%;
-    height: 9rem;
-    display: flex;
-    flex-flow: column;
-    justify-content: space-between;
-}
-
-.app-pane.loginForm button {
-
-    width: 5rem;
-    height: 2rem;
 }
 
 html, body {
@@ -290,10 +281,22 @@ html, body {
 .app-pane.loginForm {
 
     margin-top: 10%;
-    height: 9rem;
+    height: auto;
     display: flex;
     flex-flow: column;
     justify-content: space-between;
+}
+
+.app-pane.loginForm * {
+
+    margin: 0.2rem;
+}
+
+.app-pane.loginForm button {
+
+    margin-top: 1rem;
+    width: 5rem;
+    height: 2rem;
 }
 
 .app-button.play {

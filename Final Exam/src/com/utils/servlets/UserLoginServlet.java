@@ -13,13 +13,15 @@
  *   * Java Version: 1.8.0_141
  *   * Description: A Servlet that uses a helper class(UserLoginVerification) to keep track of user login attempts
  *   *      and that informs user of login failures
- * 	 *      and redirects web page to either userlogin.jsp(if the number consecutive failed attempts < 3) or cargame.html
+ * 	 *      and redirects web page to either userlogin.jsp(if the number consecutive failed attempts < 3) or cargame
+ * 	 .html
  * 	 *      (if login attempt is successful)
  * ----------------------------------------------------------------------------------------------+
  */
 
 package com.utils.servlets;
 
+import com.utils.helperclasses.ConnectToDB;
 import com.utils.helperclasses.UserLoginVerification;
 
 import javax.servlet.annotation.WebServlet;
@@ -45,17 +47,14 @@ import java.util.List;
 
 public class UserLoginServlet extends HttpServlet {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = 1L;
-
     // used for keeping track of user login and attempts(for all users)
-    public static List<String> loginTracker = new ArrayList<String>();
+    public static List<String> loginTracker = new ArrayList<>();
 
-    public static List<Integer> attemptsTracker = new ArrayList<Integer>();
+    public static List<Integer> attemptsTracker = new ArrayList<>();
 
     String login, password;
+
+    private ConnectToDB dbConnection;
 
     /**
      * @throws IOException
@@ -67,36 +66,55 @@ public class UserLoginServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
+        if (UserLoginVerification.getLockCode() == null) {
+
+            UserLoginVerification.setLockCode((String) request.getServletContext().getAttribute("db_lockOut"));
+        }
+
         login = request.getParameter("userLogin");
         password = request.getParameter("userPassword");
-        Object dbConnection = request.getServletContext().getAttribute("db_conection");
+
+        if (this.dbConnection == null) {
+
+            this.dbConnection = (ConnectToDB) request.getServletContext().getAttribute("db_conection");
+        }
+
 
         try {
 
-            if (UserLoginVerification.isValidLogin(login, password, dbConnection)) {
+            switch (UserLoginVerification.isValidLogin(login, password, dbConnection)) {
 
-                response.sendRedirect(String.format("../../game/gamemenu.jsp?login=%s", login));
+                case 0:
 
-            } else {
-                int tempAttempt = 0;
+                    response.sendRedirect(String.format("../../game/gamemenu.jsp?login=%s", login));
+                    break;
+                case 1:
 
-                try {
+                    int tempAttempt = 0;
 
-                    tempAttempt = loginTracker.indexOf(login);
+                    try {
 
-                } catch (IndexOutOfBoundsException e) {
+                        tempAttempt = loginTracker.indexOf(login);
 
-                    response.sendRedirect(String.format("./userlogin.jsp?err=%d", 0));
+                    } catch (IndexOutOfBoundsException e) {
 
-                }
-                if (attemptsTracker.get(tempAttempt) < 3) {
+                        response.sendRedirect(String.format("./userlogin.jsp?err=%d", 0));
 
-                    response.sendRedirect(String.format("./userlogin.jsp?err=%d", 0));
+                    }
+                    if (attemptsTracker.get(tempAttempt) < 3) {
 
-                } else {
+                        response.sendRedirect(String.format("./userlogin.jsp?err=%d", 0));
 
-                    response.sendRedirect(String.format("./userlogin.jsp?err=%d", 1));
-                }
+                    } else {
+
+                        response.sendRedirect(String.format("./userlogin.jsp?err=%d", 1));
+                    }
+                    break;
+                case 2:
+
+                    response.sendRedirect(String.format("./userlogin.jsp?err=%s", 2));
+                    break;
+
             }
 
         } catch (Exception e) {

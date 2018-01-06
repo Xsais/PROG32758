@@ -35,22 +35,28 @@ function initUser(jsonString) {
     this.user = JSON.parse(jsonString);
 }
 
-function refreshUser(name, user, score, credit) {
+function refreshUser(name, user, score, credit, noDirect) {
 
-    this.user.user = user ? user : this.user.user;
-    this.user.name = name ? name : this.user.name;
-    this.user.score = score ? score : this.user.score;
-    this.user.credit = credit ? credit : this.user.credit;
+    if (name) {
 
-    this.user.mode = document.getElementById("game-select").value;
-    this.user.music.position = audio.currentTime;
+        this.user.user = user ? user : this.user.user;
+        this.user.name = name ? name : this.user.name;
+        this.user.score = score ? score : this.user.score;
+        this.user.credit = credit ? credit : this.user.credit;
+    }
 
-    if (this.user.mode == 0) {
+    if (noDirect) {
 
-        sendRedirect("./cargame/cargame.jsp", JSON.stringify(this.user));
-    } else if (this.user.mode == 1) {
+        this.user.mode = document.getElementById("game-select").value;
+        this.user.music.position = audio.currentTime;
 
-        sendRedirect("./cardgame/cardgame.jsp", JSON.stringify(this.user));
+        if (this.user.mode == 0) {
+
+            sendRedirect("./cargame/cargame.jsp", JSON.stringify(this.user));
+        } else if (this.user.mode == 1) {
+
+            sendRedirect("./cardgame/cardgame.jsp", JSON.stringify(this.user));
+        }
     }
 }
 
@@ -94,7 +100,7 @@ window.addEventListener("load", function () {
     }
     scoreContainer.style['visibility'] = user.scoreVisible ? "visible" : "hidden";
     this.credits.innerText = this.user.credit.toFixed(2);
-    this.score.innerText = this.user.score.toFixed(2);
+    this.score.innerText = this.user.score;
 
     if (this.user.mode) {
 

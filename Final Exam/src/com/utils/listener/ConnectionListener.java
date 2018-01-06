@@ -17,12 +17,12 @@
 
 package com.utils.listener;
 
+import com.mysql.jdbc.Driver;
 import com.utils.helperclasses.ConnectToDB;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-import com.mysql.jdbc.Driver;
 
 public class ConnectionListener implements ServletContextListener {
 
@@ -49,6 +49,8 @@ public class ConnectionListener implements ServletContextListener {
         }
 
         context.setAttribute("db_conection", connection);
+
+        context.setAttribute("db_lockOut", "xxxxxx");
     }
 
     @Override

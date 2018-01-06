@@ -37,6 +37,7 @@ public class Writer extends HttpServlet {
         try {
 
             String score = request.getParameter("score");
+
             String credit = request.getParameter("credit");
 
             dbConnection.executeUpdate(String.format("UPDATE players SET `Score`=%s, `Credits`=%s WHERE `Login`=%s"
